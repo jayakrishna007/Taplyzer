@@ -172,7 +172,7 @@ export function NotificationPanel() {
           {/* Backdrop */}
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
 
-          <div className="absolute right-0 top-12 w-[380px] max-w-[95vw] z-50 bg-white dark:bg-[#0A0A0A] rounded-2xl border border-slate-200 dark:border-white/10 shadow-2xl shadow-slate-200/50 dark:shadow-black/50 overflow-hidden">
+          <div className="fixed md:absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 right-auto md:right-0 top-16 md:top-12 w-[95vw] max-w-[380px] md:w-[380px] z-50 bg-white dark:bg-[#0A0A0A] rounded-2xl border border-slate-200 dark:border-white/10 shadow-2xl shadow-slate-200/50 dark:shadow-black/50 overflow-hidden">
             {/* Header */}
             <div className="px-5 py-4 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
