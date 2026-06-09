@@ -164,20 +164,7 @@ export default function ProfilePage() {
       }
    }
 
-   // Completion Logic
-   const calculateCompletion = () => {
-      const fields = [
-         profileData.companyName, profileData.industry, profileData.location,
-         profileData.offerings.length > 0, profileData.needs.length > 0, profileData.currentGoal,
-         profileData.mobileVerified, profileData.emailVerified,
-         profileData.verificationStatus === "Approved" || profileData.verificationStatus === "Under Review"
-      ];
-      const completed = fields.filter(Boolean).length;
-      return Math.round((completed / fields.length) * 100);
-   }
 
-   const completionPct = calculateCompletion();
-   const isProfileReady = completionPct > 70;
 
    if (isInitializing) return <ProfileSkeleton />
 
@@ -207,21 +194,12 @@ export default function ProfilePage() {
                            <span className="flex items-center gap-1"><Calendar className="h-4 w-4" /> Member Since {profileData.memberSince}</span>
                         </div>
                      </div>
-                     <div className="flex gap-3">
-                        <Button onClick={() => router.push("/profile/setup")} variant="outline" className="font-black uppercase tracking-widest text-[10px] h-10 px-6 rounded-xl border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 shadow-sm"><Edit3 className="h-3 w-3 mr-2" /> Edit Profile</Button>
+                     <div className="flex flex-col gap-2.5 w-full md:w-auto shrink-0">
+                        <Button onClick={() => router.push("/profile/setup")} variant="outline" className="w-full md:w-44 font-black uppercase tracking-widest text-[10px] h-10 px-6 rounded-xl border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 shadow-sm flex items-center justify-center"><Edit3 className="h-3 w-3 mr-2" /> Edit Profile</Button>
                         {profileData.verificationStatus !== "Approved" && profileData.verificationStatus !== "Under Review" && (
-                           <Button onClick={() => router.push("/dashboard/verify")} className="bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-black font-black uppercase tracking-widest text-[10px] h-10 px-6 rounded-xl shadow-lg shadow-black/10 dark:shadow-white/10"><ShieldCheck className="h-3 w-3 mr-2" /> Get Verified</Button>
+                           <Button onClick={() => router.push("/dashboard/verify")} className="w-full md:w-44 bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-black font-black uppercase tracking-widest text-[10px] h-10 px-6 rounded-xl shadow-lg shadow-black/10 dark:shadow-white/10 flex items-center justify-center"><ShieldCheck className="h-3 w-3 mr-2" /> Get Verified</Button>
                         )}
                      </div>
-                  </div>
-
-                  {/* Progress Bar Component */}
-                  <div className="bg-slate-50 dark:bg-white/5 rounded-2xl p-4 border border-slate-100 dark:border-white/5 flex items-center gap-4">
-                     <div className="font-black text-slate-900 dark:text-white shrink-0">Profile Completion: <span className="text-blue-600 dark:text-blue-400">{completionPct}%</span></div>
-                     <div className="flex-1 bg-slate-200 dark:bg-white/10 rounded-full h-2.5 overflow-hidden">
-                        <div className="bg-blue-600 h-full rounded-full transition-all duration-1000" style={{ width: `${completionPct}%` }}></div>
-                     </div>
-                     {completionPct < 100 && <Button variant="link" className="text-[10px] font-black uppercase tracking-widest text-blue-600 shrink-0 p-0 h-auto" onClick={() => router.push("/profile/setup")}>Complete Profile</Button>}
                   </div>
                </div>
             </div>
@@ -258,7 +236,7 @@ export default function ProfilePage() {
                {profileData.verificationStatus !== "Approved" && <Button onClick={() => router.push("/dashboard/verify")} variant="outline" className="font-black uppercase tracking-widest text-[10px] h-10 px-6 rounded-xl border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5">Improve Profile Trust</Button>}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                <div className="bg-slate-50 dark:bg-white/[0.02] p-5 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col justify-between">
                   <div>
                      <p className="font-bold text-slate-900 dark:text-white flex items-center gap-2">Mobile Verified</p>
@@ -279,13 +257,6 @@ export default function ProfilePage() {
                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Manual Review</p>
                   </div>
                   <div className={`mt-4 font-black ${profileData.verificationStatus === 'Approved' ? 'text-emerald-600' : profileData.verificationStatus === 'Under Review' ? 'text-amber-500' : 'text-slate-400'}`}>{profileData.verificationStatus}</div>
-               </div>
-               <div className={`p-5 rounded-2xl border flex flex-col justify-between ${isProfileReady ? 'bg-blue-50 border-blue-200 dark:bg-blue-900/10 dark:border-blue-900/30' : 'bg-slate-50 border-slate-100 dark:bg-white/[0.02] dark:border-white/5'}`}>
-                  <div>
-                     <p className="font-bold text-slate-900 dark:text-white flex items-center gap-2">Profile Ready</p>
-                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Basic details</p>
-                  </div>
-                  <div className="mt-4">{isProfileReady ? <CheckCircle2 className="h-6 w-6 text-blue-500" /> : <XCircle className="h-6 w-6 text-slate-300 dark:text-slate-700" />}</div>
                </div>
             </div>
          </div>
