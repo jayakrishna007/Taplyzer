@@ -47,17 +47,7 @@ if (!admin.apps.length) {
   const privateKey = process.env.FIREBASE_PRIVATE_KEY;
 
   if (clientEmail && privateKey) {
-    console.log("[FIREBASE KEY DEBUG] Raw length:", privateKey.length);
-    console.log("[FIREBASE KEY DEBUG] Starts with:", JSON.stringify(privateKey.substring(0, 30)));
-    console.log("[FIREBASE KEY DEBUG] Ends with:", JSON.stringify(privateKey.substring(privateKey.length - 30)));
-    console.log("[FIREBASE KEY DEBUG] Contains raw \\n:", privateKey.includes("\\n"));
-    console.log("[FIREBASE KEY DEBUG] Contains actual newline:", privateKey.includes("\n"));
-
     const formattedKey = cleanPrivateKey(privateKey);
-    console.log("[FIREBASE KEY DEBUG] Formatted length:", formattedKey.length);
-    console.log("[FIREBASE KEY DEBUG] Formatted starts with:", JSON.stringify(formattedKey.substring(0, 30)));
-    console.log("[FIREBASE KEY DEBUG] Formatted ends with:", JSON.stringify(formattedKey.substring(formattedKey.length - 30)));
-
     admin.initializeApp({
       credential: admin.credential.cert({
         projectId,
