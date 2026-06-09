@@ -162,18 +162,18 @@ export default function RequestsPage() {
       </div>
 
       <Tabs defaultValue="received" className="w-full">
-        <TabsList className="bg-white dark:bg-[#0A0A0A] p-1 rounded-2xl h-16 mb-8 border border-slate-200 dark:border-white/5 shadow-xl shadow-slate-100 dark:shadow-none">
-          <TabsTrigger value="received" className="rounded-xl px-8 md:px-12 h-full font-black uppercase tracking-widest text-[10px] data-[state=active]:bg-primary data-[state=active]:text-white shadow-sm transition-all flex items-center gap-2">
-            <Inbox className="h-3.5 w-3.5" />
-            Received {pendingCount > 0 && <span className="bg-white/20 text-white rounded-full px-1.5 py-0.5 text-[9px]">{pendingCount}</span>}
+        <TabsList className="flex w-full bg-white dark:bg-[#0A0A0A] p-1 rounded-2xl h-16 mb-8 border border-slate-200 dark:border-white/5 shadow-xl shadow-slate-100 dark:shadow-none">
+          <TabsTrigger value="received" className="flex-1 rounded-xl px-1 sm:px-8 md:px-12 h-full font-black uppercase tracking-widest text-[8px] xs:text-[9px] sm:text-[10px] data-[state=active]:bg-primary data-[state=active]:text-white shadow-sm transition-all flex items-center justify-center gap-1.5 sm:gap-2">
+            <Inbox className="h-3.5 w-3.5 shrink-0" />
+            <span className="truncate">Received</span> {pendingCount > 0 && <span className="bg-white/20 text-white rounded-full px-1.5 py-0.5 text-[9px] shrink-0">{pendingCount}</span>}
           </TabsTrigger>
-          <TabsTrigger value="sent" className="rounded-xl px-8 md:px-12 h-full font-black uppercase tracking-widest text-[10px] data-[state=active]:bg-primary data-[state=active]:text-white shadow-sm transition-all flex items-center gap-2">
-            <Send className="h-3.5 w-3.5" />
-            Sent ({sentRequests.length})
+          <TabsTrigger value="sent" className="flex-1 rounded-xl px-1 sm:px-8 md:px-12 h-full font-black uppercase tracking-widest text-[8px] xs:text-[9px] sm:text-[10px] data-[state=active]:bg-primary data-[state=active]:text-white shadow-sm transition-all flex items-center justify-center gap-1.5 sm:gap-2">
+            <Send className="h-3.5 w-3.5 shrink-0" />
+            <span className="truncate">Sent ({sentRequests.length})</span>
           </TabsTrigger>
-          <TabsTrigger value="accepted" className="rounded-xl px-8 md:px-12 h-full font-black uppercase tracking-widest text-[10px] data-[state=active]:bg-emerald-500 data-[state=active]:text-white shadow-sm transition-all flex items-center gap-2">
-            <CheckCircle2 className="h-3.5 w-3.5" />
-            Accepted ({acceptedRequests.length})
+          <TabsTrigger value="accepted" className="flex-1 rounded-xl px-1 sm:px-8 md:px-12 h-full font-black uppercase tracking-widest text-[8px] xs:text-[9px] sm:text-[10px] data-[state=active]:bg-emerald-500 data-[state=active]:text-white shadow-sm transition-all flex items-center justify-center gap-1.5 sm:gap-2">
+            <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
+            <span className="truncate">Accepted ({acceptedRequests.length})</span>
           </TabsTrigger>
         </TabsList>
 
@@ -183,7 +183,7 @@ export default function RequestsPage() {
             <EmptyState icon={Inbox} title="No Requests Yet" subtitle="When other businesses send you an intro request, they'll appear here." />
           ) : (
             receivedRequests.map(r => (
-              <div key={r._id} className="p-8 md:p-10 rounded-[2.5rem] bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 group hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+              <div key={r._id} className="p-5 md:p-10 rounded-2xl md:rounded-[2.5rem] bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 group hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
                 <div className="flex flex-col md:flex-row gap-6 md:items-start">
                   <div className="h-16 w-16 rounded-[1.25rem] bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 flex items-center justify-center font-black text-2xl text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
                     {r.senderBizName[0] || "?"}
@@ -236,7 +236,7 @@ export default function RequestsPage() {
             <EmptyState icon={Send} title="No Sent Requests" subtitle="Requests you send from Explore or Matches will appear here." />
           ) : (
             sentRequests.map(r => (
-              <div key={r._id} className="p-8 md:p-10 rounded-[2.5rem] bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 group hover:border-primary/20 hover:shadow-xl transition-all duration-500">
+              <div key={r._id} className="p-5 md:p-10 rounded-2xl md:rounded-[2.5rem] bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 group hover:border-primary/20 hover:shadow-xl transition-all duration-500">
                 <div className="flex flex-col md:flex-row gap-6 md:items-start">
                   <div className="h-16 w-16 rounded-[1.25rem] bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 flex items-center justify-center font-black text-2xl text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
                     {r.receiverBizName[0] || "?"}
@@ -273,7 +273,7 @@ export default function RequestsPage() {
               const isSender = r.senderId === user?._id
               const partnerName = isSender ? r.receiverBizName : r.senderBizName
               return (
-                <div key={r._id} className="p-8 md:p-10 rounded-[2.5rem] bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 group hover:border-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all duration-500">
+                <div key={r._id} className="p-5 md:p-10 rounded-2xl md:rounded-[2.5rem] bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 group hover:border-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all duration-500">
                   <div className="flex flex-col md:flex-row gap-6 md:items-start">
                     <div className="h-16 w-16 rounded-[1.25rem] bg-emerald-500/5 border border-emerald-500/10 flex items-center justify-center font-black text-2xl text-emerald-500 shrink-0">
                       {partnerName[0] || "?"}

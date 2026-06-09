@@ -317,12 +317,12 @@ function MeetingsContent() {
           <iframe
             src={embedUrl}
             allow="camera; microphone; fullscreen; display-capture; autoplay; speaker-selection"
-            style={{
-              width: "100%",
-              height: embedExpanded ? "calc(100vh - 120px)" : "600px",
-              border: "none",
-              display: "block",
-            }}
+            className={cn(
+              "w-full border-none block transition-all duration-300",
+              embedExpanded 
+                ? "h-[calc(100vh-120px)]" 
+                : "h-[380px] xs:h-[440px] md:h-[600px]"
+            )}
             title="Whereby Meeting Room"
           />
         </div>
@@ -347,7 +347,7 @@ function MeetingsContent() {
                >
                   
                   {/* Card Top: identity + status */}
-                  <div className="flex items-start justify-between gap-4 mb-5">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
                     <div className="flex items-center gap-4">
                       <div className={cn(
                         "h-12 w-12 md:h-14 md:w-14 rounded-xl md:rounded-2xl flex items-center justify-center border flex-shrink-0 transition-all",
@@ -361,12 +361,12 @@ function MeetingsContent() {
                         <h3 className="text-base md:text-lg font-black text-slate-900 dark:text-white leading-tight">
                           {m.connectionId?.userABizName} & {m.connectionId?.userBBizName}
                         </h3>
-                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">
+                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mt-1">
                           Organizer: {m.organizerId?.name} | Attendee: {m.attendeeId?.name}
                         </p>
                       </div>
                     </div>
-                    <Badge className={`uppercase text-[9px] font-black tracking-wider px-3 py-1.5 border-none flex-shrink-0 ${(!m.status || m.status === 'SCHEDULED') ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-500/10 text-slate-500'}`}>
+                    <Badge className={`uppercase text-[9px] font-black tracking-wider px-3 py-1.5 border-none w-fit sm:flex-shrink-0 ${(!m.status || m.status === 'SCHEDULED') ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-500/10 text-slate-500'}`}>
                        {m.status || 'SCHEDULED'}
                     </Badge>
                   </div>
@@ -397,19 +397,19 @@ function MeetingsContent() {
                   </div>
 
                   {/* Actions */}
-                   <div className="flex flex-wrap items-center gap-2">
+                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                       {(!m.status || m.status === 'SCHEDULED') && m.meetLink && (
                         isActiveRoom ? (
                           <Button
                             onClick={handleCloseRoom}
-                            className="rounded-xl bg-red-500 hover:bg-red-600 text-white font-black uppercase tracking-widest text-[9px] h-10 px-6 shadow-lg flex items-center gap-2 transition-all"
+                            className="w-full sm:w-auto rounded-xl bg-red-500 hover:bg-red-600 text-white font-black uppercase tracking-widest text-[9px] h-10 px-6 shadow-lg flex items-center justify-center gap-2 transition-all"
                           >
                             <X className="h-3 w-3" /> Close Room
                           </Button>
                         ) : (
                           <Button
                             onClick={() => handleJoinMeeting(m)}
-                            className="rounded-xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[9px] h-10 px-6 shadow-lg shadow-primary/20 flex items-center gap-2 transition-all"
+                            className="w-full sm:w-auto rounded-xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[9px] h-10 px-6 shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-all"
                           >
                             <Video className="h-3 w-3" />
                             {isOrganizer && m.hostMeetLink ? "Join as Host" : "Join Meeting"}
@@ -419,7 +419,7 @@ function MeetingsContent() {
                       {/* Leave Feedback always available */}
                       <Button
                         variant="outline"
-                        className="rounded-xl border-amber-300 dark:border-amber-700 text-amber-600 dark:text-amber-400 font-black uppercase tracking-widest text-[9px] h-10 px-6 hover:bg-amber-50 dark:hover:bg-amber-900/10 flex items-center gap-2 transition-all"
+                        className="w-full sm:w-auto rounded-xl border-amber-300 dark:border-amber-700 text-amber-600 dark:text-amber-400 font-black uppercase tracking-widest text-[9px] h-10 px-6 hover:bg-amber-50 dark:hover:bg-amber-900/10 flex items-center justify-center gap-2 transition-all"
                         onClick={() => { setFeedbackMeeting(m); setFeedbackOpen(true) }}
                       >
                         <Star className="h-3 w-3 fill-amber-400 text-amber-400" /> Leave Feedback
