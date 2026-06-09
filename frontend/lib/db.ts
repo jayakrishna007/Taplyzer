@@ -8,11 +8,12 @@ if (!admin.apps.length) {
   const privateKey = process.env.FIREBASE_PRIVATE_KEY;
 
   if (clientEmail && privateKey) {
+    const formattedKey = privateKey.replace(/\\n/g, "\n").replace(/^["'](.*)["']$/, "$1");
     admin.initializeApp({
       credential: admin.credential.cert({
         projectId,
         clientEmail,
-        privateKey: privateKey.replace(/\\n/g, "\n"),
+        privateKey: formattedKey,
       }),
     });
   } else {
