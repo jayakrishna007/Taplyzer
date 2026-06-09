@@ -3,20 +3,39 @@ const admin = require("firebase-admin");
 function cleanPrivateKey(key: string): string {
   if (!key) return "";
   let cleaned = key.trim();
-  while (
-    (cleaned.startsWith('"') && cleaned.endsWith('"')) ||
-    (cleaned.startsWith("'") && cleaned.endsWith("'"))
-  ) {
-    cleaned = cleaned.slice(1, -1).trim();
-  }
+
+  // Remove wrapping quotes
+  if (cleaned.startsWith('"')) cleaned = cleaned.substring(1);
+  if (cleaned.endsWith('"')) cleaned = cleaned.substring(0, cleaned.length - 1);
+  if (cleaned.startsWith("'")) cleaned = cleaned.substring(1);
+  if (cleaned.endsWith("'")) cleaned = cleaned.substring(0, cleaned.length - 1);
+
+  cleaned = cleaned.trim();
   cleaned = cleaned.replace(/\\n/g, "\n").replace(/\\r/g, "\r");
-  while (
-    (cleaned.startsWith('"') && cleaned.endsWith('"')) ||
-    (cleaned.startsWith("'") && cleaned.endsWith("'"))
-  ) {
-    cleaned = cleaned.slice(1, -1).trim();
+
+  const header = "-----BEGIN PRIVATE KEY-----";
+  const footer = "-----END PRIVATE KEY-----";
+
+  const headerIndex = cleaned.indexOf(header);
+  const footerIndex = cleaned.indexOf(footer);
+
+  if (headerIndex !== -1 && footerIndex !== -1) {
+    cleaned = cleaned.substring(headerIndex, footerIndex + footer.length);
+  } else {
+    if (headerIndex !== -1) {
+      cleaned = cleaned.substring(headerIndex);
+    } else if (!cleaned.startsWith(header)) {
+      cleaned = header + "\n" + cleaned;
+    }
+
+    if (footerIndex !== -1) {
+      cleaned = cleaned.substring(0, footerIndex + footer.length);
+    } else if (!cleaned.endsWith(footer)) {
+      cleaned = cleaned + "\n" + footer;
+    }
   }
-  return cleaned;
+
+  return cleaned.trim();
 }
 
 if (!admin.apps.length) {
