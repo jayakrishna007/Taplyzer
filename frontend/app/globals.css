@@ -123,3 +123,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Fix select option colors on mobile and dark/light modes */
+select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important; /* slate-900 */
+}
+.dark select option {
+  background-color: #0a0a0a !important;
+  color: #ffffff !important;
+}

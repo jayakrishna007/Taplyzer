@@ -36,9 +36,9 @@ const DEFAULT_FORM: FormData = {
   goal: "", budget: "", timeline: ""
 }
 
-const inputCls = "h-14 bg-slate-50 dark:bg-white/5 border-none rounded-2xl font-bold"
+const inputCls = "h-12 sm:h-14 bg-slate-50 dark:bg-white/5 border-none rounded-xl sm:rounded-2xl font-bold"
 const labelCls = "text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1"
-const selectCls = "w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl font-bold px-4 text-sm text-slate-900 dark:text-white outline-none cursor-pointer"
+const selectCls = "w-full h-12 sm:h-14 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl font-bold px-4 text-sm text-slate-900 dark:text-white outline-none cursor-pointer"
 
 const FIELD_INFOS: Record<string, { title: string; desc: string; tip: string }> = {
   companyName: {
@@ -265,7 +265,7 @@ export default function ProfileSetupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-black flex items-center justify-center p-4 md:p-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-black flex items-center justify-center p-2 sm:p-4 md:p-8">
 
       {/* Verification Popup */}
       {showVerifyPopup && (
@@ -326,10 +326,10 @@ export default function ProfileSetupPage() {
         </div>
       )}
 
-      <div className="max-w-2xl w-full bg-white dark:bg-[#0A0A0A] rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden flex flex-col">
+      <div className="max-w-2xl w-full bg-white dark:bg-[#0A0A0A] rounded-[1.5rem] sm:rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden flex flex-col">
 
         {/* Progress */}
-        <div className="p-8 pb-0">
+        <div className="p-4 sm:p-8 pb-0">
           <div className="flex items-center justify-between mb-4">
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Step {currentStep} of {STEPS.length}</span>
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{STEPS[currentStep - 1]}</span>
@@ -337,14 +337,14 @@ export default function ProfileSetupPage() {
           <Progress value={(currentStep / STEPS.length) * 100} className="h-1.5 bg-slate-100 dark:bg-white/5" />
         </div>
 
-        <div className="p-8 md:p-12 flex-grow overflow-y-auto max-h-[65vh]">
+        <div className="p-4 sm:p-8 md:p-12 flex-grow overflow-y-auto max-h-[calc(100dvh-180px)] sm:max-h-[65vh]">
 
           {/* STEP 1: Company Identity */}
           {currentStep === 1 && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div>
-                <h2 className="text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Company Identity</h2>
-                <p className="text-slate-500 font-medium">Tell us about you and the business you represent.</p>
+                <h2 className="text-2xl sm:text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Company Identity</h2>
+                <p className="text-sm sm:text-base text-slate-500 font-medium">Tell us about you and the business you represent.</p>
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
@@ -380,7 +380,7 @@ export default function ProfileSetupPage() {
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-1.5">
                       <label className={labelCls}>Industry</label>
@@ -388,9 +388,9 @@ export default function ProfileSetupPage() {
                     </div>
                     {renderHelpText("industry")}
                     <select value={formData.industry} onChange={e => { set("industry", e.target.value); set("businessType", ""); set("customIndustry", "") }} className={selectCls}>
-                      <option value="" disabled>Select Industry</option>
-                      {INDUSTRIES.map(ind => <option key={ind} value={ind}>{ind}</option>)}
-                      <option value="Other">Other (specify below)</option>
+                      <option value="" disabled className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Select Industry</option>
+                      {INDUSTRIES.map(ind => <option key={ind} value={ind} className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">{ind}</option>)}
+                      <option value="Other" className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Other (specify below)</option>
                     </select>
                     {formData.industry === "Other" && (
                       <Input value={formData.customIndustry} onChange={e => set("customIndustry", e.target.value)} placeholder="Type your industry" className={`${inputCls} mt-2`} />
@@ -403,8 +403,8 @@ export default function ProfileSetupPage() {
                     </div>
                     {renderHelpText("businessType")}
                     <select value={formData.businessType} onChange={e => { set("businessType", e.target.value); set("customBusinessType", "") }} className={selectCls} disabled={!formData.industry}>
-                      <option value="" disabled>{formData.industry ? "Select Type" : "Select Industry first"}</option>
-                      {businessTypeOptions.map(t => <option key={t} value={t}>{t}</option>)}
+                      <option value="" disabled className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">{formData.industry ? "Select Type" : "Select Industry first"}</option>
+                      {businessTypeOptions.map(t => <option key={t} value={t} className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">{t}</option>)}
                     </select>
                     {formData.businessType === "Other" && (
                       <Input value={formData.customBusinessType} onChange={e => set("customBusinessType", e.target.value)} placeholder="Type your business type" className={`${inputCls} mt-2`} />
@@ -420,7 +420,7 @@ export default function ProfileSetupPage() {
                   <div className="flex flex-wrap gap-2">
                     {["1-5", "6-20", "21-50", "51-200", "201+"].map(size => (
                       <button key={size} onClick={() => set("teamSize", size)}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${formData.teamSize === size ? "bg-primary text-white shadow-lg shadow-primary/20" : "bg-slate-50 dark:bg-white/5 text-slate-500"}`}
+                        className={`px-3.5 py-2.5 sm:px-6 sm:py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${formData.teamSize === size ? "bg-primary text-white shadow-lg shadow-primary/20" : "bg-slate-50 dark:bg-white/5 text-slate-500"}`}
                       >{size}</button>
                     ))}
                   </div>
@@ -433,8 +433,8 @@ export default function ProfileSetupPage() {
           {currentStep === 2 && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div>
-                <h2 className="text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Global Presence</h2>
-                <p className="text-slate-500 font-medium">Where is your business headquartered?</p>
+                <h2 className="text-2xl sm:text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Global Presence</h2>
+                <p className="text-sm sm:text-base text-slate-500 font-medium">Where is your business headquartered?</p>
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
@@ -445,7 +445,7 @@ export default function ProfileSetupPage() {
                   {renderHelpText("country")}
                   <Input value={formData.country} onChange={e => set("country", e.target.value)} className={inputCls} />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-1.5">
                       <label className={labelCls}>State</label>
@@ -463,8 +463,8 @@ export default function ProfileSetupPage() {
                     <Input value={formData.city} onChange={e => set("city", e.target.value)} placeholder="Mumbai" className={inputCls} />
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="space-y-2 col-span-1">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-2 sm:col-span-1">
                     <div className="flex items-center gap-1.5">
                       <label className={labelCls}>Pincode</label>
                       {renderHelpIcon("pincode")}
@@ -472,7 +472,7 @@ export default function ProfileSetupPage() {
                     {renderHelpText("pincode")}
                     <Input value={formData.pincode} onChange={e => set("pincode", e.target.value)} placeholder="400001" className={inputCls} />
                   </div>
-                  <div className="space-y-2 col-span-2">
+                  <div className="space-y-2 sm:col-span-2">
                     <div className="flex items-center gap-1.5">
                       <label className={labelCls}>Company Address</label>
                       {renderHelpIcon("address")}
@@ -489,8 +489,8 @@ export default function ProfileSetupPage() {
           {currentStep === 3 && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div>
-                <h2 className="text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Your Offerings</h2>
-                <p className="text-slate-500 font-medium">What products or services do you provide?</p>
+                <h2 className="text-2xl sm:text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Your Offerings</h2>
+                <p className="text-sm sm:text-base text-slate-500 font-medium">What products or services do you provide?</p>
               </div>
               <div className="space-y-6">
                 <div className="space-y-2">
@@ -554,8 +554,8 @@ export default function ProfileSetupPage() {
           {currentStep === 4 && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div>
-                <h2 className="text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Market Needs</h2>
-                <p className="text-slate-500 font-medium">What are you currently looking for from partners?</p>
+                <h2 className="text-2xl sm:text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Market Needs</h2>
+                <p className="text-sm sm:text-base text-slate-500 font-medium">What are you currently looking for from partners?</p>
               </div>
               <div className="space-y-6">
                 <div className="space-y-2">
@@ -598,8 +598,8 @@ export default function ProfileSetupPage() {
           {currentStep === 5 && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div>
-                <h2 className="text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Business Intent</h2>
-                <p className="text-slate-500 font-medium">What is the primary deal or partnership you are actively pursuing?</p>
+                <h2 className="text-2xl sm:text-3xl font-black italic tracking-tighter text-slate-900 dark:text-white mb-2">Business Intent</h2>
+                <p className="text-sm sm:text-base text-slate-500 font-medium">What is the primary deal or partnership you are actively pursuing?</p>
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
@@ -629,7 +629,7 @@ export default function ProfileSetupPage() {
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-1.5">
                       <label className={labelCls}>Minimum Budget</label>
@@ -645,10 +645,10 @@ export default function ProfileSetupPage() {
                     </div>
                     {renderHelpText("timeline")}
                     <select value={formData.timeline} onChange={e => set("timeline", e.target.value)} className={selectCls}>
-                      <option value="" disabled>Select deadline</option>
-                      <option value="Less than 7 Days">Less than 7 Days</option>
-                      <option value="Within 14 Days">Within 14 Days</option>
-                      <option value="Within 30 Days">Within 30 Days</option>
+                      <option value="" disabled className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Select deadline</option>
+                      <option value="Less than 7 Days" className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Less than 7 Days</option>
+                      <option value="Within 14 Days" className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Within 14 Days</option>
+                      <option value="Within 30 Days" className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Within 30 Days</option>
                     </select>
                   </div>
                 </div>
@@ -658,13 +658,13 @@ export default function ProfileSetupPage() {
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02] flex items-center justify-between gap-4">
+        <div className="p-4 sm:p-6 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02] flex items-center justify-between gap-4">
           <Button variant="ghost" onClick={() => setCurrentStep(p => Math.max(p - 1, 1))} disabled={currentStep === 1}
-            className="h-12 px-5 rounded-xl font-black uppercase tracking-widest text-[10px] text-slate-400 hover:text-slate-900 disabled:opacity-0">
+            className="h-10 sm:h-12 px-4 sm:px-5 rounded-xl font-black uppercase tracking-widest text-[10px] text-slate-400 hover:text-slate-900 disabled:opacity-0">
             <ArrowLeft className="h-4 w-4 mr-2" /> Back
           </Button>
           <Button onClick={handleSaveAndNext} disabled={isSaving}
-            className="h-14 px-10 rounded-2xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px] shadow-xl shadow-primary/20 flex items-center gap-3 transition-all hover:scale-105 active:scale-95">
+            className="h-12 sm:h-14 px-6 sm:px-10 rounded-xl sm:rounded-2xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px] shadow-xl shadow-primary/20 flex items-center gap-3 transition-all hover:scale-105 active:scale-95">
             {isSaving ? "Saving..." : currentStep === STEPS.length ? "Complete Profile" : "Save & Next"} <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
