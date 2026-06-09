@@ -1,6 +1,6 @@
 const admin = require("firebase-admin");
 
-function cleanPrivateKey(key: string): string {
+function cleanPrivateKey(key) {
   if (!key) return "";
   let cleaned = key.trim();
 
