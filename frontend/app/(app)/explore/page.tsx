@@ -16,6 +16,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { RequestIntroModal } from "@/components/modals/request-intro-modal"
+import { ViewProfileModal } from "@/components/modals/view-profile-modal"
+import { type Match } from "@/components/dashboard/match-card"
 import { EmptyState } from "@/components/ui/empty-state"
 
 const INTENT_MAP: Record<string, string[]> = {
@@ -757,88 +759,39 @@ export default function ExplorePage() {
       )}
 
       {/* 📧 VIEW PROFILE MODAL (Used mainly for Feed and Table views) */}
-      <Dialog open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatch(null)}>
-        <DialogContent className="sm:max-w-[600px] rounded-[2rem] p-0 gap-0 border-none shadow-2xl overflow-hidden bg-white dark:bg-[#0A0A0A]">
-          <DialogTitle className="sr-only">Profile Details</DialogTitle>
-          {selectedMatch && (
-            <div className="flex flex-col max-h-[85vh]">
-              {/* MODAL HEADER */}
-              <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5">
-                <div className="flex items-start gap-5">
-                  <div className="h-16 w-16 shrink-0 rounded-2xl bg-slate-200 dark:bg-white/10 flex items-center justify-center text-3xl font-black text-slate-500 italic shadow-inner relative">
-                    {selectedMatch.companyName[0]}
-                    {selectedMatch.verified && (
-                      <div className="absolute -top-1.5 -right-1.5 h-6 w-6 rounded-full bg-emerald-500 border-[3px] border-slate-50 dark:border-[#111] flex items-center justify-center">
-                        <CheckCircle2 className="h-3 w-3 text-white" />
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-black italic tracking-tight text-slate-900 dark:text-white leading-none mb-2">
-                      {selectedMatch.companyName}
-                    </h2>
-                    <p className="text-sm font-bold text-slate-500">
-                      {selectedMatch.tagline}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* MODAL BODY (Scrollable) */}
-              <div className="p-8 space-y-8 overflow-y-auto custom-scrollbar">
-                <div className="bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-sm">
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
-                    <Target className="h-4 w-4 text-blue-500" /> Primary Need
-                  </h3>
-                  <p className="text-lg font-bold text-slate-800 dark:text-slate-200 leading-relaxed italic">"{selectedMatch.goal}"</p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="space-y-3">
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Looking For</h3>
-                    <ul className="space-y-2">
-                      {(selectedMatch.needs || []).map((need: string, i: number) => (
-                        <li key={i} className="flex items-start gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
-                          <Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
-                          {need}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Offers</h3>
-                    <ul className="space-y-2">
-                      {(selectedMatch.offerings || selectedMatch.offers || []).map((offer: string, i: number) => (
-                        <li key={i} className="flex items-start gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
-                          <Check className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
-                          {offer}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* MODAL FOOTER */}
-              <div className="p-6 border-t border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 flex justify-end gap-3">
-                <Button variant="outline" onClick={() => setSelectedMatch(null)} className="h-12 rounded-xl font-black uppercase tracking-widest text-[11px] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5">
-                  Close
-                </Button>
-                <Button
-                  onClick={() => {
-                    setIntroCompany({ id: selectedMatch.id, name: selectedMatch.companyName, industry: selectedMatch.industry, verified: selectedMatch.verified });
-                    setIsIntroModalOpen(true);
-                    setSelectedMatch(null);
-                  }}
-                  className="h-12 rounded-xl font-black uppercase tracking-widest text-[11px] bg-blue-600 text-white hover:bg-blue-700 shadow-md"
-                >
-                  Request Intro
-                </Button>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      {/* 📧 VIEW PROFILE MODAL (Used mainly for Feed and Table views) */}
+      {selectedMatch && (
+        <ViewProfileModal
+          open={!!selectedMatch}
+          onClose={() => setSelectedMatch(null)}
+          match={{
+            matchedUserId: (selectedMatch.ownerId || selectedMatch.id || selectedMatch._id || "").toString(),
+            candidateName: selectedMatch.userName || selectedMatch.ownerName || selectedMatch.companyName || "Unknown",
+            companyName: selectedMatch.companyName || "",
+            industry: selectedMatch.industry || "",
+            location: selectedMatch.location || (selectedMatch.city ? `${selectedMatch.city}${selectedMatch.state ? ", " + selectedMatch.state : ""}` : selectedMatch.country || "Remote"),
+            score: selectedMatch.score || 0,
+            offerings: selectedMatch.offerings || selectedMatch.offers || [],
+            needs: selectedMatch.needs || [],
+            goal: selectedMatch.goal || selectedMatch.tagline || "",
+            offeringGoal: selectedMatch.offeringGoal || selectedMatch.tagline || "",
+            reasons: selectedMatch.reasons || [],
+            verified: selectedMatch.verified || false,
+            verificationStatus: selectedMatch.verificationStatus || selectedMatch.trust?.verificationStatus || (selectedMatch.verified ? "Business Verified" : "Not Verified"),
+            teamSize: selectedMatch.teamSize || selectedMatch.team || selectedMatch.strength?.teamSize || "1-5"
+          }}
+          onRequestIntro={() => {
+            setIntroCompany({ 
+              id: selectedMatch.ownerId || selectedMatch.id || selectedMatch._id, 
+              name: selectedMatch.companyName, 
+              industry: selectedMatch.industry, 
+              verified: selectedMatch.verified 
+            });
+            setIsIntroModalOpen(true);
+            setSelectedMatch(null);
+          }}
+        />
+      )}
 
       {introCompany && (
         <RequestIntroModal

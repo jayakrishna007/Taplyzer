@@ -56,20 +56,20 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       totalSearches,
-      topQueries: topQueries.map((q) => ({
+      topQueries: topQueries.map((q: any) => ({
         query: q._id,
         count: q.count,
         avgResults: Math.round(q.avgResults),
       })),
-      zeroResultQueries: zeroResultQueries.map((q) => ({
+      zeroResultQueries: zeroResultQueries.map((q: any) => ({
         query: q._id,
         count: q.count,
       })),
-      industryBreakdown: industryBreakdown.map((i) => ({
+      industryBreakdown: industryBreakdown.map((i: any) => ({
         industry: i._id,
         count: i.count,
       })),
-      dailyVolume: dailyVolume.map((d) => ({
+      dailyVolume: dailyVolume.map((d: any) => ({
         date: d._id,
         count: d.count,
       })),

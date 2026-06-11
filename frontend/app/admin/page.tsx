@@ -94,10 +94,10 @@ export default function AdminDashboard() {
   }, [fetchStats])
 
   const funnel = [
-    { label: "Signup → Profile",    value: stats?.funnel.signupToProfile ?? 0,       color: "bg-blue-500" },
-    { label: "Request Acceptance",  value: stats?.funnel.acceptanceRate ?? 0,          color: "bg-purple-500" },
-    { label: "Request → Meeting",   value: stats?.funnel.requestToMeeting ?? 0,        color: "bg-amber-500" },
-    { label: "Meeting Completion",  value: stats?.funnel.meetingCompletionRate ?? 0,   color: "bg-emerald-500" },
+    { label: "Signup → Profile",    value: stats?.funnel?.signupToProfile ?? 0,       color: "bg-blue-500" },
+    { label: "Request Acceptance",  value: stats?.funnel?.acceptanceRate ?? 0,          color: "bg-purple-500" },
+    { label: "Request → Meeting",   value: stats?.funnel?.requestToMeeting ?? 0,        color: "bg-amber-500" },
+    { label: "Meeting Completion",  value: stats?.funnel?.meetingCompletionRate ?? 0,   color: "bg-emerald-500" },
   ]
 
   return (
@@ -140,9 +140,9 @@ export default function AdminDashboard() {
         <div className="lg:col-span-3 grid grid-cols-3 gap-4">
           {loading ? Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />) : (
             <>
-              <StatCard label="Pending Verifications" value={stats?.trust.pendingVerification ?? 0} icon={ShieldCheck} color="amber" sub="Awaiting review" href="/admin/verification" />
-              <StatCard label="Open Flags" value={stats?.trust.flagged ?? 0} icon={ShieldAlert} color="red" sub="Need action" href="/admin/flags" />
-              <StatCard label="Matches Today" value={stats?.activity.matchesToday ?? 0} icon={Handshake} color="purple" sub="New pairs generated" href="/admin/matches" />
+              <StatCard label="Pending Verifications" value={stats?.trust?.pendingVerification ?? 0} icon={ShieldCheck} color="amber" sub="Awaiting review" href="/admin/verification" />
+              <StatCard label="Open Flags" value={stats?.trust?.flagged ?? 0} icon={ShieldAlert} color="red" sub="Need action" href="/admin/flags" />
+              <StatCard label="Matches Today" value={stats?.activity?.matchesToday ?? 0} icon={Handshake} color="purple" sub="New pairs generated" href="/admin/matches" />
             </>
           )}
         </div>
@@ -154,11 +154,11 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           {loading ? Array.from({ length: 5 }).map((_, i) => <SkeletonCard key={i} />) : (
             <>
-              <StatCard label="Total Users" value={stats?.users.total ?? 0} icon={Users} color="blue" href="/admin/users" />
-              <StatCard label="Active" value={stats?.users.active ?? 0} icon={CheckCircle2} color="emerald" href="/admin/users" />
-              <StatCard label="New Today" value={stats?.users.newToday ?? 0} icon={UserPlus} color="emerald" href="/admin/users" />
-              <StatCard label="Verified Biz" value={stats?.businesses.verified ?? 0} icon={ShieldCheck} color="blue" href="/admin/verification" />
-              <StatCard label="Suspended" value={stats?.users.suspended ?? 0} icon={UserX} color="red" sub={`${stats?.users.flagged ?? 0} flagged`} href="/admin/users" />
+              <StatCard label="Total Users" value={stats?.users?.total ?? 0} icon={Users} color="blue" href="/admin/users" />
+              <StatCard label="Active" value={stats?.users?.active ?? 0} icon={CheckCircle2} color="emerald" href="/admin/users" />
+              <StatCard label="New Today" value={stats?.users?.newToday ?? 0} icon={UserPlus} color="emerald" href="/admin/users" />
+              <StatCard label="Verified Biz" value={stats?.businesses?.verified ?? 0} icon={ShieldCheck} color="blue" href="/admin/verification" />
+              <StatCard label="Suspended" value={stats?.users?.suspended ?? 0} icon={UserX} color="red" sub={`${stats?.users?.flagged ?? 0} flagged`} href="/admin/users" />
             </>
           )}
         </div>
@@ -170,10 +170,10 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {loading ? Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />) : (
             <>
-              <StatCard label="Requests Sent" value={stats?.activity.requestsSent ?? 0} icon={Send} color="blue" href="/admin/requests" />
-              <StatCard label="Accepted" value={stats?.activity.requestsAccepted ?? 0} icon={CheckCircle2} color="emerald" sub={`${stats?.funnel.acceptanceRate ?? 0}% rate`} href="/admin/requests" />
-              <StatCard label="Meetings Scheduled" value={stats?.activity.meetingsScheduled ?? 0} icon={Calendar} color="purple" href="/admin/meetings" />
-              <StatCard label="Completed" value={stats?.activity.meetingsCompleted ?? 0} icon={CheckCircle2} color="emerald" sub={`${stats?.funnel.meetingCompletionRate ?? 0}% completion`} href="/admin/meetings" />
+              <StatCard label="Requests Sent" value={stats?.activity?.requestsSent ?? 0} icon={Send} color="blue" href="/admin/requests" />
+              <StatCard label="Accepted" value={stats?.activity?.requestsAccepted ?? 0} icon={CheckCircle2} color="emerald" sub={`${stats?.funnel?.acceptanceRate ?? 0}% rate`} href="/admin/requests" />
+              <StatCard label="Meetings Scheduled" value={stats?.activity?.meetingsScheduled ?? 0} icon={Calendar} color="purple" href="/admin/meetings" />
+              <StatCard label="Completed" value={stats?.activity?.meetingsCompleted ?? 0} icon={CheckCircle2} color="emerald" sub={`${stats?.funnel?.meetingCompletionRate ?? 0}% completion`} href="/admin/meetings" />
             </>
           )}
         </div>
@@ -185,9 +185,9 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-3 gap-4">
           {loading ? Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />) : (
             <>
-              <StatCard label="Active Subscriptions" value={stats?.revenue.activeSubscriptions ?? 0} icon={CreditCard} color="emerald" href="/admin/subscriptions" />
-              <StatCard label="PRO Users" value={stats?.revenue.proUsers ?? 0} icon={Star} color="purple" href="/admin/subscriptions" />
-              <StatCard label="Free Users" value={stats?.revenue.freeUsers ?? 0} icon={Users} color="slate" href="/admin/subscriptions" />
+              <StatCard label="Active Subscriptions" value={stats?.revenue?.activeSubscriptions ?? 0} icon={CreditCard} color="emerald" href="/admin/subscriptions" />
+              <StatCard label="PRO Users" value={stats?.revenue?.proUsers ?? 0} icon={Star} color="purple" href="/admin/subscriptions" />
+              <StatCard label="Free Users" value={stats?.revenue?.freeUsers ?? 0} icon={Users} color="slate" href="/admin/subscriptions" />
             </>
           )}
         </div>

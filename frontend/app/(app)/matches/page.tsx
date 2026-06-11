@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { MatchCard, type Match } from "@/components/dashboard/match-card"
 import { Search, Bell, Users, RefreshCw } from "lucide-react"
 import { RequestIntroModal } from "@/components/modals/request-intro-modal"
+import { ViewProfileModal } from "@/components/modals/view-profile-modal"
 import { EmptyState } from "@/components/ui/empty-state"
 import { useAuth } from "@/components/auth-provider"
 import { Loader2 } from "lucide-react"
@@ -15,6 +16,8 @@ export default function MatchesPage() {
   const [search, setSearch] = useState("")
   const [selectedCompany, setSelectedCompany] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [viewProfileMatch, setViewProfileMatch] = useState<Match | null>(null)
   const [industryFilter, setIndustryFilter] = useState("ALL")
   const [allMatches, setAllMatches] = useState<Match[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -193,6 +196,10 @@ export default function MatchesPage() {
                 })
                 setIsModalOpen(true)
               }}
+              onViewProfile={(m) => {
+                setViewProfileMatch(m)
+                setIsProfileOpen(true)
+              }}
             />
           ))}
         </div>
@@ -214,6 +221,24 @@ export default function MatchesPage() {
           open={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           company={selectedCompany}
+        />
+      )}
+
+      {viewProfileMatch && (
+        <ViewProfileModal
+          open={isProfileOpen}
+          onClose={() => setIsProfileOpen(false)}
+          match={viewProfileMatch}
+          onRequestIntro={() => {
+            setSelectedCompany({
+              id: viewProfileMatch.matchedUserId,
+              name: viewProfileMatch.companyName || viewProfileMatch.candidateName,
+              industry: viewProfileMatch.industry,
+              verified: viewProfileMatch.verified,
+              matchScore: viewProfileMatch.score,
+            })
+            setIsModalOpen(true)
+          }}
         />
       )}
     </div>

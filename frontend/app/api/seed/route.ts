@@ -156,7 +156,7 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      message: `Successfully seeded ${createdUsers.length} Users, Businesses, Intents, and Offerings into MongoDB!`,
+      message: `Successfully seeded ${createdUsers.length} Users, Businesses, Intents, and Offerings into Firestore!`,
       exampleUserId: createdUsers[0]._id,
       masterUserId: masterId
     });

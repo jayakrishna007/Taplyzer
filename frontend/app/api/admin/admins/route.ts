@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       { $group: { _id: "$adminId", count: { $sum: 1 }, lastAction: { $max: "$createdAt" } } },
     ]);
 
-    const countMap = new Map(actionCounts.map((a: any) => [a._id.toString(), { count: a.count, lastAction: a.lastAction }]));
+    const countMap = new Map<string, { count: number; lastAction: any }>(actionCounts.map((a: any) => [a._id.toString(), { count: a.count, lastAction: a.lastAction }]));
 
     const enriched = admins.map((a: any) => ({
       ...a,

@@ -35,8 +35,8 @@ export async function GET() {
       User.countDocuments({ verified: true }),
       User.countDocuments({ isFlagged: true }),
       Business.countDocuments(),
-      Business.countDocuments({ verificationStatus: { $in: ["Pending", "Under Review"] } }),
-      Business.countDocuments({ verificationStatus: "Approved" }),
+      Business.countDocuments({ "trust.verificationStatus": "Basic Verified" }),
+      Business.countDocuments({ "trust.verificationStatus": { $in: ["Business Verified", "Trusted Partner"] } }),
       MatchRecord.countDocuments({ createdAt: { $gte: startOfDay } }),
       MatchRecord.countDocuments(),
       IntroRequest.countDocuments(),
@@ -75,6 +75,10 @@ export async function GET() {
       trust: { pendingVerification: pendingVerif, flagged: pendingFlags, lowRated: lowRatings, totalRatings },
       revenue: { activeSubscriptions: totalSubs, proUsers: proSubs, freeUsers: freeSubs },
       funnel: { signupToProfile, acceptanceRate, requestToMeeting, meetingCompletionRate },
+    }, {
+      headers: {
+        "Cache-Control": "private, max-age=60, stale-while-revalidate=30"
+      }
     });
   } catch (err) {
     console.error("Admin stats error:", err);

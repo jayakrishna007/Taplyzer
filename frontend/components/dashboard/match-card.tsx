@@ -38,14 +38,18 @@ export interface Match {
     locationProximity?: number
     profileCompleteness?: number
   }
+  teamSize?: string
+  verificationStatus?: string
+  subscriptionPlan?: string
 }
 
 interface MatchCardProps {
   match: Match
   onRequestIntro: (id: string) => void
+  onViewProfile?: (match: Match) => void
 }
 
-export function MatchCard({ match, onRequestIntro }: MatchCardProps) {
+export function MatchCard({ match, onRequestIntro, onViewProfile }: MatchCardProps) {
   return (
     <Card className="group relative bg-white dark:bg-[#0A0A0A] border-slate-200 dark:border-white/5 rounded-2xl md:rounded-[2.5rem] overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500">
       <CardContent className="p-5 md:p-8">
@@ -185,18 +189,29 @@ export function MatchCard({ match, onRequestIntro }: MatchCardProps) {
           >
             Request Intro
           </Button>
-          <Link href={`/profile/${match.matchedUserId}`} className="flex-1">
+          {onViewProfile ? (
             <Button
-              asChild
               variant="outline"
-              className="w-full h-10 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/60 font-black rounded-xl uppercase tracking-widest text-[9px] hover:bg-slate-50 dark:hover:bg-white/5 transition-all flex items-center justify-center gap-1"
+              className="flex-1 h-10 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/60 font-black rounded-xl uppercase tracking-widest text-[9px] hover:bg-slate-50 dark:hover:bg-white/5 transition-all flex items-center justify-center gap-1"
+              onClick={() => onViewProfile(match)}
             >
-              <div>
-                <User className="h-3 w-3" />
-                Profile
-              </div>
+              <User className="h-3 w-3" />
+              Profile
             </Button>
-          </Link>
+          ) : (
+            <Link href={`/profile/${match.matchedUserId}`} className="flex-1">
+              <Button
+                asChild
+                variant="outline"
+                className="w-full h-10 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/60 font-black rounded-xl uppercase tracking-widest text-[9px] hover:bg-slate-50 dark:hover:bg-white/5 transition-all flex items-center justify-center gap-1"
+              >
+                <div>
+                  <User className="h-3 w-3" />
+                  Profile
+                </div>
+              </Button>
+            </Link>
+          )}
           <Button
             variant="outline"
             className="w-10 h-10 p-0 shrink-0 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/60 hover:bg-slate-50 dark:hover:bg-white/5 transition-all rounded-xl"

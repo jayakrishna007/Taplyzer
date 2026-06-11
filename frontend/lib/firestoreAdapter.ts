@@ -42,6 +42,75 @@ export class MongooseDoc {
   }
 }
 
+function matchValue(docVal: any, op: string, opVal: any, subVal?: any): boolean {
+  if (op === "$eq") return docVal === opVal;
+  if (op === "$ne") {
+    const neVal = opVal && opVal.toString ? opVal.toString() : opVal;
+    const compDocVal = docVal && docVal.toString ? docVal.toString() : docVal;
+    return compDocVal !== neVal;
+  }
+  if (op === "$gt") return docVal > opVal;
+  if (op === "$gte") return docVal >= opVal;
+  if (op === "$lt") return docVal < opVal;
+  if (op === "$lte") return docVal <= opVal;
+  if (op === "$regex") {
+    const regex = new RegExp(opVal, subVal ? subVal["$options"] || "" : "");
+    return typeof docVal === "string" && regex.test(docVal);
+  }
+  if (op === "$exists") {
+    return opVal ? docVal !== undefined : docVal === undefined;
+  }
+  if (op === "$in") {
+    const mappedOps = Array.isArray(opVal) ? opVal.map(x => x && x.toString ? x.toString() : x) : [];
+    if (Array.isArray(docVal)) {
+      return docVal.some(d => mappedOps.includes(d && d.toString ? d.toString() : d));
+    }
+    return mappedOps.includes(docVal && docVal.toString ? docVal.toString() : docVal);
+  }
+  if (op === "$nin") {
+    const mappedOps = Array.isArray(opVal) ? opVal.map(x => x && x.toString ? x.toString() : x) : [];
+    if (Array.isArray(docVal)) {
+      return !docVal.some(d => mappedOps.includes(d && d.toString ? d.toString() : d));
+    }
+    return !mappedOps.includes(docVal && docVal.toString ? docVal.toString() : docVal);
+  }
+  return false;
+}
+
+function evaluateFilter(doc: any, query: any): boolean {
+  if (!query) return true;
+  for (const key of Object.keys(query)) {
+    const val = query[key];
+    if (key === "$or" && Array.isArray(val)) {
+      if (!val.some(subQuery => evaluateFilter(doc, subQuery))) return false;
+    } else if (key === "$and" && Array.isArray(val)) {
+      if (!val.every(subQuery => evaluateFilter(doc, subQuery))) return false;
+    } else {
+      let docVal = getNestedValue(doc, key);
+      if (key === "_id" || key === "id") {
+        docVal = doc._id || doc.id;
+      }
+      if (val && typeof val === "object" && !Array.isArray(val) && !(val instanceof Date)) {
+        const ops = Object.keys(val);
+        const isOp = ops.every(op => op.startsWith("$"));
+        if (isOp) {
+          for (const op of ops) {
+            if (op === "$options") continue;
+            if (!matchValue(docVal, op, val[op], val)) return false;
+          }
+        } else {
+          if (JSON.stringify(docVal) !== JSON.stringify(val)) return false;
+        }
+      } else {
+        const compVal = val && val.toString ? val.toString() : val;
+        const compDocVal = docVal && docVal.toString ? docVal.toString() : docVal;
+        if (compDocVal !== compVal) return false;
+      }
+    }
+  }
+  return true;
+}
+
 export class FirestoreQuery {
   private collectionName: string;
   private queryObj: any;
@@ -101,138 +170,153 @@ export class FirestoreQuery {
   }
 
   async exec(): Promise<any> {
-    let queryRef: admin.firestore.Query = db.collection(this.collectionName);
+    try {
+      let queryRef: admin.firestore.Query = db.collection(this.collectionName);
+      let canUseDirectQuery = true;
 
-    let needsClientFilter = false;
-    const clientFilters: Array<(doc: any) => boolean> = [];
-
-    for (const key of Object.keys(this.queryObj)) {
-      let val = this.queryObj[key];
-
-      if (key === "$or" && Array.isArray(val)) {
-        needsClientFilter = true;
-        clientFilters.push((doc) => {
-          return val.some((subQuery: any) => {
-            return Object.keys(subQuery).every(subKey => {
-              const subVal = subQuery[subKey];
-              let docVal = getNestedValue(doc, subKey);
-              if (subKey === "_id" && docVal && typeof docVal === "object" && docVal.toString) {
-                docVal = docVal.toString();
-              }
-              if (subVal && typeof subVal === "object" && !(subVal instanceof Date)) {
-                const ops = Object.keys(subVal);
-                return ops.every(op => {
-                  const opVal = subVal[op];
-                  if (op === "$regex") {
-                    const regex = new RegExp(opVal, subVal["$options"] || "");
-                    return typeof docVal === "string" && regex.test(docVal);
-                  }
-                  if (op === "$options") return true;
-                  if (op === "$exists") {
-                    return opVal ? docVal !== undefined : docVal === undefined;
-                  }
-                  if (op === "$in") {
-                    const mappedOps = Array.isArray(opVal) ? opVal.map(x => x && x.toString ? x.toString() : x) : [];
-                    return mappedOps.includes(docVal && docVal.toString ? docVal.toString() : docVal);
-                  }
-                  if (op === "$nin") {
-                    const mappedOps = Array.isArray(opVal) ? opVal.map(x => x && x.toString ? x.toString() : x) : [];
-                    return !mappedOps.includes(docVal && docVal.toString ? docVal.toString() : docVal);
-                  }
-                  if (op === "$ne") return docVal !== opVal;
-                  if (op === "$gte") return docVal >= opVal;
-                  if (op === "$lte") return docVal <= opVal;
-                  if (op === "$gt") return docVal > opVal;
-                  if (op === "$lt") return docVal < opVal;
-                  return false;
-                });
-              }
-              const compSubVal = subVal && subVal.toString ? subVal.toString() : subVal;
-              const compDocVal = docVal && docVal.toString ? docVal.toString() : docVal;
-              return compDocVal === compSubVal;
-            });
-          });
-        });
-        continue;
-      }
-
-      // Handle ID field mapping
-      const firestoreKey = key === "_id" ? admin.firestore.FieldPath.documentId() : key;
-      if (key === "_id") {
-        if (val && typeof val === "object" && val.toString) {
-          val = val.toString();
+      for (const key of Object.keys(this.queryObj)) {
+        const val = this.queryObj[key];
+        if (key === "$or" || key === "$and" || key === "$nor") {
+          canUseDirectQuery = false;
+          break;
         }
+
+        const isIdField = key === "_id" || key === "id";
+        const dbField = isIdField ? admin.firestore.FieldPath.documentId() : key;
+
+        if (val && typeof val === "object" && !Array.isArray(val)) {
+          for (const op of Object.keys(val)) {
+            if (op === "$eq") {
+              queryRef = queryRef.where(dbField, "==", val[op]);
+            } else if (op === "$in") {
+              queryRef = queryRef.where(dbField, "in", val[op]);
+            } else if (op === "$gt") {
+              queryRef = queryRef.where(dbField, ">", val[op]);
+            } else if (op === "$gte") {
+              queryRef = queryRef.where(dbField, ">=", val[op]);
+            } else if (op === "$lt") {
+              queryRef = queryRef.where(dbField, "<", val[op]);
+            } else if (op === "$lte") {
+              queryRef = queryRef.where(dbField, "<=", val[op]);
+            } else {
+              canUseDirectQuery = false;
+              break;
+            }
+          }
+        } else {
+          queryRef = queryRef.where(dbField, "==", val);
+        }
+        if (!canUseDirectQuery) break;
       }
 
-      if (val && typeof val === "object" && !Array.isArray(val) && !(val instanceof Date)) {
-        const keys = Object.keys(val);
-        for (const op of keys) {
-          const opVal = val[op];
-          if (op === "$in") {
-            if (Array.isArray(opVal) && opVal.length === 0) {
-              needsClientFilter = true;
-              clientFilters.push(() => false);
-            } else {
-              queryRef = queryRef.where(firestoreKey, "in", opVal);
+      if (canUseDirectQuery) {
+        if (this.sortObj) {
+          if (typeof this.sortObj === "string") {
+            const desc = this.sortObj.startsWith("-");
+            const field = desc ? this.sortObj.substring(1) : this.sortObj;
+            queryRef = queryRef.orderBy(field, desc ? "desc" : "asc");
+          } else if (typeof this.sortObj === "object") {
+            for (const k of Object.keys(this.sortObj)) {
+              const dir = this.sortObj[k] === -1 || this.sortObj[k] === "desc" ? "desc" : "asc";
+              queryRef = queryRef.orderBy(k, dir);
             }
-          } else if (op === "$nin") {
-            if (Array.isArray(opVal) && opVal.length === 0) {
-              // nim empty array matches everything, no filter needed
-            } else {
-              queryRef = queryRef.where(firestoreKey, "not-in", opVal);
-            }
-          } else if (op === "$regex") {
-            needsClientFilter = true;
-            const regex = new RegExp(opVal, val["$options"] || "");
-            clientFilters.push((doc) => {
-              const fieldValue = getNestedValue(doc, key);
-              return typeof fieldValue === "string" && regex.test(fieldValue);
-            });
-          } else if (op === "$options") {
-            // Handled by $regex
-          } else if (op === "$exists") {
-            needsClientFilter = true;
-            clientFilters.push((doc) => {
-              const fieldValue = getNestedValue(doc, key);
-              return opVal ? fieldValue !== undefined : fieldValue === undefined;
-            });
-          } else if (op === "$ne") {
-            needsClientFilter = true;
-            clientFilters.push((doc) => {
-              let docVal = getNestedValue(doc, key);
-              if (key === "_id" && docVal && typeof docVal === "object" && docVal.toString) {
-                docVal = docVal.toString();
-              }
-              const neVal = opVal && opVal.toString ? opVal.toString() : opVal;
-              const compDocVal = docVal && docVal.toString ? docVal.toString() : docVal;
-              return compDocVal !== neVal;
-            });
-          } else if (op === "$gte") {
-            queryRef = queryRef.where(firestoreKey, ">=", opVal);
-          } else if (op === "$lte") {
-            queryRef = queryRef.where(firestoreKey, "<=", opVal);
-          } else if (op === "$gt") {
-            queryRef = queryRef.where(firestoreKey, ">", opVal);
-          } else if (op === "$lt") {
-            queryRef = queryRef.where(firestoreKey, "<", opVal);
-          } else {
-            needsClientFilter = true;
-            clientFilters.push((doc) => {
-              return getNestedValue(doc, key) === val;
-            });
           }
         }
-      } else {
-        // Simple equality
-        queryRef = queryRef.where(firestoreKey, "==", val);
+
+        if (this.limitVal !== null) {
+          queryRef = queryRef.limit(this.limitVal);
+        }
+        if (this.skipVal !== null) {
+          queryRef = queryRef.offset(this.skipVal);
+        }
+
+        const snapshot = await queryRef.get();
+        let results = snapshot.docs.map(doc => {
+          const data = doc.data();
+          for (const k of Object.keys(data)) {
+            if (data[k] && typeof data[k] === "object" && typeof data[k].toDate === "function") {
+              data[k] = data[k].toDate();
+            }
+          }
+          return new MongooseDoc(this.collectionName, data, doc.id);
+        });
+
+        if (this.selectFields.length > 0) {
+          results = results.map(doc => {
+            const newDoc: any = new MongooseDoc(this.collectionName, {}, doc.id);
+            const hasExclusions = this.selectFields.some(f => f.startsWith("-"));
+            if (hasExclusions) {
+              const excludedFields = this.selectFields.map(f => f.startsWith("-") ? f.substring(1) : f);
+              for (const key of Object.keys(doc)) {
+                if (!excludedFields.includes(key)) {
+                  newDoc[key] = doc[key];
+                }
+              }
+            } else {
+              const includedFields = [...this.selectFields, "_id", "id"];
+              for (const field of includedFields) {
+                const cleanField = field.startsWith("+") ? field.substring(1) : field;
+                if (doc[cleanField] !== undefined) {
+                  newDoc[cleanField] = doc[cleanField];
+                }
+              }
+            }
+            return newDoc;
+          });
+        }
+
+        if (this.populates.length > 0) {
+          for (const pop of this.populates) {
+            let targetColl = "users";
+            if (pop.path === "businessId") {
+              targetColl = "businesses";
+            } else if (pop.path === "connectionId") {
+              targetColl = "connections";
+            } else if (pop.path === "senderId" || pop.path === "receiverId" || pop.path === "userId" || pop.path === "matchedUserId") {
+              targetColl = "users";
+            }
+
+            for (const doc of results) {
+              const refId = doc[pop.path];
+              if (refId && typeof refId === "string") {
+                const refSnap = await db.collection(targetColl).doc(refId).get();
+                if (refSnap.exists) {
+                  const refData = refSnap.data() || {};
+                  for (const k of Object.keys(refData)) {
+                    if (refData[k] && typeof refData[k] === "object" && typeof refData[k].toDate === "function") {
+                      refData[k] = refData[k].toDate();
+                    }
+                  }
+                  const refDoc: any = new MongooseDoc(targetColl, refData, refSnap.id);
+                  if (pop.selectFields) {
+                    const fields = pop.selectFields.split(/\s+/).filter(Boolean);
+                    const selectedDoc: any = new MongooseDoc(targetColl, {}, refSnap.id);
+                    for (const field of fields) {
+                      if (refDoc[field] !== undefined) {
+                        selectedDoc[field] = refDoc[field];
+                      }
+                    }
+                    doc[pop.path] = selectedDoc;
+                  } else {
+                    doc[pop.path] = refDoc;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        if (this.isSingleDoc) {
+          return results[0] || null;
+        }
+        return results;
       }
+    } catch (err: any) {
+      console.warn(`Direct query failed (or requires index) for ${this.collectionName}, falling back to in-memory. Error: ${err.message}`);
     }
 
-    if (this.limitVal !== null && !needsClientFilter && !this.sortObj) {
-      queryRef = queryRef.limit(this.limitVal);
-    }
-
-    const snapshot = await queryRef.get();
+    // --- FALLBACK TO IN-MEMORY ---
+    const snapshot = await db.collection(this.collectionName).get();
     let results = snapshot.docs.map(doc => {
       const data = doc.data();
       for (const k of Object.keys(data)) {
@@ -243,11 +327,7 @@ export class FirestoreQuery {
       return new MongooseDoc(this.collectionName, data, doc.id);
     });
 
-    if (needsClientFilter) {
-      for (const filter of clientFilters) {
-        results = results.filter(filter);
-      }
-    }
+    results = results.filter(doc => evaluateFilter(doc, this.queryObj));
 
     if (this.selectFields.length > 0) {
       results = results.map(doc => {
@@ -273,48 +353,6 @@ export class FirestoreQuery {
       });
     }
 
-    // Apply in-memory populates
-    if (this.populates.length > 0) {
-      for (const pop of this.populates) {
-        let targetColl = "users";
-        if (pop.path === "businessId") {
-          targetColl = "businesses";
-        } else if (pop.path === "connectionId") {
-          targetColl = "connections";
-        }
-
-        for (const doc of results) {
-          const refId = doc[pop.path];
-          if (refId && typeof refId === "string") {
-            const refSnap = await db.collection(targetColl).doc(refId).get();
-            if (refSnap.exists) {
-              const refData = refSnap.data() || {};
-              for (const k of Object.keys(refData)) {
-                if (refData[k] && typeof refData[k] === "object" && typeof refData[k].toDate === "function") {
-                  refData[k] = refData[k].toDate();
-                }
-              }
-              const refDoc: any = new MongooseDoc(targetColl, refData, refSnap.id);
-              
-              if (pop.selectFields) {
-                const fields = pop.selectFields.split(/\s+/).filter(Boolean);
-                const selectedDoc: any = new MongooseDoc(targetColl, {}, refSnap.id);
-                for (const field of fields) {
-                  if (refDoc[field] !== undefined) {
-                    selectedDoc[field] = refDoc[field];
-                  }
-                }
-                doc[pop.path] = selectedDoc;
-              } else {
-                doc[pop.path] = refDoc;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    // Apply in-memory sorting
     if (this.sortObj) {
       results.sort((a: any, b: any) => {
         if (typeof this.sortObj === "string") {
@@ -369,6 +407,49 @@ export class FirestoreQuery {
 
     if (this.limitVal !== null) {
       results = results.slice(0, this.limitVal);
+    }
+
+    if (this.populates.length > 0) {
+      for (const pop of this.populates) {
+        let targetColl = "users";
+        if (pop.path === "businessId") {
+          targetColl = "businesses";
+        } else if (pop.path === "connectionId") {
+          targetColl = "connections";
+        } else if (pop.path === "senderId" || pop.path === "receiverId" || pop.path === "userId" || pop.path === "matchedUserId") {
+          targetColl = "users";
+        }
+
+        // Only run populate on sliced results to avoid fetching thousands of documents
+        for (const doc of results) {
+          const refId = doc[pop.path];
+          if (refId && typeof refId === "string") {
+            const refSnap = await db.collection(targetColl).doc(refId).get();
+            if (refSnap.exists) {
+              const refData = refSnap.data() || {};
+              for (const k of Object.keys(refData)) {
+                if (refData[k] && typeof refData[k] === "object" && typeof refData[k].toDate === "function") {
+                  refData[k] = refData[k].toDate();
+                }
+              }
+              const refDoc: any = new MongooseDoc(targetColl, refData, refSnap.id);
+              
+              if (pop.selectFields) {
+                const fields = pop.selectFields.split(/\s+/).filter(Boolean);
+                const selectedDoc: any = new MongooseDoc(targetColl, {}, refSnap.id);
+                for (const field of fields) {
+                  if (refDoc[field] !== undefined) {
+                    selectedDoc[field] = refDoc[field];
+                  }
+                }
+                doc[pop.path] = selectedDoc;
+              } else {
+                doc[pop.path] = refDoc;
+              }
+            }
+          }
+        }
+      }
     }
 
     if (this.isSingleDoc) {
@@ -514,37 +595,262 @@ export class FirestoreModel {
   }
 
   async aggregate(pipeline: any[]) {
-    let matchQuery: any = {};
+    let results = await this.find({}).exec();
+
     for (const stage of pipeline) {
       if (stage.$match) {
-        for (const key of Object.keys(stage.$match)) {
-          if (!key.startsWith("ownerData.")) {
-            matchQuery[key] = stage.$match[key];
+        results = results.filter((doc: any) => evaluateFilter(doc, stage.$match));
+      } else if (stage.$group) {
+        const groupKeyPath = stage.$group._id;
+        const accumulators = Object.keys(stage.$group).filter(k => k !== "_id");
+        
+        const groups = new Map<any, any[]>();
+        for (const doc of results) {
+          let groupVal: any;
+          if (groupKeyPath === null) {
+            groupVal = null;
+          } else if (typeof groupKeyPath === "string" && groupKeyPath.startsWith("$")) {
+            groupVal = getNestedValue(doc, groupKeyPath.substring(1));
+          } else if (typeof groupKeyPath === "object") {
+            if (groupKeyPath.$dateToString) {
+              const { format, date } = groupKeyPath.$dateToString;
+              const dateVal = date.startsWith("$") ? getNestedValue(doc, date.substring(1)) : date;
+              if (dateVal instanceof Date) {
+                const y = dateVal.getFullYear();
+                const m = String(dateVal.getMonth() + 1).padStart(2, "0");
+                const d = String(dateVal.getDate()).padStart(2, "0");
+                groupVal = `${y}-${m}-${d}`;
+              } else {
+                groupVal = null;
+              }
+            } else {
+              groupVal = {};
+              for (const k of Object.keys(groupKeyPath)) {
+                const path = groupKeyPath[k];
+                if (typeof path === "string" && path.startsWith("$")) {
+                  groupVal[k] = getNestedValue(doc, path.substring(1));
+                } else if (path && typeof path === "object" && path.$arrayElemAt) {
+                  const [arrPath, idx] = path.$arrayElemAt;
+                  const arr = arrPath.startsWith("$") ? getNestedValue(doc, arrPath.substring(1)) : arrPath;
+                  groupVal[k] = Array.isArray(arr) ? arr[idx] : undefined;
+                } else {
+                  groupVal[k] = path;
+                }
+              }
+              groupVal = JSON.stringify(groupVal);
+            }
+          } else {
+            groupVal = groupKeyPath;
+          }
+          
+          if (!groups.has(groupVal)) {
+            groups.set(groupVal, []);
+          }
+          groups.get(groupVal)!.push(doc);
+        }
+        
+        const groupResults: any[] = [];
+        for (const [gKey, docs] of groups.entries()) {
+          const groupObj: any = {};
+          if (typeof gKey === "string" && gKey.startsWith("{") && gKey.endsWith("}")) {
+            try {
+              groupObj._id = JSON.parse(gKey);
+            } catch {
+              groupObj._id = gKey;
+            }
+          } else {
+            groupObj._id = gKey;
+          }
+          
+          for (const accKey of accumulators) {
+            const accExpr = stage.$group[accKey];
+            if (accExpr.$sum) {
+              const sumVal = accExpr.$sum;
+              if (sumVal === 1) {
+                groupObj[accKey] = docs.length;
+              } else if (typeof sumVal === "string" && sumVal.startsWith("$")) {
+                const field = sumVal.substring(1);
+                groupObj[accKey] = docs.reduce((acc, doc) => acc + (Number(getNestedValue(doc, field)) || 0), 0);
+              } else if (typeof sumVal === "object" && sumVal.$cond) {
+                const cond = sumVal.$cond;
+                groupObj[accKey] = docs.reduce((acc, doc) => {
+                  let matchesCond = false;
+                  if (Array.isArray(cond)) {
+                    const [expr, thenVal, elseVal] = cond;
+                    if (expr.$eq) {
+                      const [left, right] = expr.$eq;
+                      const leftVal = left.startsWith("$") ? getNestedValue(doc, left.substring(1)) : left;
+                      const rightVal = right.startsWith("$") ? getNestedValue(doc, right.substring(1)) : right;
+                      matchesCond = leftVal === rightVal;
+                    }
+                    return acc + (matchesCond ? thenVal : elseVal);
+                  }
+                  return acc;
+                }, 0);
+              } else {
+                groupObj[accKey] = docs.length;
+              }
+            } else if (accExpr.$avg) {
+              const avgVal = accExpr.$avg;
+              if (typeof avgVal === "string" && avgVal.startsWith("$")) {
+                const field = avgVal.substring(1);
+                const sum = docs.reduce((acc, doc) => acc + (Number(getNestedValue(doc, field)) || 0), 0);
+                groupObj[accKey] = docs.length > 0 ? sum / docs.length : 0;
+              }
+            }
+          }
+          groupResults.push(groupObj);
+        }
+        results = groupResults;
+      } else if (stage.$bucket) {
+        const { groupBy, boundaries, default: defaultKey, output } = stage.$bucket;
+        const bucketField = typeof groupBy === "string" && groupBy.startsWith("$") ? groupBy.substring(1) : null;
+        
+        const bucketResults: any[] = [];
+        const bucketGroups = new Map<any, any[]>();
+        
+        for (const doc of results) {
+          const val = bucketField ? Number(getNestedValue(doc, bucketField)) : NaN;
+          let foundBucket = false;
+          
+          if (!isNaN(val)) {
+            for (let i = 0; i < boundaries.length - 1; i++) {
+              const lower = boundaries[i];
+              const upper = boundaries[i+1];
+              if (val >= lower && val < upper) {
+                const bKey = lower;
+                if (!bucketGroups.has(bKey)) {
+                  bucketGroups.set(bKey, []);
+                }
+                bucketGroups.get(bKey)!.push(doc);
+                foundBucket = true;
+                break;
+              }
+            }
+          }
+          
+          if (!foundBucket && defaultKey !== undefined) {
+            if (!bucketGroups.has(defaultKey)) {
+              bucketGroups.set(defaultKey, []);
+            }
+            bucketGroups.get(defaultKey)!.push(doc);
           }
         }
-      }
-    }
-
-    const businesses = await this.find(matchQuery).exec();
-    const usersModel = new FirestoreModel("users");
-    
-    const results: any[] = [];
-    for (const biz of businesses) {
-      const ownerId = biz.ownerId;
-      const ownerData = await usersModel.findById(ownerId);
-      
-      const suspendedFilter = pipeline.some(stage => 
-        stage.$match && stage.$match["ownerData.status"] && stage.$match["ownerData.status"].$ne === "SUSPENDED"
-      );
-
-      if (ownerData) {
-        if (suspendedFilter && ownerData.status === "SUSPENDED") {
-          continue;
+        
+        for (let i = 0; i < boundaries.length - 1; i++) {
+          const lower = boundaries[i];
+          const docs = bucketGroups.get(lower) || [];
+          
+          const outObj: any = { _id: lower };
+          if (output) {
+            for (const outKey of Object.keys(output)) {
+              const expr = output[outKey];
+              if (expr.$sum) {
+                if (expr.$sum === 1) {
+                  outObj[outKey] = docs.length;
+                } else {
+                  outObj[outKey] = docs.length;
+                }
+              }
+            }
+          } else {
+            outObj.count = docs.length;
+          }
+          bucketResults.push(outObj);
         }
-        results.push({
-          ...biz.toObject(),
-          ownerData: ownerData.toObject()
+        
+        if (defaultKey !== undefined && bucketGroups.has(defaultKey)) {
+          const docs = bucketGroups.get(defaultKey) || [];
+          const outObj: any = { _id: defaultKey };
+          if (output) {
+            for (const outKey of Object.keys(output)) {
+              const expr = output[outKey];
+              if (expr.$sum === 1) {
+                outObj[outKey] = docs.length;
+              } else {
+                outObj[outKey] = docs.length;
+              }
+            }
+          } else {
+            outObj.count = docs.length;
+          }
+          bucketResults.push(outObj);
+        }
+        
+        results = bucketResults;
+      } else if (stage.$sort) {
+        results.sort((a: any, b: any) => {
+          for (const k of Object.keys(stage.$sort)) {
+            const dir = stage.$sort[k];
+            const valA = a[k];
+            const valB = b[k];
+            if (valA < valB) return dir === -1 ? 1 : -1;
+            if (valA > valB) return dir === -1 ? -1 : 1;
+          }
+          return 0;
         });
+      } else if (stage.$limit) {
+        results = results.slice(0, stage.$limit);
+      } else if (stage.$skip) {
+        results = results.slice(stage.$skip);
+      } else if (stage.$addFields) {
+        for (const field of Object.keys(stage.$addFields)) {
+          const expr = stage.$addFields[field];
+          for (const doc of results) {
+            if (expr.$multiply) {
+              const parts = expr.$multiply;
+              const factors = parts.map((p: any) => {
+                if (typeof p === "number") return p;
+                if (typeof p === "string" && p.startsWith("$")) return getNestedValue(doc, p.substring(1));
+                if (p.$floor && p.$floor.$divide) {
+                  const [divLeft, divRight] = p.$floor.$divide;
+                  const lVal = typeof divLeft === "string" && divLeft.startsWith("$") ? getNestedValue(doc, divLeft.substring(1)) : divLeft;
+                  const rVal = typeof divRight === "string" && divRight.startsWith("$") ? getNestedValue(doc, divRight.substring(1)) : divRight;
+                  return Math.floor(Number(lVal) / Number(rVal));
+                }
+                return 0;
+              });
+              doc[field] = factors.reduce((acc: number, f: number) => acc * f, 1);
+            } else if (expr.$divide) {
+              const [divLeft, divRight] = expr.$divide;
+              const lVal = typeof divLeft === "string" && divLeft.startsWith("$") ? getNestedValue(doc, divLeft.substring(1)) : divLeft;
+              const rVal = typeof divRight === "string" && divRight.startsWith("$") ? getNestedValue(doc, divRight.substring(1)) : divRight;
+              doc[field] = Number(rVal) !== 0 ? Number(lVal) / Number(rVal) : 0;
+            }
+          }
+        }
+      } else if (stage.$lookup) {
+        const { from, localField, foreignField, as } = stage.$lookup;
+        const foreignModel = new FirestoreModel(from);
+        const foreignDocs = await foreignModel.find({}).exec();
+        for (const doc of results) {
+          const lVal = getNestedValue(doc, localField);
+          const matches = foreignDocs.filter((fd: any) => {
+            const fVal = getNestedValue(fd, foreignField);
+            return lVal !== undefined && fVal !== undefined && String(lVal) === String(fVal);
+          });
+          doc[as] = matches;
+        }
+      } else if (stage.$unwind) {
+        const pathStr = typeof stage.$unwind === "string" ? stage.$unwind : stage.$unwind.path;
+        const field = pathStr.startsWith("$") ? pathStr.substring(1) : pathStr;
+        const newResults: any[] = [];
+        for (const doc of results) {
+          const arr = getNestedValue(doc, field);
+          if (Array.isArray(arr) && arr.length > 0) {
+            for (const item of arr) {
+              newResults.push({ ...doc, [field]: item });
+            }
+          } else if (arr && !Array.isArray(arr)) {
+            newResults.push(doc);
+          } else if (stage.$unwind.preserveNullAndEmptyArrays) {
+            newResults.push({ ...doc, [field]: null });
+          }
+        }
+        results = newResults;
+      } else if (stage.$count) {
+        const countField = stage.$count;
+        results = [{ [countField]: results.length }];
       }
     }
     return results;

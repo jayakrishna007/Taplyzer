@@ -1,0 +1,5524 @@
+[
+  {
+    "endpoint": "/api/admin/activity-feed",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "events": [
+        {
+          "type": "VERIFICATION_SUBMITTED",
+          "actor": "Naveen",
+          "target": "",
+          "time": "2026-06-10T08:26:00.233Z",
+          "color": "amber"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "Naveen ",
+          "target": "platform",
+          "time": "2026-06-10T08:25:00.026Z",
+          "color": "blue"
+        },
+        {
+          "type": "REQUEST_SENT",
+          "actor": "Prathish Pvt Ltd",
+          "target": "AdOptimize",
+          "time": "2026-06-09T13:32:33.909Z",
+          "color": "purple"
+        },
+        {
+          "type": "VERIFICATION_SUBMITTED",
+          "actor": "Prathish Pvt Ltd",
+          "target": "",
+          "time": "2026-06-09T13:21:15.057Z",
+          "color": "amber"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "Prathish B",
+          "target": "platform",
+          "time": "2026-06-09T13:19:56.416Z",
+          "color": "blue"
+        },
+        {
+          "type": "VERIFICATION_SUBMITTED",
+          "actor": "Unknown Business",
+          "target": "",
+          "time": "2026-06-09T11:59:37.890Z",
+          "color": "amber"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "tyhfbv",
+          "target": "platform",
+          "time": "2026-06-09T11:57:51.327Z",
+          "color": "blue"
+        },
+        {
+          "type": "VERIFICATION_SUBMITTED",
+          "actor": "Unknown Business",
+          "target": "",
+          "time": "2026-06-09T11:40:50.674Z",
+          "color": "amber"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "Jsu",
+          "target": "platform",
+          "time": "2026-06-09T11:40:25.861Z",
+          "color": "blue"
+        },
+        {
+          "type": "MEETING_COMPLETED",
+          "actor": "jodi",
+          "target": "Taplyzer Admin",
+          "meta": "Completed",
+          "time": "2026-06-07T11:09:03.658Z",
+          "color": "emerald"
+        },
+        {
+          "type": "RATING_SUBMITTED",
+          "actor": "joddi",
+          "target": "de",
+          "meta": "5★",
+          "time": "2026-06-05T21:21:39.897Z",
+          "color": "emerald"
+        },
+        {
+          "type": "MEETING_COMPLETED",
+          "actor": "jodi",
+          "target": "ss",
+          "meta": "Completed",
+          "time": "2026-06-05T21:19:18.849Z",
+          "color": "emerald"
+        },
+        {
+          "type": "REQUEST_ACCEPTED",
+          "actor": "Taplyzer Corp",
+          "target": "joddi",
+          "time": "2026-06-05T21:17:44.525Z",
+          "color": "emerald"
+        },
+        {
+          "type": "MEETING_COMPLETED",
+          "actor": "jodi",
+          "target": "ss",
+          "meta": "Completed",
+          "time": "2026-06-05T10:37:06.394Z",
+          "color": "emerald"
+        },
+        {
+          "type": "REQUEST_ACCEPTED",
+          "actor": "de",
+          "target": "joddi",
+          "time": "2026-06-05T10:26:35.500Z",
+          "color": "emerald"
+        },
+        {
+          "type": "VERIFICATION_SUBMITTED",
+          "actor": "joddi",
+          "target": "",
+          "time": "2026-06-05T10:24:09.835Z",
+          "color": "amber"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "jodi",
+          "target": "platform",
+          "time": "2026-06-05T10:23:47.400Z",
+          "color": "blue"
+        },
+        {
+          "type": "VERIFICATION_SUBMITTED",
+          "actor": "de",
+          "target": "",
+          "time": "2026-06-02T13:25:05.874Z",
+          "color": "amber"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "ss",
+          "target": "platform",
+          "time": "2026-06-02T13:23:42.627Z",
+          "color": "blue"
+        },
+        {
+          "type": "VERIFICATION_SUBMITTED",
+          "actor": "company name ",
+          "target": "",
+          "time": "2026-05-27T16:17:42.410Z",
+          "color": "amber"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "jay",
+          "target": "platform",
+          "time": "2026-05-27T16:04:31.263Z",
+          "color": "blue"
+        },
+        {
+          "type": "VERIFICATION_SUBMITTED",
+          "actor": "rgejkfdv",
+          "target": "",
+          "time": "2026-05-22T11:06:09.806Z",
+          "color": "amber"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "eo",
+          "target": "platform",
+          "time": "2026-05-22T11:05:47.521Z",
+          "color": "blue"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "karuna",
+          "target": "platform",
+          "time": "2026-05-22T10:49:44.392Z",
+          "color": "blue"
+        },
+        {
+          "type": "USER_SIGNUP",
+          "actor": "Ishita Paul",
+          "target": "platform",
+          "time": "2026-05-22T10:39:27.582Z",
+          "color": "blue"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/admin/activity-logs",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "logs": [
+        {
+          "_id": "1VZ5zmXoTjj8RJMb3Rz2",
+          "id": "1VZ5zmXoTjj8RJMb3Rz2",
+          "adminId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "action": "USER_VERIFIED",
+          "targetType": "User",
+          "targetId": "UfS66zGxLfDB9qwrcgrV",
+          "notes": "Manually verified by admin",
+          "previousState": {
+            "role": "USER"
+          },
+          "createdAt": "2026-06-05T20:36:22.742Z",
+          "updatedAt": "2026-06-05T20:36:22.742Z"
+        }
+      ],
+      "total": 1,
+      "page": 1,
+      "pages": 1,
+      "actionBreakdown": [
+        {
+          "_id": "USER_VERIFIED",
+          "count": 1
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/admin/admins",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "admins": [
+        {
+          "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+          "id": "660a1b2c3d4e5f6a7b8c9d0e",
+          "createdAt": "2026-05-22T10:37:32.283Z",
+          "role": "SUPER_ADMIN",
+          "phone": "9876543210",
+          "name": "Taplyzer Admin",
+          "verified": true,
+          "email": "admin@taplyzer.com",
+          "updatedAt": "2026-05-22T10:37:32.283Z",
+          "lastActive": "2026-06-05T21:08:26.361Z",
+          "actionCount": 1,
+          "lastAction": null
+        }
+      ],
+      "stats": {
+        "totalAdmins": 1,
+        "superAdmins": 1
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/ai-insights",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "scoreBuckets": [
+        {
+          "_id": 10,
+          "count": 9
+        },
+        {
+          "_id": 20,
+          "count": 34
+        },
+        {
+          "_id": 30,
+          "count": 40
+        },
+        {
+          "_id": 40,
+          "count": 8
+        },
+        {
+          "_id": 50,
+          "count": 32
+        },
+        {
+          "_id": 60,
+          "count": 2
+        },
+        {
+          "_id": 70,
+          "count": 7
+        }
+      ],
+      "industryPairs": [],
+      "outcomeBreakdown": [
+        {
+          "count": 2
+        },
+        {
+          "_id": "deal",
+          "count": 1
+        }
+      ],
+      "missedOpportunities": [],
+      "insights": {
+        "verifiedAcceptanceRate": 100,
+        "unverifiedAcceptanceRate": 0,
+        "verifiedMultiplier": "N/A",
+        "hasEnoughData": false
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/analytics",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "pipeline": {
+        "dailyMatches": [
+          {
+            "_id": "2026-06-05",
+            "count": 14
+          },
+          {
+            "_id": "2026-06-07",
+            "count": 51
+          },
+          {
+            "_id": "2026-06-09",
+            "count": 21
+          },
+          {
+            "_id": "2026-06-10",
+            "count": 20
+          }
+        ],
+        "dailyRequests": [
+          {
+            "_id": "2026-06-05",
+            "count": 1
+          },
+          {
+            "_id": "2026-06-06",
+            "count": 1
+          },
+          {
+            "_id": "2026-06-09",
+            "count": 1
+          }
+        ],
+        "dailyMeetings": [
+          {
+            "_id": "2026-06-05",
+            "count": 1
+          },
+          {
+            "_id": "2026-06-06",
+            "count": 1
+          },
+          {
+            "_id": "2026-06-07",
+            "count": 1
+          }
+        ]
+      },
+      "industryDistribution": [
+        {
+          "_id": "Digital Marketing",
+          "count": 20
+        },
+        {
+          "_id": "AI",
+          "count": 2
+        },
+        {
+          "_id": "SaaS",
+          "count": 2
+        },
+        {
+          "_id": "Software",
+          "count": 1
+        },
+        {
+          "_id": "Construction",
+          "count": 1
+        },
+        {
+          "_id": "Fintech",
+          "count": 1
+        },
+        {
+          "_id": "Supply Chain",
+          "count": 1
+        }
+      ],
+      "cityDistribution": [
+        {
+          "_id": "Bangalore",
+          "count": 5
+        },
+        {
+          "_id": "Kolkata",
+          "count": 3
+        },
+        {
+          "_id": "Mumbai",
+          "count": 2
+        },
+        {
+          "_id": "Gurgaon",
+          "count": 2
+        },
+        {
+          "_id": "Pune",
+          "count": 2
+        },
+        {
+          "_id": "Noida",
+          "count": 2
+        },
+        {
+          "_id": "Delhi",
+          "count": 2
+        },
+        {
+          "_id": "Banglore ",
+          "count": 1
+        }
+      ],
+      "signupTrend": [
+        {
+          "_id": "2026-05-22",
+          "count": 23
+        },
+        {
+          "_id": "2026-05-27",
+          "count": 1
+        },
+        {
+          "_id": "2026-06-02",
+          "count": 1
+        },
+        {
+          "_id": "2026-06-05",
+          "count": 1
+        },
+        {
+          "_id": "2026-06-09",
+          "count": 3
+        },
+        {
+          "_id": "2026-06-10",
+          "count": 1
+        }
+      ],
+      "funnel": {
+        "totalSignups": 30,
+        "profileComplete": 22,
+        "signupToProfileRate": 73,
+        "requestsSent": 3,
+        "requestsAccepted": 2,
+        "acceptanceRate": 67,
+        "meetingsScheduled": 3,
+        "meetingsCompleted": 0,
+        "meetingCompletionRate": 0
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/businesses",
+    "status": 200,
+    "ok": true,
+    "response": [
+      {
+        "_id": "4xnzOSTyHXGjYE5t9ZY5",
+        "id": "4xnzOSTyHXGjYE5t9ZY5",
+        "ownerId": "UOgQP8K70prOFyFnI67w",
+        "ownerName": "Naveen ",
+        "ownerDesignation": "CEO",
+        "companyPhone": "9875331665",
+        "companyName": "Naveen",
+        "industry": "",
+        "businessType": "",
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "offerings": [],
+        "needs": [],
+        "offeringGoal": "",
+        "intent": {
+          "currentGoal": "",
+          "budget": "",
+          "timeline": ""
+        },
+        "createdAt": "2026-06-10T08:26:00.233Z",
+        "updatedAt": "2026-06-10T08:26:00.233Z",
+        "location": {
+          "country": "India",
+          "pincode": "",
+          "address": "",
+          "operatesIn": "National",
+          "city": "Banglore ",
+          "state": "Karnataka "
+        },
+        "isProfileCompleted": true
+      },
+      {
+        "_id": "zKutxS7T94W91M0DDQEi",
+        "id": "zKutxS7T94W91M0DDQEi",
+        "ownerId": "WrfDx1XVivv4rPOX0wop",
+        "ownerName": "Prathish B",
+        "ownerDesignation": "CEO",
+        "companyPhone": "9886535262",
+        "companyName": "Prathish Pvt Ltd",
+        "industry": "Supply Chain",
+        "businessType": "3PL",
+        "strength": {
+          "teamSize": "21-50"
+        },
+        "createdAt": "2026-06-09T13:21:15.057Z",
+        "updatedAt": "2026-06-09T13:21:15.057Z",
+        "location": {
+          "country": "India",
+          "operatesIn": "National",
+          "pincode": "560032",
+          "address": "RT Nagar",
+          "city": "Bengaluru",
+          "state": "Karnataka"
+        },
+        "offeringGoal": "Software solutions",
+        "offerings": [
+          "SCM Software",
+          "Inventory Control",
+          "Supplier Audit"
+        ],
+        "needs": [
+          "Technology Partners",
+          "Logistics Firms",
+          "Import and Export"
+        ],
+        "intent": {
+          "timeline": "Less than 7 Days",
+          "currentGoal": "Seeking Technology Partners partners in Bengaluru.",
+          "budget": "2,00,000"
+        },
+        "isProfileCompleted": true,
+        "trust": {
+          "website": "prathishpvtltd.com",
+          "gst": "123456789123654",
+          "linkedin": ""
+        }
+      },
+      {
+        "_id": "TtIYLVMO0LnW3KKMy4q8",
+        "id": "TtIYLVMO0LnW3KKMy4q8",
+        "ownerId": "HmaL0MpYKqHg8h8Kiq3H",
+        "ownerName": "tyhfbv",
+        "ownerDesignation": "",
+        "companyPhone": "",
+        "companyName": "",
+        "industry": "Construction",
+        "businessType": "EPC Contractor",
+        "location": {
+          "country": "India",
+          "state": "",
+          "city": "",
+          "pincode": "",
+          "address": "",
+          "operatesIn": "National"
+        },
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "offerings": [],
+        "needs": [],
+        "offeringGoal": "",
+        "intent": {
+          "currentGoal": "",
+          "budget": "",
+          "timeline": ""
+        },
+        "createdAt": "2026-06-09T11:59:37.890Z",
+        "updatedAt": "2026-06-09T11:59:37.890Z",
+        "isProfileCompleted": true
+      },
+      {
+        "_id": "6z1FWaLbKCmL3fL8e4Pu",
+        "id": "6z1FWaLbKCmL3fL8e4Pu",
+        "ownerId": "t8dUkyiXKaWvtw3xYshR",
+        "ownerName": "Jsu",
+        "ownerDesignation": "",
+        "companyPhone": "",
+        "companyName": "",
+        "location": {
+          "country": "India",
+          "state": "",
+          "city": "",
+          "pincode": "",
+          "address": "",
+          "operatesIn": "National"
+        },
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "offerings": [],
+        "needs": [],
+        "offeringGoal": "",
+        "intent": {
+          "currentGoal": "",
+          "budget": "",
+          "timeline": ""
+        },
+        "createdAt": "2026-06-09T11:40:50.674Z",
+        "updatedAt": "2026-06-09T11:40:50.674Z",
+        "businessType": "",
+        "isProfileCompleted": false,
+        "industry": "AI"
+      },
+      {
+        "_id": "p24w0kd78iEb8IntY97X",
+        "id": "p24w0kd78iEb8IntY97X",
+        "ownerId": "UfS66zGxLfDB9qwrcgrV",
+        "ownerName": "jodi",
+        "ownerDesignation": "as",
+        "companyPhone": "8767890987",
+        "companyName": "joddi",
+        "industry": "",
+        "businessType": "",
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "offeringGoal": "",
+        "createdAt": "2026-06-05T10:24:09.835Z",
+        "updatedAt": "2026-06-05T10:24:09.835Z",
+        "location": {
+          "country": "India",
+          "pincode": "",
+          "address": "",
+          "operatesIn": "National",
+          "city": "mumbai",
+          "state": "maharstra"
+        },
+        "offerings": [
+          "Digital Solutions",
+          "Project Management"
+        ],
+        "needs": [
+          "digital marketing",
+          "seo",
+          "meta adds"
+        ],
+        "intent": {
+          "budget": "",
+          "timeline": "",
+          "currentGoal": "Seeking digital marketing partners in mumbai."
+        },
+        "isProfileCompleted": true
+      },
+      {
+        "_id": "tjtm4jmAXla7WEL5ie2x",
+        "id": "tjtm4jmAXla7WEL5ie2x",
+        "ownerId": "p0Mf72yvTstOi5VEbaPC",
+        "ownerName": "ss",
+        "ownerDesignation": "CEO",
+        "companyPhone": "0987890383",
+        "companyName": "de",
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "createdAt": "2026-06-02T13:25:05.874Z",
+        "updatedAt": "2026-06-02T13:25:05.874Z",
+        "location": {
+          "country": "India",
+          "operatesIn": "National",
+          "pincode": "DF",
+          "address": "ERG",
+          "city": "DF",
+          "state": "H"
+        },
+        "offeringGoal": "I ",
+        "intent": {
+          "budget": "",
+          "timeline": "",
+          "currentGoal": "Seeking digital marketing partners in DF."
+        },
+        "industry": "SaaS",
+        "businessType": "Startup",
+        "offerings": [
+          "Cloud Infrastructure",
+          "User Analytics"
+        ],
+        "needs": [
+          "digital marketing",
+          "seo",
+          "Content Marketing",
+          "Technical SEO",
+          "Backlink Building"
+        ],
+        "isProfileCompleted": true
+      },
+      {
+        "_id": "u7OIY2uzW2plZv73m4WP",
+        "id": "u7OIY2uzW2plZv73m4WP",
+        "companyName": "company name ",
+        "ownerDesignation": "manger",
+        "ownerId": "JSZWpRNpohbKlf5Gl2Wx",
+        "ownerName": "jay",
+        "updatedAt": "2026-05-27T16:17:42.410Z",
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "createdAt": "2026-05-27T16:17:42.410Z",
+        "offeringGoal": "i  am offering LLM training, i am providing LLM services .",
+        "offerings": [
+          "LLM Training",
+          "Computer Vision"
+        ],
+        "intent": {
+          "budget": "",
+          "timeline": "Less than 7 Days",
+          "currentGoal": "Seeking digtal marketrs partners in banglore."
+        },
+        "location": {
+          "country": "India",
+          "operatesIn": "National",
+          "city": "banglore",
+          "state": "karnataka",
+          "pincode": "400011",
+          "address": "sdj"
+        },
+        "companyPhone": "9567898765",
+        "needs": [
+          "Marketing"
+        ],
+        "isProfileCompleted": false,
+        "industry": "Fintech",
+        "businessType": "Payment Startup"
+      },
+      {
+        "_id": "OgJFIF2VXpGORFWPD0bf",
+        "id": "OgJFIF2VXpGORFWPD0bf",
+        "ownerId": "ok5cxfLJfuO2bcRomVAm",
+        "createdAt": "2026-05-22T11:06:09.806Z",
+        "updatedAt": "2026-05-22T11:06:09.806Z",
+        "ownerDesignation": "rkfjwr",
+        "industry": "AI",
+        "businessType": "Research Lab",
+        "companyPhone": "3456789034",
+        "companyName": "rgejkfdv",
+        "ownerName": "eo",
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "location": {
+          "country": "India",
+          "operatesIn": "National",
+          "pincode": "sdfwefedf",
+          "address": "ef",
+          "city": "fdsdd",
+          "state": "mubaifv"
+        },
+        "offeringGoal": "i an providing AI Strategy Consulting as a service",
+        "offerings": [
+          "AI Strategy Consulting"
+        ],
+        "needs": [
+          "digtital marketing",
+          "seo"
+        ],
+        "intent": {
+          "budget": "",
+          "currentGoal": "Seeking digtital marketing partners in fdsdd.",
+          "timeline": "Less than 7 Days"
+        },
+        "isProfileCompleted": true
+      },
+      {
+        "_id": "MVIbThKh45AdxlRy0zhT",
+        "id": "MVIbThKh45AdxlRy0zhT",
+        "ownerDesignation": "CTO",
+        "companyName": "epicminds ",
+        "createdAt": "2026-05-22T10:51:11.592Z",
+        "updatedAt": "2026-05-22T10:51:11.592Z",
+        "industry": "SaaS",
+        "companyPhone": "7894569874",
+        "businessType": "Scale-up",
+        "ownerId": "SOwwGdzCbyn3jIuruWpY",
+        "ownerName": "karuna",
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "location": {
+          "operatesIn": "National",
+          "country": "India",
+          "pincode": "500001",
+          "address": "524 2ed road",
+          "city": "bangalor",
+          "state": "karnataka"
+        },
+        "offeringGoal": "Actively seeking for giving services including web and app development",
+        "offerings": [
+          "API Integration",
+          "User Analytics",
+          "Enterprise Dashboard"
+        ],
+        "needs": [
+          "digital marketing"
+        ],
+        "intent": {
+          "timeline": "Within 14 Days",
+          "budget": "100000",
+          "currentGoal": "Seeking digital marketing partners in bangalor."
+        },
+        "isProfileCompleted": true
+      },
+      {
+        "_id": "0UZqYkaHSf67XYMHUsGA",
+        "id": "0UZqYkaHSf67XYMHUsGA",
+        "trust": {
+          "verificationStatus": "Business Verified",
+          "website": "https://www.growthhackersindia.com"
+        },
+        "location": {
+          "state": "Maharashtra",
+          "operatesIn": "National",
+          "country": "India",
+          "city": "Mumbai"
+        },
+        "intent": {
+          "priority": "High",
+          "currentGoal": "Seeking early-stage consumer apps and digital networks that need exponential user sign-ups with minimal ad budgets.",
+          "timeline": "Within 3 months"
+        },
+        "offerings": [
+          "Growth Hacking",
+          "User Acquisition",
+          "Viral Referral Systems",
+          "Viral Loops"
+        ],
+        "needs": [
+          "Consumer Apps",
+          "Social Networks",
+          "Fullstack Developers"
+        ],
+        "isProfileCompleted": true,
+        "industry": "Digital Marketing",
+        "companyName": "GrowthHackers India",
+        "ownerId": "oIGYSKSrFsJyuK9PFhN3",
+        "profileScore": 90,
+        "offeringGoal": "To launch viral referral programs and hooks that drive organic member-get-member growth of 15% week-over-week.",
+        "ownerName": "Pranav Shah"
+      },
+      {
+        "_id": "1t2IrIgHTC02abjz1SkD",
+        "id": "1t2IrIgHTC02abjz1SkD",
+        "offerings": [
+          "YouTube Strategy",
+          "Video Editing",
+          "Explainer Videos",
+          "Motion Graphics"
+        ],
+        "profileScore": 90,
+        "trust": {
+          "website": "https://www.videopulse.com",
+          "verificationStatus": "Business Verified"
+        },
+        "offeringGoal": "To grow client YouTube channels to 10k+ subscribers and boost organic video conversions.",
+        "ownerId": "iWGh1rOhNjd6iOa3YZUh",
+        "ownerName": "Sneha Iyer",
+        "isProfileCompleted": true,
+        "intent": {
+          "timeline": "Within 3 months",
+          "priority": "High",
+          "currentGoal": "Seeking SaaS companies and digital course creators that need highly polished, educational video content."
+        },
+        "needs": [
+          "SaaS Brands",
+          "Course Creators",
+          "Scriptwriters"
+        ],
+        "companyName": "VideoPulse",
+        "industry": "Digital Marketing",
+        "location": {
+          "city": "Bangalore",
+          "country": "India",
+          "operatesIn": "National",
+          "state": "Karnataka"
+        }
+      },
+      {
+        "_id": "3ekU1Zk888yL0aAHl1uH",
+        "id": "3ekU1Zk888yL0aAHl1uH",
+        "profileScore": 90,
+        "needs": [
+          "Fintech Startups",
+          "Manufacturing Exporters",
+          "SEO Writers"
+        ],
+        "intent": {
+          "timeline": "Within 3 months",
+          "priority": "High",
+          "currentGoal": "Looking for manufacturing exporters and fintech platforms looking to drive organic traffic and inbound leads."
+        },
+        "location": {
+          "operatesIn": "National",
+          "country": "India",
+          "state": "Maharashtra",
+          "city": "Mumbai"
+        },
+        "ownerName": "Aisha Sen",
+        "industry": "Digital Marketing",
+        "isProfileCompleted": true,
+        "companyName": "SEO Catalyst",
+        "offerings": [
+          "SEO Optimization",
+          "Content Marketing",
+          "Technical SEO",
+          "Backlink Building"
+        ],
+        "ownerId": "AQo4RHYcLqkdrOtXe0Y3",
+        "trust": {
+          "website": "https://www.seocatalyst.com",
+          "verificationStatus": "Business Verified"
+        },
+        "offeringGoal": "To rank clients' high-value commercial keywords on the first page of Google within 6 months."
+      },
+      {
+        "_id": "AEEHuFmBUrskhDqn4qFB",
+        "id": "AEEHuFmBUrskhDqn4qFB",
+        "offeringGoal": "To build precise prospect lists of 1000+ key decision-makers and maintain a warm B2B cold email response rate above 15%.",
+        "profileScore": 90,
+        "offerings": [
+          "SDR Outsourcing",
+          "Prospect Lists",
+          "LinkedIn Prospecting",
+          "Sequence Writing"
+        ],
+        "isProfileCompleted": true,
+        "industry": "Digital Marketing",
+        "trust": {
+          "website": "https://www.linkedinleads.com",
+          "verificationStatus": "Business Verified"
+        },
+        "location": {
+          "country": "India",
+          "state": "NCR",
+          "operatesIn": "National",
+          "city": "Gurgaon"
+        },
+        "ownerId": "Ns9EgMIXhZVo66lH4wZP",
+        "companyName": "LinkedInLeads",
+        "intent": {
+          "priority": "High",
+          "currentGoal": "Seeking B2B SaaS start-ups and IT outsourcing agencies lacking dedicated in-house sales development representatives (SDRs).",
+          "timeline": "Within 3 months"
+        },
+        "ownerName": "Kirti Bansal",
+        "needs": [
+          "SaaS Founders",
+          "IT Outsourcing Agencies",
+          "List Builders"
+        ]
+      },
+      {
+        "_id": "EWdmhzymtGDfLgxr9jLL",
+        "id": "EWdmhzymtGDfLgxr9jLL",
+        "trust": {
+          "verificationStatus": "Business Verified",
+          "website": "https://taplyzer.com"
+        },
+        "profileScore": 95,
+        "ownerName": "Taplyzer Admin",
+        "needs": [
+          "Digital Marketing",
+          "Enterprise Clients",
+          "Strategic Partners"
+        ],
+        "offerings": [
+          "Next.js App Development",
+          "Matchmaking AI Engine",
+          "B2B SaaS Portal"
+        ],
+        "offeringGoal": "To provide the ultimate B2B matching ecosystem for agencies and software builders.",
+        "industry": "Software",
+        "companyName": "Taplyzer Corp",
+        "ownerId": "660a1b2c3d4e5f6a7b8c9d0e",
+        "strength": {
+          "teamSize": "1-5"
+        },
+        "companyPhone": "",
+        "ownerDesignation": "h",
+        "location": {
+          "country": "India",
+          "state": "Karnataka",
+          "operatesIn": "National",
+          "city": "Bangalore",
+          "pincode": "",
+          "address": ""
+        },
+        "businessType": "",
+        "intent": {
+          "priority": "High",
+          "timeline": "Within 1 month",
+          "currentGoal": "Looking for high-caliber Digital Marketing agencies for strategic collaboration and client referrals.",
+          "budget": ""
+        },
+        "isProfileCompleted": true
+      },
+      {
+        "_id": "EgmfJMn1vZnkOhuNZ26O",
+        "id": "EgmfJMn1vZnkOhuNZ26O",
+        "industry": "Digital Marketing",
+        "trust": {
+          "website": "https://www.adoptimize.com",
+          "verificationStatus": "Business Verified"
+        },
+        "needs": [
+          "High-traffic E-commerce Sites",
+          "SaaS Landing Pages",
+          "Web Designers"
+        ],
+        "ownerName": "Tanmay Rao",
+        "intent": {
+          "currentGoal": "Seeking high-traffic e-commerce websites and lead generation pages suffering from low sign-up or checkout conversion rates.",
+          "timeline": "Within 3 months",
+          "priority": "High"
+        },
+        "offerings": [
+          "CRO",
+          "User Experience Testing",
+          "Landing Page Copywriting",
+          "A/B Testing"
+        ],
+        "location": {
+          "operatesIn": "National",
+          "state": "Other",
+          "city": "Ahmedabad",
+          "country": "India"
+        },
+        "companyName": "AdOptimize",
+        "offeringGoal": "To increase website-wide conversion rates by at least 1.5x within 90 days via systematic multivariate A/B testing.",
+        "profileScore": 90,
+        "isProfileCompleted": true,
+        "ownerId": "jlHEt3WR7VXH6AGfyXN5"
+      },
+      {
+        "_id": "FyYK4YwQ8s2g9sBMzFW6",
+        "id": "FyYK4YwQ8s2g9sBMzFW6",
+        "isProfileCompleted": true,
+        "needs": [
+          "SaaS Clients",
+          "E-commerce Brands",
+          "Copywriters"
+        ],
+        "ownerName": "Rohan Mehta",
+        "offeringGoal": "To scale clients' ad-driven monthly recurring revenue by at least 25% through performance ad management.",
+        "industry": "Digital Marketing",
+        "companyName": "ScaleUp Ads",
+        "trust": {
+          "website": "https://www.scaleupads.com",
+          "verificationStatus": "Business Verified"
+        },
+        "location": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bangalore",
+          "operatesIn": "National"
+        },
+        "ownerId": "XbqCqG9h0Qk5obxRquMv",
+        "profileScore": 90,
+        "offerings": [
+          "Meta Ads",
+          "Google Ads",
+          "PPC Management",
+          "Landing Page Design",
+          "CRO"
+        ],
+        "intent": {
+          "currentGoal": "Seeking SaaS and e-commerce companies struggling to scale their ad campaigns or achieve positive ROAS.",
+          "priority": "High",
+          "timeline": "Within 3 months"
+        }
+      },
+      {
+        "_id": "GJCy6x2qg4wvEVUebAsm",
+        "id": "GJCy6x2qg4wvEVUebAsm",
+        "profileScore": 90,
+        "trust": {
+          "website": "https://www.funnelarchitects.com",
+          "verificationStatus": "Business Verified"
+        },
+        "ownerId": "WnAXGvDOvKzH1D3AhuND",
+        "ownerName": "Meera Deshmukh",
+        "intent": {
+          "timeline": "Within 3 months",
+          "currentGoal": "Seeking coaches, consultants, and knowledge commerce platforms needing high-converting automated sales pipelines.",
+          "priority": "High"
+        },
+        "needs": [
+          "Coaches & Consultants",
+          "Infoproduct Creators",
+          "Activecampaign Experts"
+        ],
+        "location": {
+          "country": "India",
+          "city": "Pune",
+          "operatesIn": "National",
+          "state": "Maharashtra"
+        },
+        "isProfileCompleted": true,
+        "offerings": [
+          "Sales Funnel Strategy",
+          "Webinar Setup",
+          "Lead Magnets",
+          "Launch Consulting"
+        ],
+        "industry": "Digital Marketing",
+        "companyName": "FunnelArchitects",
+        "offeringGoal": "To deploy fully integrated webinar and landing page funnels that convert cold traffic into paid clients on autopilot."
+      },
+      {
+        "_id": "P21F3Lu1RZkt12fQqgIu",
+        "id": "P21F3Lu1RZkt12fQqgIu",
+        "location": {
+          "city": "Noida",
+          "operatesIn": "National",
+          "country": "India",
+          "state": "NCR"
+        },
+        "needs": [
+          "Marketing Agencies",
+          "In-house Marketing Teams",
+          "Python Programmers"
+        ],
+        "offerings": [
+          "AI Copywriting",
+          "Content Personalization",
+          "GPT Integrations",
+          "Dynamic Templates"
+        ],
+        "industry": "Digital Marketing",
+        "intent": {
+          "timeline": "Within 3 months",
+          "priority": "High",
+          "currentGoal": "Seeking marketing departments and content agencies wanting to scale their operations using customized AI assets."
+        },
+        "ownerId": "nJoS8uuJp3HYvVWspcna",
+        "ownerName": "Siddharth Roy",
+        "profileScore": 90,
+        "isProfileCompleted": true,
+        "offeringGoal": "To double content output while cutting production costs by 50% via enterprise-tailored AI workflow training.",
+        "trust": {
+          "website": "https://www.martechai.com",
+          "verificationStatus": "Business Verified"
+        },
+        "companyName": "MarTech AI"
+      },
+      {
+        "_id": "PNX4vU5ibeakqDSfjDfo",
+        "id": "PNX4vU5ibeakqDSfjDfo",
+        "trust": {
+          "website": "https://www.viralvibestudios.com",
+          "verificationStatus": "Business Verified"
+        },
+        "intent": {
+          "priority": "High",
+          "timeline": "Within 3 months",
+          "currentGoal": "Seeking D2C fashion, lifestyle, and consumer tech brands wanting to go viral and build social proof."
+        },
+        "offeringGoal": "To produce 15 high-engaging ad creatives per month that lower CAC by 40% via organic social loops.",
+        "industry": "Digital Marketing",
+        "profileScore": 90,
+        "location": {
+          "city": "Delhi",
+          "country": "India",
+          "state": "NCR",
+          "operatesIn": "National"
+        },
+        "ownerId": "VQNARjoNAXp42GQYdeyu",
+        "needs": [
+          "D2C Brands",
+          "Creative Designers",
+          "Video Editors"
+        ],
+        "ownerName": "Kabir Malhotra",
+        "isProfileCompleted": true,
+        "offerings": [
+          "Influencer Marketing",
+          "Instagram Reels",
+          "Short-form Video",
+          "Social Strategy"
+        ],
+        "companyName": "ViralVibe Studios"
+      },
+      {
+        "_id": "RheMbsZJ0GjJS3lzPRGQ",
+        "id": "RheMbsZJ0GjJS3lzPRGQ",
+        "offerings": [
+          "B2B Lead Generation",
+          "LinkedIn Outreach",
+          "Email Campaigns",
+          "Sales Development"
+        ],
+        "isProfileCompleted": true,
+        "trust": {
+          "verificationStatus": "Business Verified",
+          "website": "https://www.leadforge.com"
+        },
+        "intent": {
+          "priority": "High",
+          "currentGoal": "Seeking agency owners and high-ticket B2B service firms looking for a consistent pipeline of qualified sales calls.",
+          "timeline": "Within 3 months"
+        },
+        "location": {
+          "country": "India",
+          "state": "NCR",
+          "city": "Gurgaon",
+          "operatesIn": "National"
+        },
+        "ownerId": "G06oOc3ByRyWNW1YcD41",
+        "industry": "Digital Marketing",
+        "needs": [
+          "Agency Owners",
+          "Consultants",
+          "Sales Closers"
+        ],
+        "offeringGoal": "To deliver 10-15 highly qualified, double-opt-in sales appointments per month via personalized multi-channel playbooks.",
+        "profileScore": 90,
+        "companyName": "LeadForge",
+        "ownerName": "Vikram Goel"
+      },
+      {
+        "_id": "VV3842Oi9ixLD968ZXKx",
+        "id": "VV3842Oi9ixLD968ZXKx",
+        "companyName": "SocialSphere",
+        "ownerName": "Priya Sharma",
+        "ownerId": "yfVG9aOA4gs2AaOdRr2t",
+        "location": {
+          "state": "Other",
+          "operatesIn": "National",
+          "country": "India",
+          "city": "Kolkata"
+        },
+        "isProfileCompleted": true,
+        "trust": {
+          "verificationStatus": "Business Verified",
+          "website": "https://www.socialsphere.com"
+        },
+        "needs": [
+          "VC Partners",
+          "B2B Executives",
+          "Graphic Designers"
+        ],
+        "industry": "Digital Marketing",
+        "profileScore": 90,
+        "offerings": [
+          "Social Media Management",
+          "Personal Branding",
+          "Twitter Growth",
+          "Community Building"
+        ],
+        "offeringGoal": "To organically scale executive profiles to 50k+ followers, turning social reach into organic business inquiries.",
+        "intent": {
+          "currentGoal": "Seeking venture capitalists, executives, and agency founders who want to build highly influential personal brands online.",
+          "timeline": "Within 3 months",
+          "priority": "High"
+        }
+      },
+      {
+        "_id": "ZSiUzMQaI0QvnMrwRV91",
+        "id": "ZSiUzMQaI0QvnMrwRV91",
+        "trust": {
+          "verificationStatus": "Business Verified",
+          "website": "https://www.exportersseo.com"
+        },
+        "intent": {
+          "priority": "High",
+          "currentGoal": "Seeking manufacturing exporters, handicraft exporters, and global SaaS companies targeting audiences in multiple languages.",
+          "timeline": "Within 3 months"
+        },
+        "needs": [
+          "Global SaaS Brands",
+          "Manufacturing Exporters",
+          "Native Translators"
+        ],
+        "location": {
+          "city": "Delhi",
+          "country": "India",
+          "state": "NCR",
+          "operatesIn": "National"
+        },
+        "ownerName": "Varun Grover",
+        "profileScore": 90,
+        "offeringGoal": "To build localized search visibility in Germany, France, and Spain, driving inbound global partner inquiries.",
+        "companyName": "ExportersSEO",
+        "ownerId": "FeMATJ5wFnaddLlokXTc",
+        "isProfileCompleted": true,
+        "offerings": [
+          "International SEO",
+          "Multilingual Search",
+          "Keyword Mapping",
+          "Localization"
+        ],
+        "industry": "Digital Marketing"
+      },
+      {
+        "_id": "c0rcPTyBkWXHoWwkfq3e",
+        "id": "c0rcPTyBkWXHoWwkfq3e",
+        "offerings": [
+          "Klaviyo Automation",
+          "Shopify Integrations",
+          "SMS Marketing",
+          "Push Notifications"
+        ],
+        "isProfileCompleted": true,
+        "trust": {
+          "website": "https://www.klaviyoflows.com",
+          "verificationStatus": "Business Verified"
+        },
+        "location": {
+          "city": "Bangalore",
+          "operatesIn": "National",
+          "country": "India",
+          "state": "Karnataka"
+        },
+        "industry": "Digital Marketing",
+        "companyName": "KlaviyoFlows",
+        "offeringGoal": "To recapture lost checkouts and drive repeat purchases to increase baseline sales by 20% within 45 days.",
+        "needs": [
+          "D2C Brands",
+          "Shopify Store Owners",
+          "Copywriters"
+        ],
+        "intent": {
+          "currentGoal": "Seeking D2C e-commerce brands with strong store traffic that aren't fully leveraging their existing email list for sales.",
+          "timeline": "Within 3 months",
+          "priority": "High"
+        },
+        "ownerId": "yDhb3CThhcoClu6X1LQg",
+        "ownerName": "Ishita Paul",
+        "profileScore": 90
+      },
+      {
+        "_id": "cDGObBUx8L4ZQ3a9uK5z",
+        "id": "cDGObBUx8L4ZQ3a9uK5z",
+        "ownerId": "P8CFuSkSvKYFeF09cADy",
+        "intent": {
+          "timeline": "Within 3 months",
+          "currentGoal": "Looking for professional services, consultancies, or software enterprise companies looking to establish authority.",
+          "priority": "High"
+        },
+        "industry": "Digital Marketing",
+        "trust": {
+          "website": "https://www.contentcraft.com",
+          "verificationStatus": "Business Verified"
+        },
+        "offerings": [
+          "Content Strategy",
+          "Whitepapers",
+          "Case Studies",
+          "Corporate Blogging"
+        ],
+        "offeringGoal": "To build comprehensive white-hat content funnels that attract and nurture enterprise prospects.",
+        "isProfileCompleted": true,
+        "location": {
+          "operatesIn": "National",
+          "country": "India",
+          "city": "Hyderabad",
+          "state": "Other"
+        },
+        "profileScore": 90,
+        "needs": [
+          "Enterprise Software Firms",
+          "MarTech Clients",
+          "Subject Matter Experts"
+        ],
+        "companyName": "ContentCraft",
+        "ownerName": "Ananya Nair"
+      },
+      {
+        "_id": "dyGjIW4x47QZ6geeToiJ",
+        "id": "dyGjIW4x47QZ6geeToiJ",
+        "isProfileCompleted": true,
+        "offeringGoal": "To secure tier-1 media placements (YourStory, Inc42, Economic Times) that amplify company authority and valuations.",
+        "needs": [
+          "Tech Founders",
+          "SaaS Startups",
+          "Journalist Contacts"
+        ],
+        "ownerName": "Neha Saxena",
+        "trust": {
+          "verificationStatus": "Business Verified",
+          "website": "https://www.brandstoryagency.com"
+        },
+        "offerings": [
+          "Public Relations",
+          "Digital PR",
+          "Media Outreach",
+          "Brand Strategy"
+        ],
+        "companyName": "BrandStory Agency",
+        "ownerId": "8iOZsgYGOGwfa5IMriZ4",
+        "intent": {
+          "timeline": "Within 3 months",
+          "currentGoal": "Seeking tech founders and established companies needing high-impact media placements, feature articles, and interview slots.",
+          "priority": "High"
+        },
+        "location": {
+          "state": "Other",
+          "country": "India",
+          "city": "Kolkata",
+          "operatesIn": "National"
+        },
+        "industry": "Digital Marketing",
+        "profileScore": 90
+      },
+      {
+        "_id": "ebMLFYxWdsADFwhyG24U",
+        "id": "ebMLFYxWdsADFwhyG24U",
+        "trust": {
+          "website": "https://www.searchengineers.com",
+          "verificationStatus": "Business Verified"
+        },
+        "profileScore": 90,
+        "isProfileCompleted": true,
+        "location": {
+          "operatesIn": "National",
+          "state": "Karnataka",
+          "country": "India",
+          "city": "Bangalore"
+        },
+        "industry": "Digital Marketing",
+        "offerings": [
+          "Technical SEO",
+          "Site Speed Optimization",
+          "Schema Markup",
+          "Website Migration"
+        ],
+        "intent": {
+          "priority": "High",
+          "timeline": "Within 3 months",
+          "currentGoal": "Seeking large-scale e-commerce stores or media publishers experiencing a sudden drop in Google organic search traffic."
+        },
+        "needs": [
+          "E-commerce Giants",
+          "Online Media Publishers",
+          "Next.js Developers"
+        ],
+        "ownerId": "Mpf1olJX9l2AwU0WSERA",
+        "ownerName": "Rajat Varma",
+        "offeringGoal": "To fix indexation errors and boost site speed load times under 1.5 seconds to comply with Core Web Vitals.",
+        "companyName": "SearchEngineers"
+      },
+      {
+        "_id": "gU3yeEeocUd4kVE5Ggii",
+        "id": "gU3yeEeocUd4kVE5Ggii",
+        "ownerName": "Arjun Kapoor",
+        "offerings": [
+          "Marketing Automation",
+          "Hubspot Consulting",
+          "CRM Integration",
+          "Analytics Dashboards"
+        ],
+        "industry": "Digital Marketing",
+        "companyName": "MarTech Stackers",
+        "location": {
+          "operatesIn": "National",
+          "country": "India",
+          "state": "Other",
+          "city": "Chennai"
+        },
+        "trust": {
+          "website": "https://www.martechstackers.com",
+          "verificationStatus": "Business Verified"
+        },
+        "needs": [
+          "Traditional Businesses",
+          "Mid-market Tech Firms",
+          "Web Developers"
+        ],
+        "isProfileCompleted": true,
+        "offeringGoal": "To eliminate attribution errors and save up to 20 hours/week through seamless automation and analytics flows.",
+        "profileScore": 90,
+        "intent": {
+          "timeline": "Within 3 months",
+          "priority": "High",
+          "currentGoal": "Looking for traditional businesses transitioning online or tech companies with broken user tracking and attribution."
+        },
+        "ownerId": "rd3Asf6xkUqWsMSTpJvA"
+      },
+      {
+        "_id": "qH08CMVlXKRBMkIIEVDJ",
+        "id": "qH08CMVlXKRBMkIIEVDJ",
+        "trust": {
+          "website": "https://www.roiminds.com",
+          "verificationStatus": "Business Verified"
+        },
+        "ownerName": "Aditya Joshi",
+        "needs": [
+          "Funded Startups",
+          "Growth Stage Brands",
+          "Video Animators"
+        ],
+        "location": {
+          "operatesIn": "National",
+          "city": "Noida",
+          "country": "India",
+          "state": "NCR"
+        },
+        "isProfileCompleted": true,
+        "intent": {
+          "timeline": "Within 3 months",
+          "currentGoal": "Looking for funded startups and growth-stage companies looking to deploy large-scale digital advertising budgets.",
+          "priority": "High"
+        },
+        "profileScore": 90,
+        "ownerId": "mKwjGFsSZ3Rk9inAbBLI",
+        "industry": "Digital Marketing",
+        "offerings": [
+          "Performance Marketing",
+          "Programmatic Ads",
+          "YouTube Ads",
+          "Media Buying"
+        ],
+        "companyName": "ROIMinds",
+        "offeringGoal": "To optimize media budgets of over 5L/month to maintain customer acquisition costs within target ranges."
+      },
+      {
+        "_id": "t0Gr4qHESI2R23kW5uu2",
+        "id": "t0Gr4qHESI2R23kW5uu2",
+        "offerings": [
+          "Email Automation",
+          "Klaviyo Setup",
+          "Copywriting",
+          "Customer Retention"
+        ],
+        "location": {
+          "operatesIn": "National",
+          "country": "India",
+          "state": "Maharashtra",
+          "city": "Pune"
+        },
+        "industry": "Digital Marketing",
+        "intent": {
+          "currentGoal": "Seeking e-commerce and Shopify store owners who want to boost their repeat purchase rate and email-attributed revenue.",
+          "timeline": "Within 3 months",
+          "priority": "High"
+        },
+        "companyName": "InboxMagic",
+        "ownerId": "sMjYln3k4wLaVSMSuQsR",
+        "needs": [
+          "Shopify Store Owners",
+          "Graphic Designers",
+          "Copywriters"
+        ],
+        "offeringGoal": "To drive 30%+ of total store revenue purely through automated lifecycle flows and highly engaging newsletter sends.",
+        "isProfileCompleted": true,
+        "profileScore": 90,
+        "ownerName": "Zoya Rahman",
+        "trust": {
+          "website": "https://www.inboxmagic.com",
+          "verificationStatus": "Business Verified"
+        }
+      },
+      {
+        "_id": "tW4j4YEX7WReM5geSeGR",
+        "id": "tW4j4YEX7WReM5geSeGR",
+        "offeringGoal": "To provide a fresh batch of 30+ highly-stylized, scroll-stopping ad creatives every week to scale performance campaigns.",
+        "needs": [
+          "Media Buyers",
+          "Performance Agencies",
+          "Visual Illustrators"
+        ],
+        "industry": "Digital Marketing",
+        "intent": {
+          "priority": "High",
+          "timeline": "Within 3 months",
+          "currentGoal": "Seeking media buyers and digital agencies running high-budget paid social campaigns that are suffering from ad fatigue."
+        },
+        "ownerName": "Riya Dutta",
+        "ownerId": "Y9gdq4QG3FL8OEY4Tyxj",
+        "trust": {
+          "website": "https://www.creativesfirst.com",
+          "verificationStatus": "Business Verified"
+        },
+        "location": {
+          "state": "Other",
+          "city": "Kolkata",
+          "operatesIn": "National",
+          "country": "India"
+        },
+        "profileScore": 90,
+        "companyName": "CreativesFirst",
+        "isProfileCompleted": true,
+        "offerings": [
+          "Ad Creative Design",
+          "Video Scripts",
+          "Asset Banner Packs",
+          "Visual Layouts"
+        ]
+      }
+    ]
+  },
+  {
+    "endpoint": "/api/admin/content",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "items": [],
+      "stats": {
+        "banners": 0,
+        "announcements": 0,
+        "featured": 0
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/explore-monitoring",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "totalSearches": 0,
+      "topQueries": [],
+      "zeroResultQueries": [],
+      "industryBreakdown": [],
+      "dailyVolume": []
+    }
+  },
+  {
+    "endpoint": "/api/admin/flags",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "flags": [],
+      "total": 0,
+      "page": 1,
+      "pages": 0,
+      "stats": {
+        "open": 0,
+        "underReview": 0,
+        "resolved": 0,
+        "dismissed": 0
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/gemini-usage",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "summary": {
+        "totalCalls": 0,
+        "totalInputTokens": 0,
+        "totalOutputTokens": 0,
+        "totalTokens": 0,
+        "totalCostUSD": 0,
+        "periodDays": 30
+      },
+      "today": {
+        "calls": 0,
+        "tokens": 0,
+        "costUSD": 0
+      },
+      "byFeature": {},
+      "byModel": {},
+      "dailyBreakdown": [],
+      "recentLogs": [],
+      "freeTierInfo": {
+        "model": "gemini-2.5-flash",
+        "freeRequestsPerMinute": 10,
+        "freeRequestsPerDay": 1500,
+        "note": "Free tier limits are rate-based, not token-based. Upgrade to paid for higher throughput.",
+        "dashboardUrl": "https://aistudio.google.com/app/apikey"
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/match-testing/history",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "history": []
+    }
+  },
+  {
+    "endpoint": "/api/admin/match-testing/save",
+    "status": 405,
+    "ok": false,
+    "response": ""
+  },
+  {
+    "endpoint": "/api/admin/match-testing/users",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "users": [
+        {
+          "_id": "UOgQP8K70prOFyFnI67w",
+          "name": "Naveen ",
+          "email": "naveen@gmail.com",
+          "business": {
+            "companyName": "Naveen",
+            "industry": ""
+          }
+        },
+        {
+          "_id": "WrfDx1XVivv4rPOX0wop",
+          "name": "Prathish B",
+          "email": "prathishboopathi@gmail.com",
+          "business": {
+            "companyName": "Prathish Pvt Ltd",
+            "industry": "Supply Chain"
+          }
+        },
+        {
+          "_id": "HmaL0MpYKqHg8h8Kiq3H",
+          "name": "tyhfbv",
+          "email": "kytuft@4rtik.com",
+          "business": {
+            "companyName": "",
+            "industry": "Construction"
+          }
+        },
+        {
+          "_id": "t8dUkyiXKaWvtw3xYshR",
+          "name": "Jsu",
+          "email": "yjesj@gmail.com",
+          "business": {
+            "companyName": "",
+            "industry": "AI"
+          }
+        },
+        {
+          "_id": "UfS66zGxLfDB9qwrcgrV",
+          "name": "jodi",
+          "email": "joddi@gmail.com",
+          "business": {
+            "companyName": "joddi",
+            "industry": ""
+          }
+        },
+        {
+          "_id": "p0Mf72yvTstOi5VEbaPC",
+          "name": "ss",
+          "email": "john@ngo.com",
+          "business": {
+            "companyName": "de",
+            "industry": "SaaS"
+          }
+        },
+        {
+          "_id": "JSZWpRNpohbKlf5Gl2Wx",
+          "name": "jay",
+          "email": "jayq@gmail.com",
+          "business": {
+            "companyName": "company name ",
+            "industry": "Fintech"
+          }
+        },
+        {
+          "_id": "ok5cxfLJfuO2bcRomVAm",
+          "name": "eo",
+          "email": "karuna@gone.com",
+          "business": {
+            "companyName": "rgejkfdv",
+            "industry": "AI"
+          }
+        },
+        {
+          "_id": "SOwwGdzCbyn3jIuruWpY",
+          "name": "karuna",
+          "email": "karunakar@gmail.com",
+          "business": {
+            "companyName": "epicminds ",
+            "industry": "SaaS"
+          }
+        },
+        {
+          "_id": "yDhb3CThhcoClu6X1LQg",
+          "name": "Ishita Paul",
+          "email": "ishitapaul@example.com",
+          "business": {
+            "companyName": "KlaviyoFlows",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "FeMATJ5wFnaddLlokXTc",
+          "name": "Varun Grover",
+          "email": "varungrover@example.com",
+          "business": {
+            "companyName": "ExportersSEO",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "Y9gdq4QG3FL8OEY4Tyxj",
+          "name": "Riya Dutta",
+          "email": "riyadutta@example.com",
+          "business": {
+            "companyName": "CreativesFirst",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "oIGYSKSrFsJyuK9PFhN3",
+          "name": "Pranav Shah",
+          "email": "pranavshah@example.com",
+          "business": {
+            "companyName": "GrowthHackers India",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "Ns9EgMIXhZVo66lH4wZP",
+          "name": "Kirti Bansal",
+          "email": "kirtibansal@example.com",
+          "business": {
+            "companyName": "LinkedInLeads",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "nJoS8uuJp3HYvVWspcna",
+          "name": "Siddharth Roy",
+          "email": "siddharthroy@example.com",
+          "business": {
+            "companyName": "MarTech AI",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "WnAXGvDOvKzH1D3AhuND",
+          "name": "Meera Deshmukh",
+          "email": "meeradeshmukh@example.com",
+          "business": {
+            "companyName": "FunnelArchitects",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "Mpf1olJX9l2AwU0WSERA",
+          "name": "Rajat Varma",
+          "email": "rajatvarma@example.com",
+          "business": {
+            "companyName": "SearchEngineers",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "yfVG9aOA4gs2AaOdRr2t",
+          "name": "Priya Sharma",
+          "email": "priyasharma@example.com",
+          "business": {
+            "companyName": "SocialSphere",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "jlHEt3WR7VXH6AGfyXN5",
+          "name": "Tanmay Rao",
+          "email": "tanmayrao@example.com",
+          "business": {
+            "companyName": "AdOptimize",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "iWGh1rOhNjd6iOa3YZUh",
+          "name": "Sneha Iyer",
+          "email": "snehaiyer@example.com",
+          "business": {
+            "companyName": "VideoPulse",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "rd3Asf6xkUqWsMSTpJvA",
+          "name": "Arjun Kapoor",
+          "email": "arjunkapoor@example.com",
+          "business": {
+            "companyName": "MarTech Stackers",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "8iOZsgYGOGwfa5IMriZ4",
+          "name": "Neha Saxena",
+          "email": "nehasaxena@example.com",
+          "business": {
+            "companyName": "BrandStory Agency",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "mKwjGFsSZ3Rk9inAbBLI",
+          "name": "Aditya Joshi",
+          "email": "adityajoshi@example.com",
+          "business": {
+            "companyName": "ROIMinds",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "sMjYln3k4wLaVSMSuQsR",
+          "name": "Zoya Rahman",
+          "email": "zoyarahman@example.com",
+          "business": {
+            "companyName": "InboxMagic",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "G06oOc3ByRyWNW1YcD41",
+          "name": "Vikram Goel",
+          "email": "vikramgoel@example.com",
+          "business": {
+            "companyName": "LeadForge",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "P8CFuSkSvKYFeF09cADy",
+          "name": "Ananya Nair",
+          "email": "ananyanair@example.com",
+          "business": {
+            "companyName": "ContentCraft",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "VQNARjoNAXp42GQYdeyu",
+          "name": "Kabir Malhotra",
+          "email": "kabirmalhotra@example.com",
+          "business": {
+            "companyName": "ViralVibe Studios",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "AQo4RHYcLqkdrOtXe0Y3",
+          "name": "Aisha Sen",
+          "email": "aishasen@example.com",
+          "business": {
+            "companyName": "SEO Catalyst",
+            "industry": "Digital Marketing"
+          }
+        },
+        {
+          "_id": "XbqCqG9h0Qk5obxRquMv",
+          "name": "Rohan Mehta",
+          "email": "rohanmehta@example.com",
+          "business": {
+            "companyName": "ScaleUp Ads",
+            "industry": "Digital Marketing"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/admin/matches",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "matches": [
+        {
+          "_id": "9COfsbNrEXgtARKnRjYF",
+          "id": "9COfsbNrEXgtARKnRjYF",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "WnAXGvDOvKzH1D3AhuND",
+            "id": "WnAXGvDOvKzH1D3AhuND",
+            "name": "Meera Deshmukh",
+            "email": "meeradeshmukh@example.com"
+          },
+          "candidateName": "Meera Deshmukh",
+          "companyName": "FunnelArchitects",
+          "industry": "Digital Marketing",
+          "location": "Pune, Maharashtra",
+          "offerings": [
+            "Sales Funnel Strategy",
+            "Webinar Setup",
+            "Lead Magnets",
+            "Launch Consulting"
+          ],
+          "needs": [
+            "Coaches & Consultants",
+            "Infoproduct Creators",
+            "Activecampaign Experts"
+          ],
+          "goal": "Seeking coaches, consultants, and knowledge commerce platforms needing high-converting automated sales pipelines.",
+          "offeringGoal": "To deploy fully integrated webinar and landing page funnels that convert cold traffic into paid clients on autopilot.",
+          "verified": true,
+          "score": 22,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 0,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 15,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:35.670Z",
+          "updatedAt": "2026-06-10T07:06:35.670Z"
+        },
+        {
+          "_id": "iuWEBacJ6PfYg4Sk8gN8",
+          "id": "iuWEBacJ6PfYg4Sk8gN8",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "VQNARjoNAXp42GQYdeyu",
+            "id": "VQNARjoNAXp42GQYdeyu",
+            "name": "Kabir Malhotra",
+            "email": "kabirmalhotra@example.com"
+          },
+          "candidateName": "Kabir Malhotra",
+          "companyName": "ViralVibe Studios",
+          "industry": "Digital Marketing",
+          "location": "Delhi, NCR",
+          "offerings": [
+            "Influencer Marketing",
+            "Instagram Reels",
+            "Short-form Video",
+            "Social Strategy"
+          ],
+          "needs": [
+            "D2C Brands",
+            "Creative Designers",
+            "Video Editors"
+          ],
+          "goal": "Seeking D2C fashion, lifestyle, and consumer tech brands wanting to go viral and build social proof.",
+          "offeringGoal": "To produce 15 high-engaging ad creatives per month that lower CAC by 40% via organic social loops.",
+          "verified": true,
+          "score": 24,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: Creative Designers"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 2,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 17,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:35.287Z",
+          "updatedAt": "2026-06-10T07:06:35.287Z"
+        },
+        {
+          "_id": "rlxG6JWWiSwGm2sfvkyd",
+          "id": "rlxG6JWWiSwGm2sfvkyd",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "Y9gdq4QG3FL8OEY4Tyxj",
+            "id": "Y9gdq4QG3FL8OEY4Tyxj",
+            "name": "Riya Dutta",
+            "email": "riyadutta@example.com"
+          },
+          "candidateName": "Riya Dutta",
+          "companyName": "CreativesFirst",
+          "industry": "Digital Marketing",
+          "location": "Kolkata, Other",
+          "offerings": [
+            "Ad Creative Design",
+            "Video Scripts",
+            "Asset Banner Packs",
+            "Visual Layouts"
+          ],
+          "needs": [
+            "Media Buyers",
+            "Performance Agencies",
+            "Visual Illustrators"
+          ],
+          "goal": "Seeking media buyers and digital agencies running high-budget paid social campaigns that are suffering from ad fatigue.",
+          "offeringGoal": "To provide a fresh batch of 30+ highly-stylized, scroll-stopping ad creatives every week to scale performance campaigns.",
+          "verified": true,
+          "score": 25,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: Media Buyers, Performance Agencies"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:34.910Z",
+          "updatedAt": "2026-06-10T07:06:34.910Z"
+        },
+        {
+          "_id": "8HMHl8Pz2edYKFV8PbFU",
+          "id": "8HMHl8Pz2edYKFV8PbFU",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "8iOZsgYGOGwfa5IMriZ4",
+            "id": "8iOZsgYGOGwfa5IMriZ4",
+            "name": "Neha Saxena",
+            "email": "nehasaxena@example.com"
+          },
+          "candidateName": "Neha Saxena",
+          "companyName": "BrandStory Agency",
+          "industry": "Digital Marketing",
+          "location": "Kolkata, Other",
+          "offerings": [
+            "Public Relations",
+            "Digital PR",
+            "Media Outreach",
+            "Brand Strategy"
+          ],
+          "needs": [
+            "Tech Founders",
+            "SaaS Startups",
+            "Journalist Contacts"
+          ],
+          "goal": "Seeking tech founders and established companies needing high-impact media placements, feature articles, and interview slots.",
+          "offeringGoal": "To secure tier-1 media placements (YourStory, Inc42, Economic Times) that amplify company authority and valuations.",
+          "verified": true,
+          "score": 25,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: SaaS Startups"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:34.526Z",
+          "updatedAt": "2026-06-10T07:06:34.526Z"
+        },
+        {
+          "_id": "AO7oUi1g8JkzU0XANRQ5",
+          "id": "AO7oUi1g8JkzU0XANRQ5",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "P8CFuSkSvKYFeF09cADy",
+            "id": "P8CFuSkSvKYFeF09cADy",
+            "name": "Ananya Nair",
+            "email": "ananyanair@example.com"
+          },
+          "candidateName": "Ananya Nair",
+          "companyName": "ContentCraft",
+          "industry": "Digital Marketing",
+          "location": "Hyderabad, Other",
+          "offerings": [
+            "Content Strategy",
+            "Whitepapers",
+            "Case Studies",
+            "Corporate Blogging"
+          ],
+          "needs": [
+            "Enterprise Software Firms",
+            "MarTech Clients",
+            "Subject Matter Experts"
+          ],
+          "goal": "Looking for professional services, consultancies, or software enterprise companies looking to establish authority.",
+          "offeringGoal": "To build comprehensive white-hat content funnels that attract and nurture enterprise prospects.",
+          "verified": true,
+          "score": 25,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: Enterprise Software Firms"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:34.120Z",
+          "updatedAt": "2026-06-10T07:06:34.120Z"
+        },
+        {
+          "_id": "JEj70L5r1XkwdNDySaNP",
+          "id": "JEj70L5r1XkwdNDySaNP",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "FeMATJ5wFnaddLlokXTc",
+            "id": "FeMATJ5wFnaddLlokXTc",
+            "name": "Varun Grover",
+            "email": "varungrover@example.com"
+          },
+          "candidateName": "Varun Grover",
+          "companyName": "ExportersSEO",
+          "industry": "Digital Marketing",
+          "location": "Delhi, NCR",
+          "offerings": [
+            "International SEO",
+            "Multilingual Search",
+            "Keyword Mapping",
+            "Localization"
+          ],
+          "needs": [
+            "Global SaaS Brands",
+            "Manufacturing Exporters",
+            "Native Translators"
+          ],
+          "goal": "Seeking manufacturing exporters, handicraft exporters, and global SaaS companies targeting audiences in multiple languages.",
+          "offeringGoal": "To build localized search visibility in Germany, France, and Spain, driving inbound global partner inquiries.",
+          "verified": true,
+          "score": 25,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: Global SaaS Brands"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:33.722Z",
+          "updatedAt": "2026-06-10T07:06:33.722Z"
+        },
+        {
+          "_id": "4oh4ALP9tAQh5P7bcGoV",
+          "id": "4oh4ALP9tAQh5P7bcGoV",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "yfVG9aOA4gs2AaOdRr2t",
+            "id": "yfVG9aOA4gs2AaOdRr2t",
+            "name": "Priya Sharma",
+            "email": "priyasharma@example.com"
+          },
+          "candidateName": "Priya Sharma",
+          "companyName": "SocialSphere",
+          "industry": "Digital Marketing",
+          "location": "Kolkata, Other",
+          "offerings": [
+            "Social Media Management",
+            "Personal Branding",
+            "Twitter Growth",
+            "Community Building"
+          ],
+          "needs": [
+            "VC Partners",
+            "B2B Executives",
+            "Graphic Designers"
+          ],
+          "goal": "Seeking venture capitalists, executives, and agency founders who want to build highly influential personal brands online.",
+          "offeringGoal": "To organically scale executive profiles to 50k+ followers, turning social reach into organic business inquiries.",
+          "verified": true,
+          "score": 25,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: B2B Executives"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:33.332Z",
+          "updatedAt": "2026-06-10T07:06:33.332Z"
+        },
+        {
+          "_id": "NgvMrjQOwuq7bjH5vvjC",
+          "id": "NgvMrjQOwuq7bjH5vvjC",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "Ns9EgMIXhZVo66lH4wZP",
+            "id": "Ns9EgMIXhZVo66lH4wZP",
+            "name": "Kirti Bansal",
+            "email": "kirtibansal@example.com"
+          },
+          "candidateName": "Kirti Bansal",
+          "companyName": "LinkedInLeads",
+          "industry": "Digital Marketing",
+          "location": "Gurgaon, NCR",
+          "offerings": [
+            "SDR Outsourcing",
+            "Prospect Lists",
+            "LinkedIn Prospecting",
+            "Sequence Writing"
+          ],
+          "needs": [
+            "SaaS Founders",
+            "IT Outsourcing Agencies",
+            "List Builders"
+          ],
+          "goal": "Seeking B2B SaaS start-ups and IT outsourcing agencies lacking dedicated in-house sales development representatives (SDRs).",
+          "offeringGoal": "To build precise prospect lists of 1000+ key decision-makers and maintain a warm B2B cold email response rate above 15%.",
+          "verified": true,
+          "score": 25,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: SaaS Founders"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:32.742Z",
+          "updatedAt": "2026-06-10T07:06:32.742Z"
+        },
+        {
+          "_id": "XQrvp8iLCDJtIsMHZeXR",
+          "id": "XQrvp8iLCDJtIsMHZeXR",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "AQo4RHYcLqkdrOtXe0Y3",
+            "id": "AQo4RHYcLqkdrOtXe0Y3",
+            "name": "Aisha Sen",
+            "email": "aishasen@example.com"
+          },
+          "candidateName": "Aisha Sen",
+          "companyName": "SEO Catalyst",
+          "industry": "Digital Marketing",
+          "location": "Mumbai, Maharashtra",
+          "offerings": [
+            "SEO Optimization",
+            "Content Marketing",
+            "Technical SEO",
+            "Backlink Building"
+          ],
+          "needs": [
+            "Fintech Startups",
+            "Manufacturing Exporters",
+            "SEO Writers"
+          ],
+          "goal": "Looking for manufacturing exporters and fintech platforms looking to drive organic traffic and inbound leads.",
+          "offeringGoal": "To rank clients' high-value commercial keywords on the first page of Google within 6 months.",
+          "verified": true,
+          "score": 25,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: SEO Writers"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:32.306Z",
+          "updatedAt": "2026-06-10T07:06:32.306Z"
+        },
+        {
+          "_id": "vvxDiCaQDtaMuh7PoWkj",
+          "id": "vvxDiCaQDtaMuh7PoWkj",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "XbqCqG9h0Qk5obxRquMv",
+            "id": "XbqCqG9h0Qk5obxRquMv",
+            "name": "Rohan Mehta",
+            "email": "rohanmehta@example.com"
+          },
+          "candidateName": "Rohan Mehta",
+          "companyName": "ScaleUp Ads",
+          "industry": "Digital Marketing",
+          "location": "Bangalore, Karnataka",
+          "offerings": [
+            "Meta Ads",
+            "Google Ads",
+            "PPC Management",
+            "Landing Page Design",
+            "CRO"
+          ],
+          "needs": [
+            "SaaS Clients",
+            "E-commerce Brands",
+            "Copywriters"
+          ],
+          "goal": "Seeking SaaS and e-commerce companies struggling to scale their ad campaigns or achieve positive ROAS.",
+          "offeringGoal": "To scale clients' ad-driven monthly recurring revenue by at least 25% through performance ad management.",
+          "verified": true,
+          "score": 27,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: SaaS Clients",
+            "📍 Same country — India"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 3,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 3,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:31.917Z",
+          "updatedAt": "2026-06-10T07:06:31.917Z"
+        },
+        {
+          "_id": "1m8ptcUajn07eql3VAn6",
+          "id": "1m8ptcUajn07eql3VAn6",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "iWGh1rOhNjd6iOa3YZUh",
+            "id": "iWGh1rOhNjd6iOa3YZUh",
+            "name": "Sneha Iyer",
+            "email": "snehaiyer@example.com"
+          },
+          "candidateName": "Sneha Iyer",
+          "companyName": "VideoPulse",
+          "industry": "Digital Marketing",
+          "location": "Bangalore, Karnataka",
+          "offerings": [
+            "YouTube Strategy",
+            "Video Editing",
+            "Explainer Videos",
+            "Motion Graphics"
+          ],
+          "needs": [
+            "SaaS Brands",
+            "Course Creators",
+            "Scriptwriters"
+          ],
+          "goal": "Seeking SaaS companies and digital course creators that need highly polished, educational video content.",
+          "offeringGoal": "To grow client YouTube channels to 10k+ subscribers and boost organic video conversions.",
+          "verified": true,
+          "score": 27,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: SaaS Brands",
+            "📍 Same country — India"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 3,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 18,
+            "location": 3,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:31.531Z",
+          "updatedAt": "2026-06-10T07:06:31.531Z"
+        },
+        {
+          "_id": "tMSchT3HF1P73CIej3Vs",
+          "id": "tMSchT3HF1P73CIej3Vs",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "SOwwGdzCbyn3jIuruWpY",
+            "id": "SOwwGdzCbyn3jIuruWpY",
+            "name": "karuna",
+            "email": "karunakar@gmail.com"
+          },
+          "candidateName": "karuna",
+          "companyName": "epicminds ",
+          "industry": "SaaS",
+          "location": "bangalor, karnataka",
+          "offerings": [
+            "API Integration",
+            "User Analytics",
+            "Enterprise Dashboard"
+          ],
+          "needs": [
+            "digital marketing"
+          ],
+          "goal": "Seeking digital marketing partners in bangalor.",
+          "offeringGoal": "Actively seeking for giving services including web and app development",
+          "verified": false,
+          "score": 28,
+          "reasons": [
+            "🎯 They offer what you need: Enterprise Clients",
+            "🤝 They need what you offer: digital marketing",
+            "📍 Same country — India"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 9,
+            "industryBonus": 0,
+            "locationProximity": 2,
+            "verification": 1,
+            "profileCompleteness": 0,
+            "intentRelevance": 24,
+            "location": 2,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:31.062Z",
+          "updatedAt": "2026-06-10T07:06:31.062Z"
+        },
+        {
+          "_id": "esLU5d2zmisOiLfJtikD",
+          "id": "esLU5d2zmisOiLfJtikD",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "jlHEt3WR7VXH6AGfyXN5",
+            "id": "jlHEt3WR7VXH6AGfyXN5",
+            "name": "Tanmay Rao",
+            "email": "tanmayrao@example.com"
+          },
+          "candidateName": "Tanmay Rao",
+          "companyName": "AdOptimize",
+          "industry": "Digital Marketing",
+          "location": "Ahmedabad, Other",
+          "offerings": [
+            "CRO",
+            "User Experience Testing",
+            "Landing Page Copywriting",
+            "A/B Testing"
+          ],
+          "needs": [
+            "High-traffic E-commerce Sites",
+            "SaaS Landing Pages",
+            "Web Designers"
+          ],
+          "goal": "Seeking high-traffic e-commerce websites and lead generation pages suffering from low sign-up or checkout conversion rates.",
+          "offeringGoal": "To increase website-wide conversion rates by at least 1.5x within 90 days via systematic multivariate A/B testing.",
+          "verified": true,
+          "score": 28,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: SaaS Landing Pages, Web Designers"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 6,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 21,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:30.682Z",
+          "updatedAt": "2026-06-10T07:06:30.682Z"
+        },
+        {
+          "_id": "2PyE88uMTZmiDt8fT5SW",
+          "id": "2PyE88uMTZmiDt8fT5SW",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "UfS66zGxLfDB9qwrcgrV",
+            "id": "UfS66zGxLfDB9qwrcgrV",
+            "name": "jodi",
+            "email": "joddi@gmail.com"
+          },
+          "candidateName": "jodi",
+          "companyName": "joddi",
+          "industry": "",
+          "location": "mumbai, maharstra",
+          "offerings": [
+            "Digital Solutions",
+            "Project Management"
+          ],
+          "needs": [
+            "digital marketing",
+            "seo",
+            "meta adds"
+          ],
+          "goal": "Seeking digital marketing partners in mumbai.",
+          "offeringGoal": "",
+          "verified": true,
+          "score": 31,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing",
+            "🤝 They need what you offer: digital marketing, seo"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 9,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 24,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:30.300Z",
+          "updatedAt": "2026-06-10T07:06:30.300Z"
+        },
+        {
+          "_id": "EAUWVOC3rBxx6ybWCMJL",
+          "id": "EAUWVOC3rBxx6ybWCMJL",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "G06oOc3ByRyWNW1YcD41",
+            "id": "G06oOc3ByRyWNW1YcD41",
+            "name": "Vikram Goel",
+            "email": "vikramgoel@example.com"
+          },
+          "candidateName": "Vikram Goel",
+          "companyName": "LeadForge",
+          "industry": "Digital Marketing",
+          "location": "Gurgaon, NCR",
+          "offerings": [
+            "B2B Lead Generation",
+            "LinkedIn Outreach",
+            "Email Campaigns",
+            "Sales Development"
+          ],
+          "needs": [
+            "Agency Owners",
+            "Consultants",
+            "Sales Closers"
+          ],
+          "goal": "Seeking agency owners and high-ticket B2B service firms looking for a consistent pipeline of qualified sales calls.",
+          "offeringGoal": "To deliver 10-15 highly qualified, double-opt-in sales appointments per month via personalized multi-channel playbooks.",
+          "verified": true,
+          "score": 34,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing, Enterprise Clients",
+            "🤝 They need what you offer: Sales Closers"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 24,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 27,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:29.910Z",
+          "updatedAt": "2026-06-10T07:06:29.910Z"
+        },
+        {
+          "_id": "kl99zUoWfiyacUDad8tA",
+          "id": "kl99zUoWfiyacUDad8tA",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "candidateName": "eo",
+          "companyName": "rgejkfdv",
+          "industry": "AI",
+          "location": "fdsdd, mubaifv",
+          "offerings": [
+            "AI Strategy Consulting"
+          ],
+          "needs": [
+            "digtital marketing",
+            "seo"
+          ],
+          "goal": "Seeking digtital marketing partners in fdsdd.",
+          "offeringGoal": "i an providing AI Strategy Consulting as a service",
+          "verified": false,
+          "score": 36,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing, Enterprise Clients",
+            "🤝 They need what you offer: digtital marketing, seo"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 24,
+            "bNeedsMetByAOffers": 9,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 1,
+            "profileCompleteness": 0,
+            "intentRelevance": 33,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:29.542Z",
+          "updatedAt": "2026-06-10T07:06:29.542Z"
+        },
+        {
+          "_id": "GYFReWl4DsscJ6IF14XG",
+          "id": "GYFReWl4DsscJ6IF14XG",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "sMjYln3k4wLaVSMSuQsR",
+            "id": "sMjYln3k4wLaVSMSuQsR",
+            "name": "Zoya Rahman",
+            "email": "zoyarahman@example.com"
+          },
+          "candidateName": "Zoya Rahman",
+          "companyName": "InboxMagic",
+          "industry": "Digital Marketing",
+          "location": "Pune, Maharashtra",
+          "offerings": [
+            "Email Automation",
+            "Klaviyo Setup",
+            "Copywriting",
+            "Customer Retention"
+          ],
+          "needs": [
+            "Shopify Store Owners",
+            "Graphic Designers",
+            "Copywriters"
+          ],
+          "goal": "Seeking e-commerce and Shopify store owners who want to boost their repeat purchase rate and email-attributed revenue.",
+          "offeringGoal": "To drive 30%+ of total store revenue purely through automated lifecycle flows and highly engaging newsletter sends.",
+          "verified": true,
+          "score": 37,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing, Enterprise Clients"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 30,
+            "bNeedsMetByAOffers": 0,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 30,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:29.157Z",
+          "updatedAt": "2026-06-10T07:06:29.157Z"
+        },
+        {
+          "_id": "svtE7UfYvBcnwUTYGWnh",
+          "id": "svtE7UfYvBcnwUTYGWnh",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "yDhb3CThhcoClu6X1LQg",
+            "id": "yDhb3CThhcoClu6X1LQg",
+            "name": "Ishita Paul",
+            "email": "ishitapaul@example.com"
+          },
+          "candidateName": "Ishita Paul",
+          "companyName": "KlaviyoFlows",
+          "industry": "Digital Marketing",
+          "location": "Bangalore, Karnataka",
+          "offerings": [
+            "Klaviyo Automation",
+            "Shopify Integrations",
+            "SMS Marketing",
+            "Push Notifications"
+          ],
+          "needs": [
+            "D2C Brands",
+            "Shopify Store Owners",
+            "Copywriters"
+          ],
+          "goal": "Seeking D2C e-commerce brands with strong store traffic that aren't fully leveraging their existing email list for sales.",
+          "offeringGoal": "To recapture lost checkouts and drive repeat purchases to increase baseline sales by 20% within 45 days.",
+          "verified": true,
+          "score": 39,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing, Enterprise Clients",
+            "📍 Same country — India"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 30,
+            "bNeedsMetByAOffers": 0,
+            "industryBonus": 0,
+            "locationProximity": 3,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 30,
+            "location": 3,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:28.779Z",
+          "updatedAt": "2026-06-10T07:06:28.779Z"
+        },
+        {
+          "_id": "H8zaDCIsgohrboGuQ28f",
+          "id": "H8zaDCIsgohrboGuQ28f",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "rd3Asf6xkUqWsMSTpJvA",
+            "id": "rd3Asf6xkUqWsMSTpJvA",
+            "name": "Arjun Kapoor",
+            "email": "arjunkapoor@example.com"
+          },
+          "candidateName": "Arjun Kapoor",
+          "companyName": "MarTech Stackers",
+          "industry": "Digital Marketing",
+          "location": "Chennai, Other",
+          "offerings": [
+            "Marketing Automation",
+            "Hubspot Consulting",
+            "CRM Integration",
+            "Analytics Dashboards"
+          ],
+          "needs": [
+            "Traditional Businesses",
+            "Mid-market Tech Firms",
+            "Web Developers"
+          ],
+          "goal": "Looking for traditional businesses transitioning online or tech companies with broken user tracking and attribution.",
+          "offeringGoal": "To eliminate attribution errors and save up to 20 hours/week through seamless automation and analytics flows.",
+          "verified": true,
+          "score": 40,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing, Enterprise Clients",
+            "🤝 They need what you offer: Web Developers"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 30,
+            "bNeedsMetByAOffers": 3,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 33,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:28.385Z",
+          "updatedAt": "2026-06-10T07:06:28.385Z"
+        },
+        {
+          "_id": "QiRU0ocQKqz9hTxrVY9M",
+          "id": "QiRU0ocQKqz9hTxrVY9M",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "nJoS8uuJp3HYvVWspcna",
+            "id": "nJoS8uuJp3HYvVWspcna",
+            "name": "Siddharth Roy",
+            "email": "siddharthroy@example.com"
+          },
+          "candidateName": "Siddharth Roy",
+          "companyName": "MarTech AI",
+          "industry": "Digital Marketing",
+          "location": "Noida, NCR",
+          "offerings": [
+            "AI Copywriting",
+            "Content Personalization",
+            "GPT Integrations",
+            "Dynamic Templates"
+          ],
+          "needs": [
+            "Marketing Agencies",
+            "In-house Marketing Teams",
+            "Python Programmers"
+          ],
+          "goal": "Seeking marketing departments and content agencies wanting to scale their operations using customized AI assets.",
+          "offeringGoal": "To double content output while cutting production costs by 50% via enterprise-tailored AI workflow training.",
+          "verified": true,
+          "score": 40,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing, Enterprise Clients",
+            "🤝 They need what you offer: Marketing Agencies, In-house Marketing Teams"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 24,
+            "bNeedsMetByAOffers": 9,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 33,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:27.990Z",
+          "updatedAt": "2026-06-10T07:06:27.990Z"
+        }
+      ],
+      "total": 132,
+      "page": 1,
+      "pages": 7,
+      "stats": {
+        "total": 132,
+        "avgScore": 39,
+        "meetingScheduled": 0,
+        "ignored": 0,
+        "scoreBuckets": [
+          {
+            "_id": 0,
+            "count": 0
+          },
+          {
+            "_id": 10,
+            "count": 9
+          },
+          {
+            "_id": 20,
+            "count": 34
+          },
+          {
+            "_id": 30,
+            "count": 40
+          },
+          {
+            "_id": 40,
+            "count": 8
+          },
+          {
+            "_id": 50,
+            "count": 32
+          },
+          {
+            "_id": 60,
+            "count": 2
+          },
+          {
+            "_id": 70,
+            "count": 7
+          },
+          {
+            "_id": 80,
+            "count": 0
+          },
+          {
+            "_id": 90,
+            "count": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/meetings",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "meetings": [
+        {
+          "_id": "3NbEJpxROcGB2bWXgqwW",
+          "id": "3NbEJpxROcGB2bWXgqwW",
+          "provider": "whereby",
+          "hostMeetLink": "https://taplyzer.whereby.com/669a275e-38a0-4b49-84d4-fa2d53e1071a?roomKey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZWV0aW5nSWQiOiIxMzIwMTgxMjYiLCJyb29tUmVmZXJlbmNlIjp7InJvb21OYW1lIjoiLzY2OWEyNzVlLTM4YTAtNGI0OS04NGQ0LWZhMmQ1M2UxMDcxYSIsIm9yZ2FuaXphdGlvbklkIjoiMzQxNzM2In0sImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuc3J2LndoZXJlYnkuY29tIiwiaWF0IjoxNzgwNjk0MzYxLCJyb29tS2V5VHlwZSI6Im1lZXRpbmdIb3N0In0.CElzUC_O_wNro_8H-adC9Nd6pRzpj18QiWJ7WzBz7Po",
+          "meetLink": "https://taplyzer.whereby.com/669a275e-38a0-4b49-84d4-fa2d53e1071a"
+        },
+        {
+          "_id": "IkRvQOQDxbbRd21gPG42",
+          "id": "IkRvQOQDxbbRd21gPG42",
+          "provider": "whereby",
+          "hostMeetLink": "https://taplyzer.whereby.com/1a763325-88ab-4450-9b23-4980d5d81b8b?roomKey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZWV0aW5nSWQiOiIxMzE5NTkwOTkiLCJyb29tUmVmZXJlbmNlIjp7InJvb21OYW1lIjoiLzFhNzYzMzI1LTg4YWItNDQ1MC05YjIzLTQ5ODBkNWQ4MWI4YiIsIm9yZ2FuaXphdGlvbklkIjoiMzQxNzM2In0sImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuc3J2LndoZXJlYnkuY29tIiwiaWF0IjoxNzgwNjU1ODI4LCJyb29tS2V5VHlwZSI6Im1lZXRpbmdIb3N0In0.7ASwOSRP5zVX7NhRgYArw7wZhj3l9ZllNdfnUmakhec",
+          "meetLink": "https://taplyzer.whereby.com/1a763325-88ab-4450-9b23-4980d5d81b8b",
+          "outcome": "deal"
+        },
+        {
+          "_id": "lmKXoGcBcNcSkVwpOuEv",
+          "id": "lmKXoGcBcNcSkVwpOuEv",
+          "provider": "whereby",
+          "hostMeetLink": "https://taplyzer.whereby.com/c115da91-d89a-47d9-b7d1-b2a241514df3?roomKey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZWV0aW5nSWQiOiIxMzIwNjY0NTUiLCJyb29tUmVmZXJlbmNlIjp7InJvb21OYW1lIjoiL2MxMTVkYTkxLWQ4OWEtNDdkOS1iN2QxLWIyYTI0MTUxNGRmMyIsIm9yZ2FuaXphdGlvbklkIjoiMzQxNzM2In0sImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuc3J2LndoZXJlYnkuY29tIiwiaWF0IjoxNzgwODMwNTQzLCJyb29tS2V5VHlwZSI6Im1lZXRpbmdIb3N0In0.ym4hW1eAImWUP5yzCKdg08zXZe3WJy4pRXPAx88eb_A",
+          "meetLink": "https://taplyzer.whereby.com/c115da91-d89a-47d9-b7d1-b2a241514df3"
+        }
+      ],
+      "total": 3,
+      "page": 1,
+      "pages": 1,
+      "stats": {
+        "scheduled": 0,
+        "completed": 0,
+        "cancelled": 0,
+        "total": 0,
+        "wherebyCount": 3
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/noc",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "metrics": {
+        "totalMatches": 132,
+        "acceptanceRate": 67,
+        "meetingConversionRate": 0,
+        "stuckDealsCount": 0
+      },
+      "stuckDeals": [],
+      "weakMatches": [
+        {
+          "_id": "JqsbD71YvtCdcvWoLQmd",
+          "id": "JqsbD71YvtCdcvWoLQmd",
+          "userId": {
+            "_id": "WrfDx1XVivv4rPOX0wop",
+            "id": "WrfDx1XVivv4rPOX0wop",
+            "name": "Prathish B",
+            "email": "prathishboopathi@gmail.com"
+          },
+          "matchedUserId": {
+            "_id": "jlHEt3WR7VXH6AGfyXN5",
+            "id": "jlHEt3WR7VXH6AGfyXN5",
+            "name": "Tanmay Rao",
+            "email": "tanmayrao@example.com"
+          },
+          "candidateName": "Tanmay Rao",
+          "companyName": "AdOptimize",
+          "industry": "Digital Marketing",
+          "location": "Ahmedabad, Other",
+          "offerings": [
+            "CRO",
+            "User Experience Testing",
+            "Landing Page Copywriting",
+            "A/B Testing"
+          ],
+          "needs": [
+            "High-traffic E-commerce Sites",
+            "SaaS Landing Pages",
+            "Web Designers"
+          ],
+          "goal": "Seeking high-traffic e-commerce websites and lead generation pages suffering from low sign-up or checkout conversion rates.",
+          "offeringGoal": "To increase website-wide conversion rates by at least 1.5x within 90 days via systematic multivariate A/B testing.",
+          "verified": true,
+          "score": 16,
+          "reasons": [
+            "🤝 They need what you offer: High-traffic E-commerce Sites, SaaS Landing Pages"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 0,
+            "bNeedsMetByAOffers": 9,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 9,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-09T13:30:36.120Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-09T13:30:36.250Z",
+          "updatedAt": "2026-06-09T13:30:36.250Z"
+        },
+        {
+          "_id": "BpN6ixZdCFw4hosMZT6O",
+          "id": "BpN6ixZdCFw4hosMZT6O",
+          "location": "Delhi, NCR",
+          "createdAt": "2026-05-27T16:55:41.247Z",
+          "generatedAt": "2026-05-27T16:55:37.167Z",
+          "offeringGoal": "To build localized search visibility in Germany, France, and Spain, driving inbound global partner inquiries.",
+          "goal": "Seeking manufacturing exporters, handicraft exporters, and global SaaS companies targeting audiences in multiple languages.",
+          "candidateName": "Varun Grover",
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "score": 19,
+          "offerings": [
+            "International SEO",
+            "Multilingual Search",
+            "Keyword Mapping",
+            "Localization"
+          ],
+          "updatedAt": "2026-05-27T16:55:41.247Z",
+          "scoreBreakdown": {
+            "aiBoost": 0,
+            "locationProximity": 4,
+            "aNeedsMetByBOffers": 14,
+            "location": 4,
+            "intentRelevance": 14,
+            "verification": 4,
+            "profileCompleteness": 5,
+            "bGoalSatisfiedByAOffers": 0,
+            "bNeedsMetByAOffers": 0,
+            "aGoalSatisfiedByBOffers": 0
+          },
+          "cacheVersion": 1,
+          "verified": true,
+          "industry": "Digital Marketing",
+          "reasons": [
+            "🎯 They offer what you need: seo"
+          ],
+          "needs": [
+            "Global SaaS Brands",
+            "Manufacturing Exporters",
+            "Native Translators"
+          ],
+          "companyName": "ExportersSEO",
+          "matchedUserId": {
+            "_id": "FeMATJ5wFnaddLlokXTc",
+            "id": "FeMATJ5wFnaddLlokXTc",
+            "name": "Varun Grover",
+            "email": "varungrover@example.com"
+          }
+        },
+        {
+          "_id": "EQR5ACWH5dYeNZerUVRv",
+          "id": "EQR5ACWH5dYeNZerUVRv",
+          "offeringGoal": "To build localized search visibility in Germany, France, and Spain, driving inbound global partner inquiries.",
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "reasons": [
+            "🎯 They offer what you need: seo"
+          ],
+          "cacheVersion": 1,
+          "createdAt": "2026-05-27T16:55:38.176Z",
+          "companyName": "ExportersSEO",
+          "offerings": [
+            "International SEO",
+            "Multilingual Search",
+            "Keyword Mapping",
+            "Localization"
+          ],
+          "industry": "Digital Marketing",
+          "generatedAt": "2026-05-27T16:55:34.369Z",
+          "candidateName": "Varun Grover",
+          "needs": [
+            "Global SaaS Brands",
+            "Manufacturing Exporters",
+            "Native Translators"
+          ],
+          "updatedAt": "2026-05-27T16:55:38.176Z",
+          "goal": "Seeking manufacturing exporters, handicraft exporters, and global SaaS companies targeting audiences in multiple languages.",
+          "matchedUserId": {
+            "_id": "FeMATJ5wFnaddLlokXTc",
+            "id": "FeMATJ5wFnaddLlokXTc",
+            "name": "Varun Grover",
+            "email": "varungrover@example.com"
+          },
+          "scoreBreakdown": {
+            "intentRelevance": 14,
+            "aNeedsMetByBOffers": 14,
+            "bGoalSatisfiedByAOffers": 0,
+            "locationProximity": 4,
+            "verification": 4,
+            "aiBoost": 0,
+            "bNeedsMetByAOffers": 0,
+            "aGoalSatisfiedByBOffers": 0,
+            "location": 4,
+            "profileCompleteness": 5
+          },
+          "verified": true,
+          "location": "Delhi, NCR",
+          "score": 19
+        },
+        {
+          "_id": "LrOEPyxymKb8s5AjN7Pz",
+          "id": "LrOEPyxymKb8s5AjN7Pz",
+          "createdAt": "2026-05-27T16:55:38.667Z",
+          "location": "Bangalore, Karnataka",
+          "reasons": [
+            "🎯 They offer what you need: seo"
+          ],
+          "offeringGoal": "To fix indexation errors and boost site speed load times under 1.5 seconds to comply with Core Web Vitals.",
+          "verified": true,
+          "cacheVersion": 1,
+          "needs": [
+            "E-commerce Giants",
+            "Online Media Publishers",
+            "Next.js Developers"
+          ],
+          "candidateName": "Rajat Varma",
+          "industry": "Digital Marketing",
+          "generatedAt": "2026-05-27T16:55:34.369Z",
+          "companyName": "SearchEngineers",
+          "score": 19,
+          "goal": "Seeking large-scale e-commerce stores or media publishers experiencing a sudden drop in Google organic search traffic.",
+          "offerings": [
+            "Technical SEO",
+            "Site Speed Optimization",
+            "Schema Markup",
+            "Website Migration"
+          ],
+          "updatedAt": "2026-05-27T16:55:38.667Z",
+          "scoreBreakdown": {
+            "bGoalSatisfiedByAOffers": 0,
+            "locationProximity": 4,
+            "intentRelevance": 14,
+            "aNeedsMetByBOffers": 14,
+            "profileCompleteness": 5,
+            "location": 4,
+            "aGoalSatisfiedByBOffers": 0,
+            "aiBoost": 0,
+            "verification": 4,
+            "bNeedsMetByAOffers": 0
+          },
+          "matchedUserId": {
+            "_id": "Mpf1olJX9l2AwU0WSERA",
+            "id": "Mpf1olJX9l2AwU0WSERA",
+            "name": "Rajat Varma",
+            "email": "rajatvarma@example.com"
+          },
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          }
+        },
+        {
+          "_id": "PmlavmWAxd3ZvPDofEXp",
+          "id": "PmlavmWAxd3ZvPDofEXp",
+          "companyName": "ExportersSEO",
+          "createdAt": "2026-05-27T16:55:39.805Z",
+          "matchedUserId": {
+            "_id": "FeMATJ5wFnaddLlokXTc",
+            "id": "FeMATJ5wFnaddLlokXTc",
+            "name": "Varun Grover",
+            "email": "varungrover@example.com"
+          },
+          "location": "Delhi, NCR",
+          "reasons": [
+            "🎯 They offer what you need: seo"
+          ],
+          "score": 19,
+          "offeringGoal": "To build localized search visibility in Germany, France, and Spain, driving inbound global partner inquiries.",
+          "goal": "Seeking manufacturing exporters, handicraft exporters, and global SaaS companies targeting audiences in multiple languages.",
+          "generatedAt": "2026-05-27T16:55:36.368Z",
+          "updatedAt": "2026-05-27T16:55:39.805Z",
+          "cacheVersion": 1,
+          "needs": [
+            "Global SaaS Brands",
+            "Manufacturing Exporters",
+            "Native Translators"
+          ],
+          "offerings": [
+            "International SEO",
+            "Multilingual Search",
+            "Keyword Mapping",
+            "Localization"
+          ],
+          "scoreBreakdown": {
+            "aiBoost": 0,
+            "bGoalSatisfiedByAOffers": 0,
+            "aGoalSatisfiedByBOffers": 0,
+            "profileCompleteness": 5,
+            "verification": 4,
+            "intentRelevance": 14,
+            "locationProximity": 4,
+            "aNeedsMetByBOffers": 14,
+            "location": 4,
+            "bNeedsMetByAOffers": 0
+          },
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "candidateName": "Varun Grover",
+          "verified": true,
+          "industry": "Digital Marketing"
+        },
+        {
+          "_id": "QYEogo0vM96CKEZgoyKT",
+          "id": "QYEogo0vM96CKEZgoyKT",
+          "scoreBreakdown": {
+            "bGoalSatisfiedByAOffers": 0,
+            "verification": 4,
+            "aGoalSatisfiedByBOffers": 0,
+            "aNeedsMetByBOffers": 14,
+            "intentRelevance": 14,
+            "locationProximity": 4,
+            "aiBoost": 0,
+            "location": 4,
+            "profileCompleteness": 5,
+            "bNeedsMetByAOffers": 0
+          },
+          "verified": true,
+          "needs": [
+            "Global SaaS Brands",
+            "Manufacturing Exporters",
+            "Native Translators"
+          ],
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "matchedUserId": {
+            "_id": "FeMATJ5wFnaddLlokXTc",
+            "id": "FeMATJ5wFnaddLlokXTc",
+            "name": "Varun Grover",
+            "email": "varungrover@example.com"
+          },
+          "offerings": [
+            "International SEO",
+            "Multilingual Search",
+            "Keyword Mapping",
+            "Localization"
+          ],
+          "location": "Delhi, NCR",
+          "goal": "Seeking manufacturing exporters, handicraft exporters, and global SaaS companies targeting audiences in multiple languages.",
+          "score": 19,
+          "updatedAt": "2026-05-27T16:55:37.939Z",
+          "cacheVersion": 1,
+          "generatedAt": "2026-05-27T16:55:33.487Z",
+          "companyName": "ExportersSEO",
+          "industry": "Digital Marketing",
+          "createdAt": "2026-05-27T16:55:37.939Z",
+          "offeringGoal": "To build localized search visibility in Germany, France, and Spain, driving inbound global partner inquiries.",
+          "reasons": [
+            "🎯 They offer what you need: seo"
+          ],
+          "candidateName": "Varun Grover"
+        },
+        {
+          "_id": "bE1usuanWYsrN6SWeSf2",
+          "id": "bE1usuanWYsrN6SWeSf2",
+          "updatedAt": "2026-05-27T16:55:38.618Z",
+          "generatedAt": "2026-05-27T16:55:33.487Z",
+          "cacheVersion": 1,
+          "goal": "Seeking large-scale e-commerce stores or media publishers experiencing a sudden drop in Google organic search traffic.",
+          "location": "Bangalore, Karnataka",
+          "industry": "Digital Marketing",
+          "verified": true,
+          "companyName": "SearchEngineers",
+          "offerings": [
+            "Technical SEO",
+            "Site Speed Optimization",
+            "Schema Markup",
+            "Website Migration"
+          ],
+          "createdAt": "2026-05-27T16:55:38.618Z",
+          "scoreBreakdown": {
+            "aiBoost": 0,
+            "intentRelevance": 14,
+            "aNeedsMetByBOffers": 14,
+            "profileCompleteness": 5,
+            "bGoalSatisfiedByAOffers": 0,
+            "bNeedsMetByAOffers": 0,
+            "location": 4,
+            "verification": 4,
+            "locationProximity": 4,
+            "aGoalSatisfiedByBOffers": 0
+          },
+          "reasons": [
+            "🎯 They offer what you need: seo"
+          ],
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "needs": [
+            "E-commerce Giants",
+            "Online Media Publishers",
+            "Next.js Developers"
+          ],
+          "score": 19,
+          "candidateName": "Rajat Varma",
+          "offeringGoal": "To fix indexation errors and boost site speed load times under 1.5 seconds to comply with Core Web Vitals.",
+          "matchedUserId": {
+            "_id": "Mpf1olJX9l2AwU0WSERA",
+            "id": "Mpf1olJX9l2AwU0WSERA",
+            "name": "Rajat Varma",
+            "email": "rajatvarma@example.com"
+          }
+        },
+        {
+          "_id": "hlQ2zYca7NmGz4yh4u59",
+          "id": "hlQ2zYca7NmGz4yh4u59",
+          "industry": "Digital Marketing",
+          "candidateName": "Rajat Varma",
+          "score": 19,
+          "goal": "Seeking large-scale e-commerce stores or media publishers experiencing a sudden drop in Google organic search traffic.",
+          "location": "Bangalore, Karnataka",
+          "offerings": [
+            "Technical SEO",
+            "Site Speed Optimization",
+            "Schema Markup",
+            "Website Migration"
+          ],
+          "updatedAt": "2026-05-27T16:55:41.808Z",
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "generatedAt": "2026-05-27T16:55:37.167Z",
+          "cacheVersion": 1,
+          "offeringGoal": "To fix indexation errors and boost site speed load times under 1.5 seconds to comply with Core Web Vitals.",
+          "matchedUserId": {
+            "_id": "Mpf1olJX9l2AwU0WSERA",
+            "id": "Mpf1olJX9l2AwU0WSERA",
+            "name": "Rajat Varma",
+            "email": "rajatvarma@example.com"
+          },
+          "reasons": [
+            "🎯 They offer what you need: seo"
+          ],
+          "verified": true,
+          "scoreBreakdown": {
+            "bGoalSatisfiedByAOffers": 0,
+            "aiBoost": 0,
+            "intentRelevance": 14,
+            "location": 4,
+            "verification": 4,
+            "locationProximity": 4,
+            "aGoalSatisfiedByBOffers": 0,
+            "bNeedsMetByAOffers": 0,
+            "profileCompleteness": 5,
+            "aNeedsMetByBOffers": 14
+          },
+          "needs": [
+            "E-commerce Giants",
+            "Online Media Publishers",
+            "Next.js Developers"
+          ],
+          "createdAt": "2026-05-27T16:55:41.808Z",
+          "companyName": "SearchEngineers"
+        },
+        {
+          "_id": "nkV4NtxjQRL7GHBtgZDD",
+          "id": "nkV4NtxjQRL7GHBtgZDD",
+          "goal": "Seeking large-scale e-commerce stores or media publishers experiencing a sudden drop in Google organic search traffic.",
+          "candidateName": "Rajat Varma",
+          "score": 19,
+          "offerings": [
+            "Technical SEO",
+            "Site Speed Optimization",
+            "Schema Markup",
+            "Website Migration"
+          ],
+          "companyName": "SearchEngineers",
+          "updatedAt": "2026-05-27T16:55:40.351Z",
+          "offeringGoal": "To fix indexation errors and boost site speed load times under 1.5 seconds to comply with Core Web Vitals.",
+          "generatedAt": "2026-05-27T16:55:36.368Z",
+          "industry": "Digital Marketing",
+          "location": "Bangalore, Karnataka",
+          "matchedUserId": {
+            "_id": "Mpf1olJX9l2AwU0WSERA",
+            "id": "Mpf1olJX9l2AwU0WSERA",
+            "name": "Rajat Varma",
+            "email": "rajatvarma@example.com"
+          },
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "reasons": [
+            "🎯 They offer what you need: seo"
+          ],
+          "scoreBreakdown": {
+            "locationProximity": 4,
+            "bGoalSatisfiedByAOffers": 0,
+            "verification": 4,
+            "profileCompleteness": 5,
+            "aGoalSatisfiedByBOffers": 0,
+            "intentRelevance": 14,
+            "location": 4,
+            "aNeedsMetByBOffers": 14,
+            "aiBoost": 0,
+            "bNeedsMetByAOffers": 0
+          },
+          "cacheVersion": 1,
+          "verified": true,
+          "createdAt": "2026-05-27T16:55:40.351Z",
+          "needs": [
+            "E-commerce Giants",
+            "Online Media Publishers",
+            "Next.js Developers"
+          ]
+        },
+        {
+          "_id": "0Fv8yw3Dv5UNCXUNPJ2J",
+          "id": "0Fv8yw3Dv5UNCXUNPJ2J",
+          "userId": {
+            "_id": "p0Mf72yvTstOi5VEbaPC",
+            "id": "p0Mf72yvTstOi5VEbaPC",
+            "name": "ss",
+            "email": "john@ngo.com"
+          },
+          "matchedUserId": {
+            "_id": "rd3Asf6xkUqWsMSTpJvA",
+            "id": "rd3Asf6xkUqWsMSTpJvA",
+            "name": "Arjun Kapoor",
+            "email": "arjunkapoor@example.com"
+          },
+          "candidateName": "Arjun Kapoor",
+          "companyName": "MarTech Stackers",
+          "industry": "Digital Marketing",
+          "location": "Chennai, Other",
+          "offerings": [
+            "Marketing Automation",
+            "Hubspot Consulting",
+            "CRM Integration",
+            "Analytics Dashboards"
+          ],
+          "needs": [
+            "Traditional Businesses",
+            "Mid-market Tech Firms",
+            "Web Developers"
+          ],
+          "goal": "Looking for traditional businesses transitioning online or tech companies with broken user tracking and attribution.",
+          "offeringGoal": "To eliminate attribution errors and save up to 20 hours/week through seamless automation and analytics flows.",
+          "verified": true,
+          "score": 22,
+          "reasons": [],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 16,
+            "bNeedsMetByAOffers": 0,
+            "locationProximity": 2,
+            "verification": 4,
+            "profileCompleteness": 0,
+            "intentRelevance": 16,
+            "location": 2,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-05T10:23:14.938Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-05T10:23:20.752Z",
+          "updatedAt": "2026-06-05T10:23:20.752Z"
+        },
+        {
+          "_id": "9COfsbNrEXgtARKnRjYF",
+          "id": "9COfsbNrEXgtARKnRjYF",
+          "userId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "matchedUserId": {
+            "_id": "WnAXGvDOvKzH1D3AhuND",
+            "id": "WnAXGvDOvKzH1D3AhuND",
+            "name": "Meera Deshmukh",
+            "email": "meeradeshmukh@example.com"
+          },
+          "candidateName": "Meera Deshmukh",
+          "companyName": "FunnelArchitects",
+          "industry": "Digital Marketing",
+          "location": "Pune, Maharashtra",
+          "offerings": [
+            "Sales Funnel Strategy",
+            "Webinar Setup",
+            "Lead Magnets",
+            "Launch Consulting"
+          ],
+          "needs": [
+            "Coaches & Consultants",
+            "Infoproduct Creators",
+            "Activecampaign Experts"
+          ],
+          "goal": "Seeking coaches, consultants, and knowledge commerce platforms needing high-converting automated sales pipelines.",
+          "offeringGoal": "To deploy fully integrated webinar and landing page funnels that convert cold traffic into paid clients on autopilot.",
+          "verified": true,
+          "score": 22,
+          "reasons": [
+            "🎯 They offer what you need: Digital Marketing"
+          ],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 15,
+            "bNeedsMetByAOffers": 0,
+            "industryBonus": 0,
+            "locationProximity": 1,
+            "verification": 6,
+            "profileCompleteness": 0,
+            "intentRelevance": 15,
+            "location": 1,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-10T07:06:26.920Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-10T07:06:35.670Z",
+          "updatedAt": "2026-06-10T07:06:35.670Z"
+        },
+        {
+          "_id": "C5UQVAOzGnImsfJ6d1pS",
+          "id": "C5UQVAOzGnImsfJ6d1pS",
+          "userId": {
+            "_id": "p0Mf72yvTstOi5VEbaPC",
+            "id": "p0Mf72yvTstOi5VEbaPC",
+            "name": "ss",
+            "email": "john@ngo.com"
+          },
+          "matchedUserId": {
+            "_id": "rd3Asf6xkUqWsMSTpJvA",
+            "id": "rd3Asf6xkUqWsMSTpJvA",
+            "name": "Arjun Kapoor",
+            "email": "arjunkapoor@example.com"
+          },
+          "candidateName": "Arjun Kapoor",
+          "companyName": "MarTech Stackers",
+          "industry": "Digital Marketing",
+          "location": "Chennai, Other",
+          "offerings": [
+            "Marketing Automation",
+            "Hubspot Consulting",
+            "CRM Integration",
+            "Analytics Dashboards"
+          ],
+          "needs": [
+            "Traditional Businesses",
+            "Mid-market Tech Firms",
+            "Web Developers"
+          ],
+          "goal": "Looking for traditional businesses transitioning online or tech companies with broken user tracking and attribution.",
+          "offeringGoal": "To eliminate attribution errors and save up to 20 hours/week through seamless automation and analytics flows.",
+          "verified": true,
+          "score": 22,
+          "reasons": [],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 16,
+            "bNeedsMetByAOffers": 0,
+            "locationProximity": 2,
+            "verification": 4,
+            "profileCompleteness": 0,
+            "intentRelevance": 16,
+            "location": 2,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-05T10:23:15.271Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-05T10:23:20.843Z",
+          "updatedAt": "2026-06-05T10:23:20.843Z"
+        },
+        {
+          "_id": "Ce2EH4zs5iy6TpMy1TV1",
+          "id": "Ce2EH4zs5iy6TpMy1TV1",
+          "userId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com"
+          },
+          "candidateName": "Ishita Paul",
+          "verified": true,
+          "createdAt": "2026-05-27T16:55:38.528Z",
+          "location": "Bangalore, Karnataka",
+          "offerings": [
+            "Klaviyo Automation",
+            "Shopify Integrations",
+            "SMS Marketing",
+            "Push Notifications"
+          ],
+          "reasons": [],
+          "needs": [
+            "D2C Brands",
+            "Shopify Store Owners",
+            "Copywriters"
+          ],
+          "offeringGoal": "To recapture lost checkouts and drive repeat purchases to increase baseline sales by 20% within 45 days.",
+          "cacheVersion": 1,
+          "scoreBreakdown": {
+            "location": 4,
+            "verification": 4,
+            "bNeedsMetByAOffers": 0,
+            "intentRelevance": 19,
+            "bGoalSatisfiedByAOffers": 0,
+            "profileCompleteness": 5,
+            "aGoalSatisfiedByBOffers": 10,
+            "aiBoost": 0,
+            "locationProximity": 4,
+            "aNeedsMetByBOffers": 9
+          },
+          "industry": "Digital Marketing",
+          "goal": "Seeking D2C e-commerce brands with strong store traffic that aren't fully leveraging their existing email list for sales.",
+          "generatedAt": "2026-05-27T16:55:36.368Z",
+          "matchedUserId": {
+            "_id": "yDhb3CThhcoClu6X1LQg",
+            "id": "yDhb3CThhcoClu6X1LQg",
+            "name": "Ishita Paul",
+            "email": "ishitapaul@example.com"
+          },
+          "updatedAt": "2026-05-27T16:55:38.528Z",
+          "score": 22,
+          "companyName": "KlaviyoFlows"
+        },
+        {
+          "_id": "IfL85Ez1iHN9jFZVAvHx",
+          "id": "IfL85Ez1iHN9jFZVAvHx",
+          "userId": {
+            "_id": "p0Mf72yvTstOi5VEbaPC",
+            "id": "p0Mf72yvTstOi5VEbaPC",
+            "name": "ss",
+            "email": "john@ngo.com"
+          },
+          "matchedUserId": {
+            "_id": "yDhb3CThhcoClu6X1LQg",
+            "id": "yDhb3CThhcoClu6X1LQg",
+            "name": "Ishita Paul",
+            "email": "ishitapaul@example.com"
+          },
+          "candidateName": "Ishita Paul",
+          "companyName": "KlaviyoFlows",
+          "industry": "Digital Marketing",
+          "location": "Bangalore, Karnataka",
+          "offerings": [
+            "Klaviyo Automation",
+            "Shopify Integrations",
+            "SMS Marketing",
+            "Push Notifications"
+          ],
+          "needs": [
+            "D2C Brands",
+            "Shopify Store Owners",
+            "Copywriters"
+          ],
+          "goal": "Seeking D2C e-commerce brands with strong store traffic that aren't fully leveraging their existing email list for sales.",
+          "offeringGoal": "To recapture lost checkouts and drive repeat purchases to increase baseline sales by 20% within 45 days.",
+          "verified": true,
+          "score": 22,
+          "reasons": [],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 16,
+            "bNeedsMetByAOffers": 0,
+            "locationProximity": 2,
+            "verification": 4,
+            "profileCompleteness": 0,
+            "intentRelevance": 16,
+            "location": 2,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-05T10:23:14.938Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-05T10:23:20.091Z",
+          "updatedAt": "2026-06-05T10:23:20.091Z"
+        },
+        {
+          "_id": "JiQ8U6cDwcF78iItzvyk",
+          "id": "JiQ8U6cDwcF78iItzvyk",
+          "userId": {
+            "_id": "p0Mf72yvTstOi5VEbaPC",
+            "id": "p0Mf72yvTstOi5VEbaPC",
+            "name": "ss",
+            "email": "john@ngo.com"
+          },
+          "matchedUserId": {
+            "_id": "yDhb3CThhcoClu6X1LQg",
+            "id": "yDhb3CThhcoClu6X1LQg",
+            "name": "Ishita Paul",
+            "email": "ishitapaul@example.com"
+          },
+          "candidateName": "Ishita Paul",
+          "companyName": "KlaviyoFlows",
+          "industry": "Digital Marketing",
+          "location": "Bangalore, Karnataka",
+          "offerings": [
+            "Klaviyo Automation",
+            "Shopify Integrations",
+            "SMS Marketing",
+            "Push Notifications"
+          ],
+          "needs": [
+            "D2C Brands",
+            "Shopify Store Owners",
+            "Copywriters"
+          ],
+          "goal": "Seeking D2C e-commerce brands with strong store traffic that aren't fully leveraging their existing email list for sales.",
+          "offeringGoal": "To recapture lost checkouts and drive repeat purchases to increase baseline sales by 20% within 45 days.",
+          "verified": true,
+          "score": 22,
+          "reasons": [],
+          "scoreBreakdown": {
+            "aNeedsMetByBOffers": 16,
+            "bNeedsMetByAOffers": 0,
+            "locationProximity": 2,
+            "verification": 4,
+            "profileCompleteness": 0,
+            "intentRelevance": 16,
+            "location": 2,
+            "aiBoost": 0
+          },
+          "generatedAt": "2026-06-05T10:23:15.271Z",
+          "cacheVersion": 1,
+          "createdAt": "2026-06-05T10:23:20.457Z",
+          "updatedAt": "2026-06-05T10:23:20.457Z"
+        }
+      ],
+      "highPotential": [],
+      "humanReviewQueue": [
+        {
+          "_id": "TtIYLVMO0LnW3KKMy4q8",
+          "id": "TtIYLVMO0LnW3KKMy4q8",
+          "industry": "Construction",
+          "offerings": [],
+          "needs": []
+        },
+        {
+          "_id": "6z1FWaLbKCmL3fL8e4Pu",
+          "id": "6z1FWaLbKCmL3fL8e4Pu",
+          "industry": "AI",
+          "offerings": [],
+          "needs": []
+        },
+        {
+          "_id": "4xnzOSTyHXGjYE5t9ZY5",
+          "id": "4xnzOSTyHXGjYE5t9ZY5",
+          "industry": "",
+          "offerings": [],
+          "needs": []
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/admin/notifications",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "notifications": []
+    }
+  },
+  {
+    "endpoint": "/api/admin/profiles",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "users": [
+        {
+          "_id": "8iOZsgYGOGwfa5IMriZ4",
+          "name": "Neha Saxena",
+          "email": "nehasaxena@example.com",
+          "createdAt": "2026-05-22T10:38:25.673Z",
+          "companyName": "BrandStory Agency",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "Public Relations",
+            "Digital PR",
+            "Media Outreach",
+            "Brand Strategy"
+          ],
+          "needs": [
+            "Tech Founders",
+            "SaaS Startups",
+            "Journalist Contacts"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "AQo4RHYcLqkdrOtXe0Y3",
+          "name": "Aisha Sen",
+          "email": "aishasen@example.com",
+          "createdAt": "2026-05-22T10:37:44.365Z",
+          "companyName": "SEO Catalyst",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "SEO Optimization",
+            "Content Marketing",
+            "Technical SEO",
+            "Backlink Building"
+          ],
+          "needs": [
+            "Fintech Startups",
+            "Manufacturing Exporters",
+            "SEO Writers"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "FeMATJ5wFnaddLlokXTc",
+          "name": "Varun Grover",
+          "email": "varungrover@example.com",
+          "createdAt": "2026-05-22T10:39:22.800Z",
+          "companyName": "ExportersSEO",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "International SEO",
+            "Multilingual Search",
+            "Keyword Mapping",
+            "Localization"
+          ],
+          "needs": [
+            "Global SaaS Brands",
+            "Manufacturing Exporters",
+            "Native Translators"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "G06oOc3ByRyWNW1YcD41",
+          "name": "Vikram Goel",
+          "email": "vikramgoel@example.com",
+          "createdAt": "2026-05-22T10:38:08.905Z",
+          "companyName": "LeadForge",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "B2B Lead Generation",
+            "LinkedIn Outreach",
+            "Email Campaigns",
+            "Sales Development"
+          ],
+          "needs": [
+            "Agency Owners",
+            "Consultants",
+            "Sales Closers"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "HmaL0MpYKqHg8h8Kiq3H",
+          "name": "tyhfbv",
+          "email": "kytuft@4rtik.com",
+          "createdAt": "2026-06-09T11:57:51.327Z",
+          "companyName": "",
+          "industry": "Construction",
+          "currentGoal": "",
+          "offerings": [],
+          "needs": [],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "JSZWpRNpohbKlf5Gl2Wx",
+          "name": "jay",
+          "email": "jayq@gmail.com",
+          "createdAt": "2026-05-27T16:04:31.263Z",
+          "companyName": "company name ",
+          "industry": "Fintech",
+          "currentGoal": "",
+          "offerings": [
+            "LLM Training",
+            "Computer Vision"
+          ],
+          "needs": [
+            "Marketing"
+          ],
+          "isProfileCompleted": false
+        },
+        {
+          "_id": "Mpf1olJX9l2AwU0WSERA",
+          "name": "Rajat Varma",
+          "email": "rajatvarma@example.com",
+          "createdAt": "2026-05-22T10:38:48.109Z",
+          "companyName": "SearchEngineers",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "Technical SEO",
+            "Site Speed Optimization",
+            "Schema Markup",
+            "Website Migration"
+          ],
+          "needs": [
+            "E-commerce Giants",
+            "Online Media Publishers",
+            "Next.js Developers"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "Ns9EgMIXhZVo66lH4wZP",
+          "name": "Kirti Bansal",
+          "email": "kirtibansal@example.com",
+          "createdAt": "2026-05-22T10:39:01.233Z",
+          "companyName": "LinkedInLeads",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "SDR Outsourcing",
+            "Prospect Lists",
+            "LinkedIn Prospecting",
+            "Sequence Writing"
+          ],
+          "needs": [
+            "SaaS Founders",
+            "IT Outsourcing Agencies",
+            "List Builders"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "P8CFuSkSvKYFeF09cADy",
+          "name": "Ananya Nair",
+          "email": "ananyanair@example.com",
+          "createdAt": "2026-05-22T10:38:04.185Z",
+          "companyName": "ContentCraft",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "Content Strategy",
+            "Whitepapers",
+            "Case Studies",
+            "Corporate Blogging"
+          ],
+          "needs": [
+            "Enterprise Software Firms",
+            "MarTech Clients",
+            "Subject Matter Experts"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "SOwwGdzCbyn3jIuruWpY",
+          "name": "karuna",
+          "email": "karunakar@gmail.com",
+          "createdAt": "2026-05-22T10:49:44.392Z",
+          "companyName": "epicminds ",
+          "industry": "SaaS",
+          "currentGoal": "",
+          "offerings": [
+            "API Integration",
+            "User Analytics",
+            "Enterprise Dashboard"
+          ],
+          "needs": [
+            "digital marketing"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "UOgQP8K70prOFyFnI67w",
+          "name": "Naveen ",
+          "email": "naveen@gmail.com",
+          "createdAt": "2026-06-10T08:25:00.026Z",
+          "companyName": "Naveen",
+          "industry": "",
+          "currentGoal": "",
+          "offerings": [],
+          "needs": [],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "UfS66zGxLfDB9qwrcgrV",
+          "name": "jodi",
+          "email": "joddi@gmail.com",
+          "createdAt": "2026-06-05T10:23:47.400Z",
+          "companyName": "joddi",
+          "industry": "",
+          "currentGoal": "",
+          "offerings": [
+            "Digital Solutions",
+            "Project Management"
+          ],
+          "needs": [
+            "digital marketing",
+            "seo",
+            "meta adds"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "VQNARjoNAXp42GQYdeyu",
+          "name": "Kabir Malhotra",
+          "email": "kabirmalhotra@example.com",
+          "createdAt": "2026-05-22T10:37:50.736Z",
+          "companyName": "ViralVibe Studios",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "Influencer Marketing",
+            "Instagram Reels",
+            "Short-form Video",
+            "Social Strategy"
+          ],
+          "needs": [
+            "D2C Brands",
+            "Creative Designers",
+            "Video Editors"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "WnAXGvDOvKzH1D3AhuND",
+          "name": "Meera Deshmukh",
+          "email": "meeradeshmukh@example.com",
+          "createdAt": "2026-05-22T10:38:52.887Z",
+          "companyName": "FunnelArchitects",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "Sales Funnel Strategy",
+            "Webinar Setup",
+            "Lead Magnets",
+            "Launch Consulting"
+          ],
+          "needs": [
+            "Coaches & Consultants",
+            "Infoproduct Creators",
+            "Activecampaign Experts"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "WrfDx1XVivv4rPOX0wop",
+          "name": "Prathish B",
+          "email": "prathishboopathi@gmail.com",
+          "createdAt": "2026-06-09T13:19:56.416Z",
+          "companyName": "Prathish Pvt Ltd",
+          "industry": "Supply Chain",
+          "currentGoal": "",
+          "offerings": [
+            "SCM Software",
+            "Inventory Control",
+            "Supplier Audit"
+          ],
+          "needs": [
+            "Technology Partners",
+            "Logistics Firms",
+            "Import and Export"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "XbqCqG9h0Qk5obxRquMv",
+          "name": "Rohan Mehta",
+          "email": "rohanmehta@example.com",
+          "createdAt": "2026-05-22T10:37:36.058Z",
+          "companyName": "ScaleUp Ads",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "Meta Ads",
+            "Google Ads",
+            "PPC Management",
+            "Landing Page Design",
+            "CRO"
+          ],
+          "needs": [
+            "SaaS Clients",
+            "E-commerce Brands",
+            "Copywriters"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "Y9gdq4QG3FL8OEY4Tyxj",
+          "name": "Riya Dutta",
+          "email": "riyadutta@example.com",
+          "createdAt": "2026-05-22T10:39:13.985Z",
+          "companyName": "CreativesFirst",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "Ad Creative Design",
+            "Video Scripts",
+            "Asset Banner Packs",
+            "Visual Layouts"
+          ],
+          "needs": [
+            "Media Buyers",
+            "Performance Agencies",
+            "Visual Illustrators"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "iWGh1rOhNjd6iOa3YZUh",
+          "name": "Sneha Iyer",
+          "email": "snehaiyer@example.com",
+          "createdAt": "2026-05-22T10:38:34.776Z",
+          "companyName": "VideoPulse",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "YouTube Strategy",
+            "Video Editing",
+            "Explainer Videos",
+            "Motion Graphics"
+          ],
+          "needs": [
+            "SaaS Brands",
+            "Course Creators",
+            "Scriptwriters"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "jlHEt3WR7VXH6AGfyXN5",
+          "name": "Tanmay Rao",
+          "email": "tanmayrao@example.com",
+          "createdAt": "2026-05-22T10:38:38.862Z",
+          "companyName": "AdOptimize",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "CRO",
+            "User Experience Testing",
+            "Landing Page Copywriting",
+            "A/B Testing"
+          ],
+          "needs": [
+            "High-traffic E-commerce Sites",
+            "SaaS Landing Pages",
+            "Web Designers"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "mKwjGFsSZ3Rk9inAbBLI",
+          "name": "Aditya Joshi",
+          "email": "adityajoshi@example.com",
+          "createdAt": "2026-05-22T10:38:21.349Z",
+          "companyName": "ROIMinds",
+          "industry": "Digital Marketing",
+          "currentGoal": "",
+          "offerings": [
+            "Performance Marketing",
+            "Programmatic Ads",
+            "YouTube Ads",
+            "Media Buying"
+          ],
+          "needs": [
+            "Funded Startups",
+            "Growth Stage Brands",
+            "Video Animators"
+          ],
+          "isProfileCompleted": true
+        }
+      ],
+      "total": 29,
+      "page": 1,
+      "pages": 2,
+      "stats": {
+        "totalUsers": 29,
+        "completeProfiles": 0,
+        "staleIntent": 0,
+        "noIntent": 0
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/ratings",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "ratings": [
+        {
+          "_id": "bGKFspcVncHOUJo6Te1M",
+          "id": "bGKFspcVncHOUJo6Te1M",
+          "fromBizName": "joddi",
+          "toBizName": "de",
+          "rating": 5,
+          "tags": [],
+          "communication": "",
+          "reliability": "",
+          "dealSeriousness": "",
+          "comment": "",
+          "dealType": "Partnership",
+          "createdAt": "2026-06-05T21:21:39.897Z"
+        }
+      ],
+      "total": 1,
+      "page": 1,
+      "pages": 1,
+      "stats": {
+        "avgRating": 5,
+        "totalRatings": 1,
+        "highRatings": 1,
+        "lowRatings": 0,
+        "distribution": [
+          {
+            "_id": 5,
+            "count": 1
+          }
+        ],
+        "topTags": []
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/requests",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "requests": [
+        {
+          "_id": "lxpCd1auUJeaJwBkE6xG",
+          "id": "lxpCd1auUJeaJwBkE6xG",
+          "senderId": {
+            "_id": "WrfDx1XVivv4rPOX0wop",
+            "id": "WrfDx1XVivv4rPOX0wop",
+            "name": "Prathish B",
+            "email": "prathishboopathi@gmail.com"
+          },
+          "receiverId": {
+            "_id": "jlHEt3WR7VXH6AGfyXN5",
+            "id": "jlHEt3WR7VXH6AGfyXN5",
+            "name": "Tanmay Rao",
+            "email": "tanmayrao@example.com"
+          },
+          "senderBizName": "Prathish Pvt Ltd",
+          "receiverBizName": "AdOptimize",
+          "dealType": "Partnership",
+          "message": "Test",
+          "summary": "",
+          "matchScore": 16,
+          "status": "pending",
+          "createdAt": "2026-06-09T13:32:33.909Z",
+          "updatedAt": "2026-06-09T13:32:33.909Z"
+        },
+        {
+          "_id": "y0wfV8kyYfKlLSSHZwJV",
+          "id": "y0wfV8kyYfKlLSSHZwJV",
+          "senderId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com"
+          },
+          "receiverId": {
+            "_id": "UfS66zGxLfDB9qwrcgrV",
+            "id": "UfS66zGxLfDB9qwrcgrV",
+            "name": "jodi",
+            "email": "joddi@gmail.com"
+          },
+          "senderBizName": "Taplyzer Corp",
+          "receiverBizName": "joddi",
+          "dealType": "Client",
+          "message": "kukuj",
+          "summary": "",
+          "matchScore": 0,
+          "createdAt": "2026-06-05T21:17:44.525Z",
+          "updatedAt": "2026-06-05T21:17:44.525Z",
+          "connectionToken": "5c5897f5-ff71-4de6-ba1f-3415f9afd03d",
+          "status": "accepted"
+        },
+        {
+          "_id": "W2vguaSFYDWn2s44bMKc",
+          "id": "W2vguaSFYDWn2s44bMKc",
+          "senderId": {
+            "_id": "p0Mf72yvTstOi5VEbaPC",
+            "id": "p0Mf72yvTstOi5VEbaPC",
+            "name": "ss",
+            "email": "john@ngo.com"
+          },
+          "receiverId": {
+            "_id": "UfS66zGxLfDB9qwrcgrV",
+            "id": "UfS66zGxLfDB9qwrcgrV",
+            "name": "jodi",
+            "email": "joddi@gmail.com"
+          },
+          "senderBizName": "de",
+          "receiverBizName": "joddi",
+          "dealType": "Partnership",
+          "message": "hey",
+          "summary": "h",
+          "matchScore": 0,
+          "createdAt": "2026-06-05T10:26:35.500Z",
+          "updatedAt": "2026-06-05T10:26:35.501Z",
+          "connectionToken": "eefbeb4c-a96d-4d1a-a7f2-dd4d5dbe825e",
+          "status": "accepted"
+        }
+      ],
+      "total": 3,
+      "pages": 1,
+      "stats": {
+        "total": 3,
+        "pending": 1,
+        "accepted": 2,
+        "rejected": 0,
+        "expired": 0
+      },
+      "spamCandidates": []
+    }
+  },
+  {
+    "endpoint": "/api/admin/settings",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "settings": {
+        "matchMinScore": 40,
+        "cacheHours": 12,
+        "maintenanceMode": false,
+        "registrationsEnabled": true,
+        "autoApproveVerification": false,
+        "supportEmail": "support@taplyzer.com",
+        "platformName": "Taplyzer",
+        "maxMatchesPerUser": 20,
+        "meetingDurationMinutes": 40
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/stats",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "healthScore": 35,
+      "users": {
+        "total": 30,
+        "active": 0,
+        "suspended": 0,
+        "newToday": 1,
+        "verified": 22,
+        "flagged": 0
+      },
+      "businesses": {
+        "total": 30,
+        "pendingVerification": 0,
+        "verified": 21
+      },
+      "activity": {
+        "matchesToday": 20,
+        "totalMatches": 132,
+        "requestsSent": 3,
+        "requestsAccepted": 2,
+        "requestsPending": 1,
+        "meetingsScheduled": 0,
+        "meetingsCompleted": 0,
+        "meetingsCancelled": 0
+      },
+      "trust": {
+        "pendingVerification": 0,
+        "flagged": 0,
+        "lowRated": 0,
+        "totalRatings": 1
+      },
+      "revenue": {
+        "activeSubscriptions": 0,
+        "proUsers": 0,
+        "freeUsers": 0
+      },
+      "funnel": {
+        "signupToProfile": 73,
+        "acceptanceRate": 67,
+        "requestToMeeting": 0,
+        "meetingCompletionRate": 0
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/subscriptions",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "subscriptions": [],
+      "total": 0,
+      "pages": 0,
+      "stats": {
+        "totalActive": 0,
+        "proCount": 0,
+        "freeCount": 0,
+        "enterpriseCount": 0,
+        "expiringSoon": 0
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/support",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "tickets": [],
+      "total": 0,
+      "pages": 0,
+      "stats": {
+        "open": 0,
+        "inProgress": 0,
+        "resolved": 0,
+        "closed": 0,
+        "total": 0
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/users",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "users": [
+        {
+          "_id": "UOgQP8K70prOFyFnI67w",
+          "id": "UOgQP8K70prOFyFnI67w",
+          "name": "Naveen ",
+          "email": "naveen@gmail.com",
+          "role": "USER",
+          "createdAt": "2026-06-10T08:25:00.026Z",
+          "updatedAt": "2026-06-10T08:25:00.026Z",
+          "lastActive": "2026-06-10T08:26:24.058Z"
+        },
+        {
+          "_id": "WrfDx1XVivv4rPOX0wop",
+          "id": "WrfDx1XVivv4rPOX0wop",
+          "name": "Prathish B",
+          "email": "prathishboopathi@gmail.com",
+          "role": "USER",
+          "createdAt": "2026-06-09T13:19:56.416Z",
+          "updatedAt": "2026-06-09T13:19:56.416Z",
+          "lastActive": "2026-06-09T13:30:25.824Z"
+        },
+        {
+          "_id": "HmaL0MpYKqHg8h8Kiq3H",
+          "id": "HmaL0MpYKqHg8h8Kiq3H",
+          "name": "tyhfbv",
+          "email": "kytuft@4rtik.com",
+          "role": "USER",
+          "createdAt": "2026-06-09T11:57:51.327Z",
+          "updatedAt": "2026-06-09T11:57:51.327Z",
+          "lastActive": "2026-06-09T11:59:45.581Z"
+        },
+        {
+          "_id": "t8dUkyiXKaWvtw3xYshR",
+          "id": "t8dUkyiXKaWvtw3xYshR",
+          "name": "Jsu",
+          "email": "yjesj@gmail.com",
+          "role": "USER",
+          "createdAt": "2026-06-09T11:40:25.861Z",
+          "updatedAt": "2026-06-09T11:40:25.861Z",
+          "lastActive": "2026-06-09T11:56:56.063Z"
+        },
+        {
+          "_id": "UfS66zGxLfDB9qwrcgrV",
+          "id": "UfS66zGxLfDB9qwrcgrV",
+          "name": "jodi",
+          "email": "joddi@gmail.com",
+          "role": "USER",
+          "createdAt": "2026-06-05T10:23:47.400Z",
+          "updatedAt": "2026-06-05T10:23:47.400Z",
+          "lastActive": "2026-06-05T15:56:48.461Z",
+          "verified": true
+        },
+        {
+          "_id": "p0Mf72yvTstOi5VEbaPC",
+          "id": "p0Mf72yvTstOi5VEbaPC",
+          "name": "ss",
+          "email": "john@ngo.com",
+          "role": "USER",
+          "createdAt": "2026-06-02T13:23:42.627Z",
+          "updatedAt": "2026-06-02T13:23:42.627Z",
+          "lastActive": "2026-06-05T09:16:51.303Z"
+        },
+        {
+          "_id": "JSZWpRNpohbKlf5Gl2Wx",
+          "id": "JSZWpRNpohbKlf5Gl2Wx",
+          "createdAt": "2026-05-27T16:04:31.263Z",
+          "role": "USER",
+          "email": "jayq@gmail.com",
+          "name": "jay",
+          "updatedAt": "2026-05-27T16:04:31.263Z",
+          "lastActive": "2026-05-31T21:06:08.104Z"
+        },
+        {
+          "_id": "ok5cxfLJfuO2bcRomVAm",
+          "id": "ok5cxfLJfuO2bcRomVAm",
+          "email": "karuna@gone.com",
+          "createdAt": "2026-05-22T11:05:47.521Z",
+          "name": "eo",
+          "updatedAt": "2026-05-22T11:05:47.521Z",
+          "role": "USER",
+          "lastActive": "2026-05-22T11:09:43.838Z"
+        },
+        {
+          "_id": "SOwwGdzCbyn3jIuruWpY",
+          "id": "SOwwGdzCbyn3jIuruWpY",
+          "name": "karuna",
+          "role": "USER",
+          "updatedAt": "2026-05-22T10:49:44.393Z",
+          "email": "karunakar@gmail.com",
+          "createdAt": "2026-05-22T10:49:44.392Z",
+          "lastActive": "2026-06-09T11:58:30.192Z"
+        },
+        {
+          "_id": "yDhb3CThhcoClu6X1LQg",
+          "id": "yDhb3CThhcoClu6X1LQg",
+          "updatedAt": "2026-05-22T10:39:27.582Z",
+          "verified": true,
+          "email": "ishitapaul@example.com",
+          "name": "Ishita Paul",
+          "role": "USER",
+          "phone": "9999000019",
+          "createdAt": "2026-05-22T10:39:27.582Z"
+        },
+        {
+          "_id": "FeMATJ5wFnaddLlokXTc",
+          "id": "FeMATJ5wFnaddLlokXTc",
+          "updatedAt": "2026-05-22T10:39:22.800Z",
+          "role": "USER",
+          "email": "varungrover@example.com",
+          "createdAt": "2026-05-22T10:39:22.800Z",
+          "phone": "9999000018",
+          "name": "Varun Grover",
+          "verified": true
+        },
+        {
+          "_id": "Y9gdq4QG3FL8OEY4Tyxj",
+          "id": "Y9gdq4QG3FL8OEY4Tyxj",
+          "updatedAt": "2026-05-22T10:39:13.985Z",
+          "phone": "9999000017",
+          "createdAt": "2026-05-22T10:39:13.985Z",
+          "email": "riyadutta@example.com",
+          "verified": true,
+          "role": "USER",
+          "name": "Riya Dutta"
+        },
+        {
+          "_id": "oIGYSKSrFsJyuK9PFhN3",
+          "id": "oIGYSKSrFsJyuK9PFhN3",
+          "createdAt": "2026-05-22T10:39:05.611Z",
+          "email": "pranavshah@example.com",
+          "verified": true,
+          "role": "USER",
+          "phone": "9999000016",
+          "name": "Pranav Shah",
+          "updatedAt": "2026-05-22T10:39:05.611Z"
+        },
+        {
+          "_id": "Ns9EgMIXhZVo66lH4wZP",
+          "id": "Ns9EgMIXhZVo66lH4wZP",
+          "verified": true,
+          "name": "Kirti Bansal",
+          "role": "USER",
+          "phone": "9999000015",
+          "email": "kirtibansal@example.com",
+          "createdAt": "2026-05-22T10:39:01.233Z",
+          "updatedAt": "2026-05-22T10:39:01.233Z"
+        },
+        {
+          "_id": "nJoS8uuJp3HYvVWspcna",
+          "id": "nJoS8uuJp3HYvVWspcna",
+          "updatedAt": "2026-05-22T10:38:56.771Z",
+          "phone": "9999000014",
+          "email": "siddharthroy@example.com",
+          "verified": true,
+          "name": "Siddharth Roy",
+          "createdAt": "2026-05-22T10:38:56.771Z",
+          "role": "USER"
+        },
+        {
+          "_id": "WnAXGvDOvKzH1D3AhuND",
+          "id": "WnAXGvDOvKzH1D3AhuND",
+          "name": "Meera Deshmukh",
+          "email": "meeradeshmukh@example.com",
+          "updatedAt": "2026-05-22T10:38:52.887Z",
+          "createdAt": "2026-05-22T10:38:52.887Z",
+          "role": "USER",
+          "phone": "9999000013",
+          "verified": true
+        },
+        {
+          "_id": "Mpf1olJX9l2AwU0WSERA",
+          "id": "Mpf1olJX9l2AwU0WSERA",
+          "verified": true,
+          "role": "USER",
+          "updatedAt": "2026-05-22T10:38:48.109Z",
+          "phone": "9999000012",
+          "email": "rajatvarma@example.com",
+          "name": "Rajat Varma",
+          "createdAt": "2026-05-22T10:38:48.109Z"
+        },
+        {
+          "_id": "yfVG9aOA4gs2AaOdRr2t",
+          "id": "yfVG9aOA4gs2AaOdRr2t",
+          "email": "priyasharma@example.com",
+          "createdAt": "2026-05-22T10:38:44.054Z",
+          "verified": true,
+          "name": "Priya Sharma",
+          "role": "USER",
+          "phone": "9999000011",
+          "updatedAt": "2026-05-22T10:38:44.054Z"
+        },
+        {
+          "_id": "jlHEt3WR7VXH6AGfyXN5",
+          "id": "jlHEt3WR7VXH6AGfyXN5",
+          "phone": "9999000010",
+          "name": "Tanmay Rao",
+          "createdAt": "2026-05-22T10:38:38.862Z",
+          "email": "tanmayrao@example.com",
+          "verified": true,
+          "role": "USER",
+          "updatedAt": "2026-05-22T10:38:38.862Z"
+        },
+        {
+          "_id": "iWGh1rOhNjd6iOa3YZUh",
+          "id": "iWGh1rOhNjd6iOa3YZUh",
+          "phone": "9999000009",
+          "role": "USER",
+          "email": "snehaiyer@example.com",
+          "createdAt": "2026-05-22T10:38:34.776Z",
+          "verified": true,
+          "updatedAt": "2026-05-22T10:38:34.776Z",
+          "name": "Sneha Iyer"
+        }
+      ],
+      "total": 30,
+      "pages": 2,
+      "stats": {
+        "total": 30,
+        "active": 0,
+        "suspended": 0,
+        "newToday": 4
+      }
+    }
+  },
+  {
+    "endpoint": "/api/admin/verification",
+    "status": 200,
+    "ok": true,
+    "response": {
+      "businesses": [
+        {
+          "_id": "4xnzOSTyHXGjYE5t9ZY5",
+          "id": "4xnzOSTyHXGjYE5t9ZY5",
+          "ownerId": {
+            "_id": "UOgQP8K70prOFyFnI67w",
+            "id": "UOgQP8K70prOFyFnI67w",
+            "name": "Naveen ",
+            "email": "naveen@gmail.com",
+            "role": "USER"
+          },
+          "ownerName": "Naveen ",
+          "ownerDesignation": "CEO",
+          "companyPhone": "9875331665",
+          "companyName": "Naveen",
+          "industry": "",
+          "businessType": "",
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "offerings": [],
+          "needs": [],
+          "offeringGoal": "",
+          "intent": {
+            "currentGoal": "",
+            "budget": "",
+            "timeline": ""
+          },
+          "createdAt": "2026-06-10T08:26:00.233Z",
+          "updatedAt": "2026-06-10T08:26:00.233Z",
+          "location": {
+            "country": "India",
+            "pincode": "",
+            "address": "",
+            "operatesIn": "National",
+            "city": "Banglore ",
+            "state": "Karnataka "
+          },
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "zKutxS7T94W91M0DDQEi",
+          "id": "zKutxS7T94W91M0DDQEi",
+          "ownerId": {
+            "_id": "WrfDx1XVivv4rPOX0wop",
+            "id": "WrfDx1XVivv4rPOX0wop",
+            "name": "Prathish B",
+            "email": "prathishboopathi@gmail.com",
+            "role": "USER"
+          },
+          "ownerName": "Prathish B",
+          "ownerDesignation": "CEO",
+          "companyPhone": "9886535262",
+          "companyName": "Prathish Pvt Ltd",
+          "industry": "Supply Chain",
+          "businessType": "3PL",
+          "strength": {
+            "teamSize": "21-50"
+          },
+          "createdAt": "2026-06-09T13:21:15.057Z",
+          "updatedAt": "2026-06-09T13:21:15.057Z",
+          "location": {
+            "country": "India",
+            "operatesIn": "National",
+            "pincode": "560032",
+            "address": "RT Nagar",
+            "city": "Bengaluru",
+            "state": "Karnataka"
+          },
+          "offeringGoal": "Software solutions",
+          "offerings": [
+            "SCM Software",
+            "Inventory Control",
+            "Supplier Audit"
+          ],
+          "needs": [
+            "Technology Partners",
+            "Logistics Firms",
+            "Import and Export"
+          ],
+          "intent": {
+            "timeline": "Less than 7 Days",
+            "currentGoal": "Seeking Technology Partners partners in Bengaluru.",
+            "budget": "2,00,000"
+          },
+          "isProfileCompleted": true,
+          "trust": {
+            "website": "prathishpvtltd.com",
+            "gst": "123456789123654",
+            "linkedin": ""
+          }
+        },
+        {
+          "_id": "TtIYLVMO0LnW3KKMy4q8",
+          "id": "TtIYLVMO0LnW3KKMy4q8",
+          "ownerId": {
+            "_id": "HmaL0MpYKqHg8h8Kiq3H",
+            "id": "HmaL0MpYKqHg8h8Kiq3H",
+            "name": "tyhfbv",
+            "email": "kytuft@4rtik.com",
+            "role": "USER"
+          },
+          "ownerName": "tyhfbv",
+          "ownerDesignation": "",
+          "companyPhone": "",
+          "companyName": "",
+          "industry": "Construction",
+          "businessType": "EPC Contractor",
+          "location": {
+            "country": "India",
+            "state": "",
+            "city": "",
+            "pincode": "",
+            "address": "",
+            "operatesIn": "National"
+          },
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "offerings": [],
+          "needs": [],
+          "offeringGoal": "",
+          "intent": {
+            "currentGoal": "",
+            "budget": "",
+            "timeline": ""
+          },
+          "createdAt": "2026-06-09T11:59:37.890Z",
+          "updatedAt": "2026-06-09T11:59:37.890Z",
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "6z1FWaLbKCmL3fL8e4Pu",
+          "id": "6z1FWaLbKCmL3fL8e4Pu",
+          "ownerId": {
+            "_id": "t8dUkyiXKaWvtw3xYshR",
+            "id": "t8dUkyiXKaWvtw3xYshR",
+            "name": "Jsu",
+            "email": "yjesj@gmail.com",
+            "role": "USER"
+          },
+          "ownerName": "Jsu",
+          "ownerDesignation": "",
+          "companyPhone": "",
+          "companyName": "",
+          "location": {
+            "country": "India",
+            "state": "",
+            "city": "",
+            "pincode": "",
+            "address": "",
+            "operatesIn": "National"
+          },
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "offerings": [],
+          "needs": [],
+          "offeringGoal": "",
+          "intent": {
+            "currentGoal": "",
+            "budget": "",
+            "timeline": ""
+          },
+          "createdAt": "2026-06-09T11:40:50.674Z",
+          "updatedAt": "2026-06-09T11:40:50.674Z",
+          "businessType": "",
+          "isProfileCompleted": false,
+          "industry": "AI"
+        },
+        {
+          "_id": "p24w0kd78iEb8IntY97X",
+          "id": "p24w0kd78iEb8IntY97X",
+          "ownerId": {
+            "_id": "UfS66zGxLfDB9qwrcgrV",
+            "id": "UfS66zGxLfDB9qwrcgrV",
+            "name": "jodi",
+            "email": "joddi@gmail.com",
+            "role": "USER"
+          },
+          "ownerName": "jodi",
+          "ownerDesignation": "as",
+          "companyPhone": "8767890987",
+          "companyName": "joddi",
+          "industry": "",
+          "businessType": "",
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "offeringGoal": "",
+          "createdAt": "2026-06-05T10:24:09.835Z",
+          "updatedAt": "2026-06-05T10:24:09.835Z",
+          "location": {
+            "country": "India",
+            "pincode": "",
+            "address": "",
+            "operatesIn": "National",
+            "city": "mumbai",
+            "state": "maharstra"
+          },
+          "offerings": [
+            "Digital Solutions",
+            "Project Management"
+          ],
+          "needs": [
+            "digital marketing",
+            "seo",
+            "meta adds"
+          ],
+          "intent": {
+            "budget": "",
+            "timeline": "",
+            "currentGoal": "Seeking digital marketing partners in mumbai."
+          },
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "tjtm4jmAXla7WEL5ie2x",
+          "id": "tjtm4jmAXla7WEL5ie2x",
+          "ownerId": {
+            "_id": "p0Mf72yvTstOi5VEbaPC",
+            "id": "p0Mf72yvTstOi5VEbaPC",
+            "name": "ss",
+            "email": "john@ngo.com",
+            "role": "USER"
+          },
+          "ownerName": "ss",
+          "ownerDesignation": "CEO",
+          "companyPhone": "0987890383",
+          "companyName": "de",
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "createdAt": "2026-06-02T13:25:05.874Z",
+          "updatedAt": "2026-06-02T13:25:05.874Z",
+          "location": {
+            "country": "India",
+            "operatesIn": "National",
+            "pincode": "DF",
+            "address": "ERG",
+            "city": "DF",
+            "state": "H"
+          },
+          "offeringGoal": "I ",
+          "intent": {
+            "budget": "",
+            "timeline": "",
+            "currentGoal": "Seeking digital marketing partners in DF."
+          },
+          "industry": "SaaS",
+          "businessType": "Startup",
+          "offerings": [
+            "Cloud Infrastructure",
+            "User Analytics"
+          ],
+          "needs": [
+            "digital marketing",
+            "seo",
+            "Content Marketing",
+            "Technical SEO",
+            "Backlink Building"
+          ],
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "u7OIY2uzW2plZv73m4WP",
+          "id": "u7OIY2uzW2plZv73m4WP",
+          "companyName": "company name ",
+          "ownerDesignation": "manger",
+          "ownerId": {
+            "_id": "JSZWpRNpohbKlf5Gl2Wx",
+            "id": "JSZWpRNpohbKlf5Gl2Wx",
+            "name": "jay",
+            "email": "jayq@gmail.com",
+            "role": "USER"
+          },
+          "ownerName": "jay",
+          "updatedAt": "2026-05-27T16:17:42.410Z",
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "createdAt": "2026-05-27T16:17:42.410Z",
+          "offeringGoal": "i  am offering LLM training, i am providing LLM services .",
+          "offerings": [
+            "LLM Training",
+            "Computer Vision"
+          ],
+          "intent": {
+            "budget": "",
+            "timeline": "Less than 7 Days",
+            "currentGoal": "Seeking digtal marketrs partners in banglore."
+          },
+          "location": {
+            "country": "India",
+            "operatesIn": "National",
+            "city": "banglore",
+            "state": "karnataka",
+            "pincode": "400011",
+            "address": "sdj"
+          },
+          "companyPhone": "9567898765",
+          "needs": [
+            "Marketing"
+          ],
+          "isProfileCompleted": false,
+          "industry": "Fintech",
+          "businessType": "Payment Startup"
+        },
+        {
+          "_id": "OgJFIF2VXpGORFWPD0bf",
+          "id": "OgJFIF2VXpGORFWPD0bf",
+          "ownerId": {
+            "_id": "ok5cxfLJfuO2bcRomVAm",
+            "id": "ok5cxfLJfuO2bcRomVAm",
+            "name": "eo",
+            "email": "karuna@gone.com",
+            "role": "USER"
+          },
+          "createdAt": "2026-05-22T11:06:09.806Z",
+          "updatedAt": "2026-05-22T11:06:09.806Z",
+          "ownerDesignation": "rkfjwr",
+          "industry": "AI",
+          "businessType": "Research Lab",
+          "companyPhone": "3456789034",
+          "companyName": "rgejkfdv",
+          "ownerName": "eo",
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "location": {
+            "country": "India",
+            "operatesIn": "National",
+            "pincode": "sdfwefedf",
+            "address": "ef",
+            "city": "fdsdd",
+            "state": "mubaifv"
+          },
+          "offeringGoal": "i an providing AI Strategy Consulting as a service",
+          "offerings": [
+            "AI Strategy Consulting"
+          ],
+          "needs": [
+            "digtital marketing",
+            "seo"
+          ],
+          "intent": {
+            "budget": "",
+            "currentGoal": "Seeking digtital marketing partners in fdsdd.",
+            "timeline": "Less than 7 Days"
+          },
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "MVIbThKh45AdxlRy0zhT",
+          "id": "MVIbThKh45AdxlRy0zhT",
+          "ownerDesignation": "CTO",
+          "companyName": "epicminds ",
+          "createdAt": "2026-05-22T10:51:11.592Z",
+          "updatedAt": "2026-05-22T10:51:11.592Z",
+          "industry": "SaaS",
+          "companyPhone": "7894569874",
+          "businessType": "Scale-up",
+          "ownerId": {
+            "_id": "SOwwGdzCbyn3jIuruWpY",
+            "id": "SOwwGdzCbyn3jIuruWpY",
+            "name": "karuna",
+            "email": "karunakar@gmail.com",
+            "role": "USER"
+          },
+          "ownerName": "karuna",
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "location": {
+            "operatesIn": "National",
+            "country": "India",
+            "pincode": "500001",
+            "address": "524 2ed road",
+            "city": "bangalor",
+            "state": "karnataka"
+          },
+          "offeringGoal": "Actively seeking for giving services including web and app development",
+          "offerings": [
+            "API Integration",
+            "User Analytics",
+            "Enterprise Dashboard"
+          ],
+          "needs": [
+            "digital marketing"
+          ],
+          "intent": {
+            "timeline": "Within 14 Days",
+            "budget": "100000",
+            "currentGoal": "Seeking digital marketing partners in bangalor."
+          },
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "0UZqYkaHSf67XYMHUsGA",
+          "id": "0UZqYkaHSf67XYMHUsGA",
+          "trust": {
+            "verificationStatus": "Business Verified",
+            "website": "https://www.growthhackersindia.com"
+          },
+          "location": {
+            "state": "Maharashtra",
+            "operatesIn": "National",
+            "country": "India",
+            "city": "Mumbai"
+          },
+          "intent": {
+            "priority": "High",
+            "currentGoal": "Seeking early-stage consumer apps and digital networks that need exponential user sign-ups with minimal ad budgets.",
+            "timeline": "Within 3 months"
+          },
+          "offerings": [
+            "Growth Hacking",
+            "User Acquisition",
+            "Viral Referral Systems",
+            "Viral Loops"
+          ],
+          "needs": [
+            "Consumer Apps",
+            "Social Networks",
+            "Fullstack Developers"
+          ],
+          "isProfileCompleted": true,
+          "industry": "Digital Marketing",
+          "companyName": "GrowthHackers India",
+          "ownerId": {
+            "_id": "oIGYSKSrFsJyuK9PFhN3",
+            "id": "oIGYSKSrFsJyuK9PFhN3",
+            "name": "Pranav Shah",
+            "email": "pranavshah@example.com",
+            "role": "USER"
+          },
+          "profileScore": 90,
+          "offeringGoal": "To launch viral referral programs and hooks that drive organic member-get-member growth of 15% week-over-week.",
+          "ownerName": "Pranav Shah"
+        },
+        {
+          "_id": "1t2IrIgHTC02abjz1SkD",
+          "id": "1t2IrIgHTC02abjz1SkD",
+          "offerings": [
+            "YouTube Strategy",
+            "Video Editing",
+            "Explainer Videos",
+            "Motion Graphics"
+          ],
+          "profileScore": 90,
+          "trust": {
+            "website": "https://www.videopulse.com",
+            "verificationStatus": "Business Verified"
+          },
+          "offeringGoal": "To grow client YouTube channels to 10k+ subscribers and boost organic video conversions.",
+          "ownerId": {
+            "_id": "iWGh1rOhNjd6iOa3YZUh",
+            "id": "iWGh1rOhNjd6iOa3YZUh",
+            "name": "Sneha Iyer",
+            "email": "snehaiyer@example.com",
+            "role": "USER"
+          },
+          "ownerName": "Sneha Iyer",
+          "isProfileCompleted": true,
+          "intent": {
+            "timeline": "Within 3 months",
+            "priority": "High",
+            "currentGoal": "Seeking SaaS companies and digital course creators that need highly polished, educational video content."
+          },
+          "needs": [
+            "SaaS Brands",
+            "Course Creators",
+            "Scriptwriters"
+          ],
+          "companyName": "VideoPulse",
+          "industry": "Digital Marketing",
+          "location": {
+            "city": "Bangalore",
+            "country": "India",
+            "operatesIn": "National",
+            "state": "Karnataka"
+          }
+        },
+        {
+          "_id": "3ekU1Zk888yL0aAHl1uH",
+          "id": "3ekU1Zk888yL0aAHl1uH",
+          "profileScore": 90,
+          "needs": [
+            "Fintech Startups",
+            "Manufacturing Exporters",
+            "SEO Writers"
+          ],
+          "intent": {
+            "timeline": "Within 3 months",
+            "priority": "High",
+            "currentGoal": "Looking for manufacturing exporters and fintech platforms looking to drive organic traffic and inbound leads."
+          },
+          "location": {
+            "operatesIn": "National",
+            "country": "India",
+            "state": "Maharashtra",
+            "city": "Mumbai"
+          },
+          "ownerName": "Aisha Sen",
+          "industry": "Digital Marketing",
+          "isProfileCompleted": true,
+          "companyName": "SEO Catalyst",
+          "offerings": [
+            "SEO Optimization",
+            "Content Marketing",
+            "Technical SEO",
+            "Backlink Building"
+          ],
+          "ownerId": {
+            "_id": "AQo4RHYcLqkdrOtXe0Y3",
+            "id": "AQo4RHYcLqkdrOtXe0Y3",
+            "name": "Aisha Sen",
+            "email": "aishasen@example.com",
+            "role": "USER"
+          },
+          "trust": {
+            "website": "https://www.seocatalyst.com",
+            "verificationStatus": "Business Verified"
+          },
+          "offeringGoal": "To rank clients' high-value commercial keywords on the first page of Google within 6 months."
+        },
+        {
+          "_id": "AEEHuFmBUrskhDqn4qFB",
+          "id": "AEEHuFmBUrskhDqn4qFB",
+          "offeringGoal": "To build precise prospect lists of 1000+ key decision-makers and maintain a warm B2B cold email response rate above 15%.",
+          "profileScore": 90,
+          "offerings": [
+            "SDR Outsourcing",
+            "Prospect Lists",
+            "LinkedIn Prospecting",
+            "Sequence Writing"
+          ],
+          "isProfileCompleted": true,
+          "industry": "Digital Marketing",
+          "trust": {
+            "website": "https://www.linkedinleads.com",
+            "verificationStatus": "Business Verified"
+          },
+          "location": {
+            "country": "India",
+            "state": "NCR",
+            "operatesIn": "National",
+            "city": "Gurgaon"
+          },
+          "ownerId": {
+            "_id": "Ns9EgMIXhZVo66lH4wZP",
+            "id": "Ns9EgMIXhZVo66lH4wZP",
+            "name": "Kirti Bansal",
+            "email": "kirtibansal@example.com",
+            "role": "USER"
+          },
+          "companyName": "LinkedInLeads",
+          "intent": {
+            "priority": "High",
+            "currentGoal": "Seeking B2B SaaS start-ups and IT outsourcing agencies lacking dedicated in-house sales development representatives (SDRs).",
+            "timeline": "Within 3 months"
+          },
+          "ownerName": "Kirti Bansal",
+          "needs": [
+            "SaaS Founders",
+            "IT Outsourcing Agencies",
+            "List Builders"
+          ]
+        },
+        {
+          "_id": "EWdmhzymtGDfLgxr9jLL",
+          "id": "EWdmhzymtGDfLgxr9jLL",
+          "trust": {
+            "verificationStatus": "Business Verified",
+            "website": "https://taplyzer.com"
+          },
+          "profileScore": 95,
+          "ownerName": "Taplyzer Admin",
+          "needs": [
+            "Digital Marketing",
+            "Enterprise Clients",
+            "Strategic Partners"
+          ],
+          "offerings": [
+            "Next.js App Development",
+            "Matchmaking AI Engine",
+            "B2B SaaS Portal"
+          ],
+          "offeringGoal": "To provide the ultimate B2B matching ecosystem for agencies and software builders.",
+          "industry": "Software",
+          "companyName": "Taplyzer Corp",
+          "ownerId": {
+            "_id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "id": "660a1b2c3d4e5f6a7b8c9d0e",
+            "name": "Taplyzer Admin",
+            "email": "admin@taplyzer.com",
+            "role": "SUPER_ADMIN"
+          },
+          "strength": {
+            "teamSize": "1-5"
+          },
+          "companyPhone": "",
+          "ownerDesignation": "h",
+          "location": {
+            "country": "India",
+            "state": "Karnataka",
+            "operatesIn": "National",
+            "city": "Bangalore",
+            "pincode": "",
+            "address": ""
+          },
+          "businessType": "",
+          "intent": {
+            "priority": "High",
+            "timeline": "Within 1 month",
+            "currentGoal": "Looking for high-caliber Digital Marketing agencies for strategic collaboration and client referrals.",
+            "budget": ""
+          },
+          "isProfileCompleted": true
+        },
+        {
+          "_id": "EgmfJMn1vZnkOhuNZ26O",
+          "id": "EgmfJMn1vZnkOhuNZ26O",
+          "industry": "Digital Marketing",
+          "trust": {
+            "website": "https://www.adoptimize.com",
+            "verificationStatus": "Business Verified"
+          },
+          "needs": [
+            "High-traffic E-commerce Sites",
+            "SaaS Landing Pages",
+            "Web Designers"
+          ],
+          "ownerName": "Tanmay Rao",
+          "intent": {
+            "currentGoal": "Seeking high-traffic e-commerce websites and lead generation pages suffering from low sign-up or checkout conversion rates.",
+            "timeline": "Within 3 months",
+            "priority": "High"
+          },
+          "offerings": [
+            "CRO",
+            "User Experience Testing",
+            "Landing Page Copywriting",
+            "A/B Testing"
+          ],
+          "location": {
+            "operatesIn": "National",
+            "state": "Other",
+            "city": "Ahmedabad",
+            "country": "India"
+          },
+          "companyName": "AdOptimize",
+          "offeringGoal": "To increase website-wide conversion rates by at least 1.5x within 90 days via systematic multivariate A/B testing.",
+          "profileScore": 90,
+          "isProfileCompleted": true,
+          "ownerId": {
+            "_id": "jlHEt3WR7VXH6AGfyXN5",
+            "id": "jlHEt3WR7VXH6AGfyXN5",
+            "name": "Tanmay Rao",
+            "email": "tanmayrao@example.com",
+            "role": "USER"
+          }
+        }
+      ],
+      "total": 30,
+      "pages": 2,
+      "stats": {
+        "notVerified": 0,
+        "basicVerified": 0,
+        "businessVerified": 21,
+        "trustedPartner": 0,
+        "unset": 9,
+        "total": 30
+      }
+    }
+  }
+]

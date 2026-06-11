@@ -12,11 +12,17 @@ export async function GET(req: Request) {
     // Fetch all business profiles
     const businesses = await Business.find({}).lean();
 
+    // Pre-fetch all users to avoid N+1 query loop
+    const users = await User.find({}).lean();
+    const userMap = new Map<string, any>(
+      users.map((u: any) => [u._id?.toString() || u.id?.toString() || "", u])
+    );
+
     const results = [];
 
     for (const biz of businesses) {
-      // Get the associated user to fetch their verified status and name fallback
-      const user = await User.findById(biz.ownerId);
+      // Lookup the associated user from memory
+      const user = biz.ownerId ? userMap.get(biz.ownerId.toString()) : null;
 
       results.push({
         id: biz.ownerId,

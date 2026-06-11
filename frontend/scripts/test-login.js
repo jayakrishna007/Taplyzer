@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 async function testLogin() {
   try {
     const res = await fetch('http://localhost:3000/api/auth/login', {

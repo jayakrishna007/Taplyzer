@@ -757,7 +757,7 @@ export async function POST(
       return { item, score: blended, breakdown: { ...breakdown, aiBoost: aiBoostPts }, user, aiScore: rawAiScore };
     });
 
-    // Deduplicate by ownerId — guards against duplicate Business docs in MongoDB
+    // Deduplicate by ownerId — guards against duplicate Business docs in Firestore
     const seenIds = new Set<string>();
     const allFinal = [
       ...top10Boosted,
@@ -794,6 +794,7 @@ export async function POST(
         verified:      user?.verified ?? false,
         verificationStatus: item.trust?.verificationStatus || "Not Verified",
         subscriptionPlan: user?.subscriptionPlan || "FREE",
+        teamSize:      item.strength?.teamSize || item.teamSize || "1-5",
         score,
         scoreBreakdown: breakdown,
         reasons,
@@ -816,6 +817,9 @@ export async function POST(
           goal: m.goal,
           offeringGoal: m.offeringGoal,
           verified: m.verified,
+          verificationStatus: m.verificationStatus,
+          subscriptionPlan: m.subscriptionPlan,
+          teamSize: m.teamSize,
           score: m.score,
           reasons: m.reasons,
           scoreBreakdown: m.scoreBreakdown,

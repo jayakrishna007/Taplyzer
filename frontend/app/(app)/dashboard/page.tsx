@@ -10,6 +10,7 @@ import { TrendingUp, Zap, CheckCircle2, Clock, ArrowRight, MessageSquare, Briefc
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { RequestIntroModal } from "@/components/modals/request-intro-modal"
+import { ViewProfileModal } from "@/components/modals/view-profile-modal"
 import { useAuth } from "@/components/auth-provider"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
@@ -38,6 +39,8 @@ export default function DashboardPage() {
   const router = useRouter()
   const [selectedCompany, setSelectedCompany] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [viewProfileMatch, setViewProfileMatch] = useState<Match | null>(null)
   const [matches, setMatches] = useState<Match[]>([])
   const [business, setBusiness] = useState<any>(null)
   const [meetings, setMeetings] = useState<any[]>([])
@@ -217,6 +220,10 @@ export default function DashboardPage() {
                       });
                       setIsModalOpen(true);
                     }} 
+                    onViewProfile={(m) => {
+                      setViewProfileMatch(m);
+                      setIsProfileOpen(true);
+                    }}
                   />
                 ))
               )}
@@ -339,6 +346,24 @@ export default function DashboardPage() {
           open={isModalOpen} 
           onClose={() => setIsModalOpen(false)} 
           company={selectedCompany} 
+        />
+      )}
+
+      {viewProfileMatch && (
+        <ViewProfileModal
+          open={isProfileOpen}
+          onClose={() => setIsProfileOpen(false)}
+          match={viewProfileMatch}
+          onRequestIntro={() => {
+            setSelectedCompany({
+              id: viewProfileMatch.matchedUserId,
+              name: viewProfileMatch.companyName || viewProfileMatch.candidateName,
+              industry: viewProfileMatch.industry,
+              verified: viewProfileMatch.verified,
+              matchScore: viewProfileMatch.score,
+            });
+            setIsModalOpen(true);
+          }}
         />
       )}
 
