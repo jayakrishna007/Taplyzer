@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
-  Search, Filter, MapPin, Building2, CheckCircle2, LayoutList,
+  Search, Filter, MapPin, Building2, CheckCircle2, LayoutList, ChevronLeft,
   LayoutPanelLeft, TableProperties, TrendingUp, Users, Check, Clock, Target, Sparkles,
   Briefcase, ShieldCheck, Send, Zap, Compass
 } from "lucide-react"
@@ -186,8 +186,22 @@ type ViewMode = "feed" | "split" | "table";
 
 export default function ExplorePage() {
   const [viewMode, setViewMode] = useState<ViewMode>("feed");
+  const [mobileActiveView, setMobileActiveView] = useState<"list" | "preview">("list");
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
+
+  useEffect(() => {
+    setMobileActiveView("list");
+
+    const handleResize = () => {
+      if (window.innerWidth < 768 && (viewMode === "table" || viewMode === "split")) {
+        setViewMode("feed");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [viewMode]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchState, setSearchState] = useState<"exact" | "related" | "empty" | "none">("none");
   const [allBusinesses, setAllBusinesses] = useState<any[]>([]);
@@ -398,20 +412,20 @@ export default function ExplorePage() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-3 shrink-0 w-full md:w-auto justify-end">
+          <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end mt-3 sm:mt-0">
             <Button
               onClick={(e) => {
                 e.stopPropagation();
                 setIntroCompany({ id: op.id, name: op.companyName, industry: op.industry, verified: op.verified });
                 setIsIntroModalOpen(true);
               }}
-              className="h-10 px-6 rounded-xl font-black uppercase tracking-widest text-[10px] bg-slate-900 text-white hover:bg-blue-600 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-500 transition-colors shadow-md"
+              className="h-10 px-4 rounded-xl font-black uppercase tracking-widest text-[10px] bg-slate-900 text-white hover:bg-blue-600 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-500 transition-colors shadow-md flex-1 sm:flex-none"
             >
               Request Intro
             </Button>
             <Button
               variant="outline"
-              className="h-10 px-6 rounded-xl font-black uppercase tracking-widest text-[10px] border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors hidden sm:flex"
+              className="h-10 px-4 rounded-xl font-black uppercase tracking-widest text-[10px] border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors flex-1 sm:flex-none"
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedMatch(op);
@@ -446,7 +460,7 @@ export default function ExplorePage() {
     return (
       <div className="flex gap-6 flex-grow min-h-0 h-full animate-in fade-in duration-300">
         {/* Left List Column */}
-        <div className="w-[420px] shrink-0 flex flex-col min-h-0 h-full gap-4">
+        <div className={`w-full lg:w-[420px] shrink-0 flex flex-col min-h-0 h-full gap-4 ${mobileActiveView === 'preview' ? 'hidden lg:flex' : 'flex'}`}>
           
           {/* Compact Search inside Left List */}
           <div className="flex-shrink-0 flex items-center gap-2">
@@ -482,7 +496,10 @@ export default function ExplorePage() {
             {results.map(op => (
               <div
                 key={op.id}
-                onClick={() => setSplitSelectedId(op.id)}
+                onClick={() => {
+                  setSplitSelectedId(op.id);
+                  setMobileActiveView("preview");
+                }}
                 className={`p-5 rounded-2xl border-2 transition-all cursor-pointer ${selectedItem?.id === op.id ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/10' : 'border-slate-200 dark:border-white/10 hover:border-blue-300 dark:hover:border-blue-900 bg-white dark:bg-[#0A0A0A]'}`}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -507,13 +524,20 @@ export default function ExplorePage() {
         </div>
 
         {/* Right Preview */}
-        <div className="flex-grow bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-sm h-full">
+        <div className={`flex-grow bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-sm h-full ${mobileActiveView === 'list' ? 'hidden lg:flex' : 'flex'}`}>
           {selectedItem && (() => {
             const initials = (selectedItem.companyName || selectedItem.userName || "U").substring(0, 2).toUpperCase()
             return (
               <div className="flex flex-col h-full">
                 {/* Header Card (Logo, Company Name, Industry, Location, Team Size, Verification) */}
                 <div className="p-4 md:p-5 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 relative flex-shrink-0">
+                  {/* Back Button (Mobile only) */}
+                  <button
+                    onClick={() => setMobileActiveView("list")}
+                    className="lg:hidden mb-3.5 flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+                  >
+                    <ChevronLeft className="h-3.5 w-3.5" /> Back to list
+                  </button>
 
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left mt-1">
                     {/* Logo initials container */}
@@ -716,7 +740,7 @@ export default function ExplorePage() {
             </h1>
           </div>
           {/* View Toggles for Split View */}
-          <div className="flex items-center bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-xl p-1 shadow-sm shrink-0">
+          <div className="flex items-center bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-xl p-1 shadow-sm shrink-0 hidden md:flex">
             <button
               onClick={() => setViewMode("feed")}
               className="p-2 rounded-lg transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -733,7 +757,7 @@ export default function ExplorePage() {
             </button>
             <button
               onClick={() => setViewMode("table")}
-              className="p-2 rounded-lg transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              className="p-2 rounded-lg transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white hidden md:flex"
               title="Table View"
             >
               <TableProperties className="h-4 w-4" />
@@ -773,8 +797,8 @@ export default function ExplorePage() {
                 </Button>
               </div>
 
-              {/* View Toggles (Desktop only) */}
-              <div className="hidden lg:flex items-center bg-white dark:bg-[#0A0A0A] border-2 border-slate-200 dark:border-white/10 rounded-[1.5rem] p-1.5 shadow-sm shrink-0">
+              {/* View Toggles */}
+              <div className="flex items-center bg-white dark:bg-[#0A0A0A] border-2 border-slate-200 dark:border-white/10 rounded-[1.5rem] p-1.5 shadow-sm shrink-0 w-fit hidden md:flex">
                 <button
                   onClick={() => setViewMode("feed")}
                   className={`p-3 rounded-xl transition-all ${viewMode === 'feed' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
@@ -791,7 +815,7 @@ export default function ExplorePage() {
                 </button>
                 <button
                   onClick={() => setViewMode("table")}
-                  className={`p-3 rounded-xl transition-all ${viewMode === 'table' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+                  className={`p-3 rounded-xl transition-all ${viewMode === 'table' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'} hidden md:flex`}
                   title="Table View"
                 >
                   <TableProperties className="h-5 w-5" />
@@ -844,9 +868,7 @@ export default function ExplorePage() {
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{results.length} active</span>
               </div>
             )}
-            {/* Force mobile to use feed view */}
-            <div className="block lg:hidden">{renderFeedView()}</div>
-            <div className={`hidden lg:block min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col' : ''}`}>
+            <div className={`min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col' : ''}`}>
               {viewMode === 'feed' && renderFeedView()}
               {viewMode === 'split' && renderSplitView()}
               {viewMode === 'table' && renderTableView()}
@@ -869,10 +891,7 @@ export default function ExplorePage() {
             </div>
           )}
 
-          <div className="block lg:hidden">
-            {searchState !== 'empty' && renderFeedView()}
-          </div>
-          <div className={`hidden lg:block min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col' : ''}`}>
+          <div className={`min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col' : ''}`}>
             {searchState !== 'empty' && viewMode === 'feed' && renderFeedView()}
             {searchState !== 'empty' && viewMode === 'split' && renderSplitView()}
             {searchState !== 'empty' && viewMode === 'table' && renderTableView()}

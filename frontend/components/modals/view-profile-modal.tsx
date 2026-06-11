@@ -71,42 +71,42 @@ export function ViewProfileModal({ open, onClose, match, onRequestIntro }: ViewP
         <DialogTitle className="sr-only">View Profile - {match.companyName || match.candidateName}</DialogTitle>
 
         {/* Modal Header Card (Logo, Company Name, Industry, Location, Team Size, Verification) */}
-        <div className="p-6 md:p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 relative flex-shrink-0">
+        <div className="p-4 sm:p-6 md:p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 relative flex-shrink-0">
           
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left mt-2">
+          <div className="flex items-center sm:items-start gap-4 text-left mt-1">
             
             {/* Logo initials container */}
-            <div className={`h-16 w-16 md:h-20 md:w-20 rounded-2xl md:rounded-3xl bg-gradient-to-br ${getGradientClass(match.companyName || match.candidateName || "")} flex items-center justify-center text-white font-black text-2xl md:text-3xl tracking-tight shadow-md flex-shrink-0 relative`}>
+            <div className={`h-12 w-12 sm:h-16 md:h-20 sm:w-16 md:w-20 rounded-xl sm:rounded-2xl bg-gradient-to-br ${getGradientClass(match.companyName || match.candidateName || "")} flex items-center justify-center text-white font-black text-base sm:text-2xl md:text-3xl tracking-tight shadow-md flex-shrink-0 relative`}>
               {initials}
               {match.score && (
-                <div className="absolute -bottom-2 -right-2 bg-primary border-2 border-white dark:border-[#0A0A0A] text-white font-black text-[10px] italic h-7 w-7 rounded-full flex items-center justify-center shadow-lg">
+                <div className="absolute -bottom-1 -right-1 bg-primary border-2 border-white dark:border-[#0A0A0A] text-white font-black text-[8px] sm:text-[10px] italic h-5 w-5 sm:h-7 sm:w-7 rounded-full flex items-center justify-center shadow-lg">
                   {match.score}%
                 </div>
               )}
             </div>
 
-            <div className="space-y-2 flex-grow">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 justify-center sm:justify-start">
-                <h2 className="text-xl md:text-2xl font-black italic tracking-tight text-slate-900 dark:text-white leading-tight">
+            <div className="space-y-1 flex-grow">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 justify-start">
+                <h2 className="text-base sm:text-xl md:text-2xl font-black italic tracking-tight text-slate-900 dark:text-white leading-tight">
                   {match.companyName || match.candidateName}
                 </h2>
-                <div className="flex justify-center sm:justify-start">
+                <div className="flex justify-start">
                   {renderVerificationBadge(match.verificationStatus)}
                 </div>
               </div>
 
               {/* Metadata details (Industry, Location, Employees) */}
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1.5 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-white/40">
-                <div className="flex items-center gap-1.5">
-                  <Building2 className="h-3.5 w-3.5 text-primary" />
+              <div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-1 text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-white/40">
+                <div className="flex items-center gap-1">
+                  <Building2 className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-primary" />
                   <span>{match.industry || "Not Specified"}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="h-3.5 w-3.5 text-blue-500" />
+                <div className="flex items-center gap-1">
+                  <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-blue-500" />
                   <span>{match.location || "Remote"}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <Users className="h-3.5 w-3.5 text-emerald-500" />
+                <div className="flex items-center gap-1">
+                  <Users className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-500" />
                   <span>{match.teamSize || "1-5"} Employees</span>
                 </div>
               </div>
