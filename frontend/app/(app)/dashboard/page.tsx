@@ -140,7 +140,7 @@ export default function DashboardPage() {
       {/* Welcome Section */}
       <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 pb-6 border-b border-slate-200 dark:border-white/10">
         <div>
-          <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-2 italic">
+          <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight mb-2 italic">
             Hello, {user?.name || "User"} 👋
           </h1>
           {business ? (

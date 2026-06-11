@@ -117,7 +117,7 @@ export default function MatchesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight italic mb-1">
+          <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-1">
             Matches
           </h1>
           <div className="flex items-center gap-2 flex-wrap">

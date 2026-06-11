@@ -180,7 +180,7 @@ export default function ProfilePage() {
                <div className="flex-1 space-y-5 w-full">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                      <div>
-                        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+                        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3 italic">
                            {profileData.companyName}
                            {profileData.verificationStatus === "Approved" && (
                               <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:border-emerald-800 dark:text-emerald-400 px-2.5 py-1 font-bold rounded-lg uppercase tracking-widest text-[10px] flex items-center gap-1 shadow-sm"><CheckCircle2 className="h-3 w-3" /> Verified Business</Badge>

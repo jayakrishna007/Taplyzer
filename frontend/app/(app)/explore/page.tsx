@@ -334,16 +334,31 @@ export default function ExplorePage() {
             <p className="text-sm font-medium text-slate-600 dark:text-slate-400 italic line-clamp-2">
               "{op.goal}"
             </p>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-3 text-[10px] font-black uppercase tracking-widest text-slate-400">
-              <span className="text-emerald-600 dark:text-emerald-500">{op.budget}</span>
-              <span className="hidden sm:inline">•</span>
-              <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> {op.city}</span>
-              {op.urgency === 'High' && (
-                <><span className="hidden sm:inline">•</span><span className="text-rose-500">Urgent</span></>
-              )}
-              <span className="hidden sm:inline">•</span>
-              <span>{op.postedTime}</span>
-            </div>
+            {(op.budget || op.city || op.urgency === 'High' || op.postedTime) && (
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-3 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                {op.budget && (
+                  <span className="text-emerald-600 dark:text-emerald-500">{op.budget}</span>
+                )}
+                {op.budget && op.city && <span className="hidden sm:inline">•</span>}
+                {op.city && (
+                  <span className="flex items-center gap-1">
+                    <MapPin className="h-3 w-3" /> {op.city}
+                  </span>
+                )}
+                {op.urgency === 'High' && (
+                  <>
+                    {(op.budget || op.city) && <span className="hidden sm:inline">•</span>}
+                    <span className="text-rose-500">Urgent</span>
+                  </>
+                )}
+                {op.postedTime && (
+                  <>
+                    {(op.budget || op.city || op.urgency === 'High') && <span className="hidden sm:inline">•</span>}
+                    <span>{op.postedTime}</span>
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Actions */}
@@ -419,7 +434,7 @@ export default function ExplorePage() {
               <p className="text-xs font-bold text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 leading-relaxed">"{op.goal}"</p>
               <div className="flex items-center justify-between">
                 <Badge className="bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400 border-none font-black text-[9px] uppercase tracking-widest">{op.industry}</Badge>
-                <span className="text-[9px] font-black uppercase text-slate-400">{op.postedTime}</span>
+                {op.postedTime && <span className="text-[9px] font-black uppercase text-slate-400">{op.postedTime}</span>}
               </div>
             </div>
           ))}
@@ -443,7 +458,9 @@ export default function ExplorePage() {
                     <div className="flex items-center gap-4 pt-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
                       <span className="flex items-center gap-1.5"><Building2 className="h-3.5 w-3.5" /> {selectedItem.industry}</span>
                       <span>•</span>
-                      <span className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5" /> {selectedItem.city}, {selectedItem.state}</span>
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="h-3.5 w-3.5" /> {selectedItem.city ? `${selectedItem.city}, ${selectedItem.state}` : (selectedItem.location || "Global")}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -462,7 +479,7 @@ export default function ExplorePage() {
                   <div className="flex items-center gap-6 mt-6 pt-6 border-t border-slate-200 dark:border-white/10">
                     <div>
                       <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Target Budget</p>
-                      <p className="text-lg font-black text-emerald-600 dark:text-emerald-500">{selectedItem.budget}</p>
+                      <p className="text-lg font-black text-emerald-600 dark:text-emerald-500">{selectedItem.budget || "Flexible"}</p>
                     </div>
                     <div>
                       <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Deal Type</p>
@@ -551,9 +568,17 @@ export default function ExplorePage() {
               </td>
               <td className="p-4"><Badge className="bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300 border-none font-black text-[9px] uppercase tracking-widest">{op.industry}</Badge></td>
               <td className="p-4 max-w-[250px]"><p className="text-xs font-bold text-slate-600 dark:text-slate-300 truncate">{op.goal}</p></td>
-              <td className="p-4 font-black text-sm text-slate-900 dark:text-white">{op.budget}</td>
-              <td className="p-4 text-xs font-bold text-slate-500 flex items-center gap-1.5"><MapPin className="h-3 w-3" />{op.city}</td>
-              <td className="p-4 text-xs font-bold text-slate-400">{op.postedTime}</td>
+              <td className="p-4 font-black text-sm text-slate-900 dark:text-white">{op.budget || "Flexible"}</td>
+              <td className="p-4 text-xs font-bold text-slate-500 flex items-center gap-1.5">
+                {(op.city || op.location) ? (
+                  <>
+                    <MapPin className="h-3 w-3 mr-1" /> {op.city || op.location}
+                  </>
+                ) : (
+                  "Global"
+                )}
+              </td>
+              <td className="p-4 text-xs font-bold text-slate-400">{op.postedTime || "Recent"}</td>
               <td className="p-4 text-right pr-6">
                 <Button
                   onClick={(e) => {
@@ -582,8 +607,18 @@ export default function ExplorePage() {
   return (
     <div className="max-w-[1500px] mx-auto space-y-8 pb-32 px-4 md:px-8">
 
+      {/* Page Title Header */}
+      <div className="pb-6 border-b border-slate-200 dark:border-white/10">
+        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-2">
+          Explore Opportunities
+        </h1>
+        <p className="text-slate-500 dark:text-white/40 font-bold text-sm tracking-wide">
+          Search and connect with potential B2B partners across the network.
+        </p>
+      </div>
+
       {/* 🧭 NEW TOP LAYOUT: SEARCH & FILTERS */}
-      <div className="sticky top-16 z-20 bg-[#f8fafc] dark:bg-[#020817] pt-6 pb-4 border-b border-slate-200 dark:border-white/10 space-y-5">
+      <div className="pt-6 pb-4 border-b border-slate-200 dark:border-white/10 space-y-5">
         <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
 
           {/* Large Search Bar */}

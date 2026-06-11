@@ -157,7 +157,7 @@ export default function RequestsPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight italic mb-2">Intro Requests</h1>
+        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-2">Intro Requests</h1>
         <p className="text-slate-500 dark:text-white/40 font-medium text-sm uppercase tracking-widest font-black">Manage your deal-making introductions</p>
       </div>
 
