@@ -127,7 +127,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Main */}
       <main className="flex-grow lg:ml-64 flex flex-col min-h-screen w-full overflow-x-hidden">
         {/* Header */}
-        <header className="h-16 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-slate-200 dark:border-white/5 flex items-center justify-between px-4 md:px-6 sticky top-0 z-30 gap-3">
+        <header className="h-16 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-slate-200 dark:border-white/5 flex items-center justify-between px-4 md:px-6 sticky top-0 z-40 gap-3">
           <button className="lg:hidden p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 flex-shrink-0" onClick={() => setSidebarOpen(true)}>
             <Menu className="h-5 w-5" />
           </button>

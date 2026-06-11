@@ -583,7 +583,7 @@ export default function ExplorePage() {
     <div className="max-w-[1500px] mx-auto space-y-8 pb-32 px-4 md:px-8">
 
       {/* 🧭 NEW TOP LAYOUT: SEARCH & FILTERS */}
-      <div className="sticky top-0 z-40 bg-[#f8fafc] dark:bg-[#020817] pt-6 pb-4 border-b border-slate-200 dark:border-white/10 space-y-5">
+      <div className="sticky top-16 z-20 bg-[#f8fafc] dark:bg-[#020817] pt-6 pb-4 border-b border-slate-200 dark:border-white/10 space-y-5">
         <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
 
           {/* Large Search Bar */}
