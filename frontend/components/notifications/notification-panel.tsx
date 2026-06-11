@@ -127,6 +127,32 @@ export function NotificationPanel() {
     setNotifications(loadNotifications())
   }, [open]) // Refresh when opened
 
+  // Close panel on outside click or scroll
+  useEffect(() => {
+    if (!open) return
+
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const container = document.getElementById("notification-panel-container")
+      if (container && !container.contains(target)) {
+        setOpen(false)
+      }
+    }
+
+    const handleScroll = () => {
+      setOpen(false)
+    }
+
+    document.addEventListener("mousedown", handleOutsideClick)
+    // Capture phase listener to catch scroll events in nested scroll containers
+    window.addEventListener("scroll", handleScroll, { capture: true, passive: true })
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick)
+      window.removeEventListener("scroll", handleScroll, { capture: true })
+    }
+  }, [open])
+
   const unread = notifications.filter(n => !n.read).length
 
   const markAllRead = () => {
@@ -151,7 +177,7 @@ export function NotificationPanel() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative" id="notification-panel-container">
       {/* Bell Button */}
       <button
         onClick={() => setOpen(!open)}
@@ -168,85 +194,80 @@ export function NotificationPanel() {
 
       {/* Dropdown Panel */}
       {open && (
-        <>
-          {/* Backdrop */}
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-
-          <div className="fixed md:absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 right-auto md:right-0 top-16 md:top-12 w-[95vw] max-w-[380px] md:w-[380px] z-50 bg-white dark:bg-[#0A0A0A] rounded-2xl border border-slate-200 dark:border-white/10 shadow-2xl shadow-slate-200/50 dark:shadow-black/50 overflow-hidden">
-            {/* Header */}
-            <div className="px-5 py-4 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <h3 className="text-sm font-black text-slate-900 dark:text-white tracking-tight">Notifications</h3>
-                {unread > 0 && (
-                  <Badge className="bg-primary/10 text-primary border-none font-black text-[9px] uppercase tracking-wider px-2 py-0.5">
-                    {unread} New
-                  </Badge>
-                )}
-              </div>
+        <div className="fixed md:absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 right-auto md:right-0 top-16 md:top-12 w-[95vw] max-w-[380px] md:w-[380px] z-50 bg-white dark:bg-[#0A0A0A] rounded-2xl border border-slate-200 dark:border-white/10 shadow-2xl shadow-slate-200/50 dark:shadow-black/50 overflow-hidden">
+          {/* Header */}
+          <div className="px-5 py-4 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <h3 className="text-sm font-black text-slate-900 dark:text-white tracking-tight">Notifications</h3>
               {unread > 0 && (
-                <button onClick={markAllRead} className="text-[10px] font-black uppercase tracking-widest text-primary hover:text-primary/80 transition-colors">
-                  Mark all read
-                </button>
+                <Badge className="bg-primary/10 text-primary border-none font-black text-[9px] uppercase tracking-wider px-2 py-0.5">
+                  {unread} New
+                </Badge>
               )}
             </div>
-
-            {/* Notifications List */}
-            <div className="max-h-[420px] overflow-y-auto">
-              {notifications.length === 0 ? (
-                <div className="py-12 text-center">
-                  <Bell className="h-8 w-8 text-slate-200 dark:text-white/10 mx-auto mb-3" />
-                  <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">No notifications</p>
-                </div>
-              ) : (
-                notifications.map(notif => {
-                  const Icon = TYPE_ICON[notif.type] || Bell
-                  const colorClass = TYPE_COLOR[notif.type] || "text-slate-500 bg-slate-100"
-                  return (
-                    <div
-                      key={notif.id}
-                      onClick={() => handleClick(notif)}
-                      className={`flex items-start gap-4 px-5 py-4 cursor-pointer border-b border-slate-50 dark:border-white/[0.03] last:border-0 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group ${!notif.read ? "bg-primary/[0.02] dark:bg-primary/[0.05]" : ""}`}
-                    >
-                      <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 ${colorClass}`}>
-                        <Icon className="h-4 w-4" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2">
-                          <p className={`text-sm font-black leading-tight ${!notif.read ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-white/60"}`}>
-                            {notif.title}
-                          </p>
-                          <button
-                            onClick={(e) => dismiss(notif.id, e)}
-                            className="p-0.5 rounded text-slate-300 dark:text-white/20 hover:text-slate-500 dark:hover:text-white/40 opacity-0 group-hover:opacity-100 transition-all shrink-0"
-                          >
-                            <X className="h-3 w-3" />
-                          </button>
-                        </div>
-                        <p className="text-[11px] font-medium text-slate-400 dark:text-white/30 mt-0.5 leading-snug">{notif.message}</p>
-                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-300 dark:text-white/20 mt-1.5">{timeAgo(notif.time)}</p>
-                      </div>
-                      {!notif.read && (
-                        <div className="h-2 w-2 rounded-full bg-primary shrink-0 mt-1.5" />
-                      )}
-                    </div>
-                  )
-                })
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="px-5 py-3 border-t border-slate-100 dark:border-white/5">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full h-9 text-[10px] font-black uppercase tracking-widest text-primary hover:text-primary/80 hover:bg-primary/5 flex items-center gap-1.5"
-                onClick={() => { setOpen(false); router.push("/settings") }}
-              >
-                Notification Settings <ArrowRight className="h-3 w-3" />
-              </Button>
-            </div>
+            {unread > 0 && (
+              <button onClick={markAllRead} className="text-[10px] font-black uppercase tracking-widest text-primary hover:text-primary/80 transition-colors">
+                Mark all read
+              </button>
+            )}
           </div>
-        </>
+
+          {/* Notifications List */}
+          <div className="max-h-[420px] overflow-y-auto">
+            {notifications.length === 0 ? (
+              <div className="py-12 text-center">
+                <Bell className="h-8 w-8 text-slate-200 dark:text-white/10 mx-auto mb-3" />
+                <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">No notifications</p>
+              </div>
+            ) : (
+              notifications.map(notif => {
+                const Icon = TYPE_ICON[notif.type] || Bell
+                const colorClass = TYPE_COLOR[notif.type] || "text-slate-500 bg-slate-100"
+                return (
+                  <div
+                    key={notif.id}
+                    onClick={() => handleClick(notif)}
+                    className={`flex items-start gap-4 px-5 py-4 cursor-pointer border-b border-slate-50 dark:border-white/[0.03] last:border-0 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group ${!notif.read ? "bg-primary/[0.02] dark:bg-primary/[0.05]" : ""}`}
+                  >
+                    <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 ${colorClass}`}>
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className={`text-sm font-black leading-tight ${!notif.read ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-white/60"}`}>
+                          {notif.title}
+                        </p>
+                        <button
+                          onClick={(e) => dismiss(notif.id, e)}
+                          className="p-0.5 rounded text-slate-300 dark:text-white/20 hover:text-slate-500 dark:hover:text-white/40 opacity-0 group-hover:opacity-100 transition-all shrink-0"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                      <p className="text-[11px] font-medium text-slate-400 dark:text-white/30 mt-0.5 leading-snug">{notif.message}</p>
+                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-300 dark:text-white/20 mt-1.5">{timeAgo(notif.time)}</p>
+                    </div>
+                    {!notif.read && (
+                      <div className="h-2 w-2 rounded-full bg-primary shrink-0 mt-1.5" />
+                    )}
+                  </div>
+                )
+              })
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="px-5 py-3 border-t border-slate-100 dark:border-white/5">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full h-9 text-[10px] font-black uppercase tracking-widest text-primary hover:text-primary/80 hover:bg-primary/5 flex items-center gap-1.5"
+              onClick={() => { setOpen(false); router.push("/settings") }}
+            >
+              Notification Settings <ArrowRight className="h-3 w-3" />
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   )
