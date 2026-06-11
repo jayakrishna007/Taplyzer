@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import {
   Search, Filter, MapPin, Building2, CheckCircle2, Bookmark, LayoutList,
   LayoutPanelLeft, TableProperties, TrendingUp, Users, Check, Clock, Target, Sparkles,
-  Briefcase
+  Briefcase, ShieldCheck, Send, Zap, Compass
 } from "lucide-react"
 import Link from "next/link"
 import {
@@ -193,6 +193,40 @@ export default function ExplorePage() {
   const [allBusinesses, setAllBusinesses] = useState<any[]>([]);
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const getGradientClass = (name: string) => {
+    const charCodeSum = name.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)
+    const gradients = [
+      "from-violet-600 to-indigo-600 dark:from-violet-500 dark:to-indigo-500",
+      "from-rose-500 to-orange-500 dark:from-rose-400 dark:to-orange-400",
+      "from-emerald-500 to-teal-600 dark:from-emerald-400 dark:to-teal-500",
+      "from-blue-600 to-cyan-500 dark:from-blue-500 dark:to-cyan-400",
+      "from-fuchsia-600 to-pink-500 dark:from-fuchsia-500 dark:to-pink-400"
+    ]
+    return gradients[charCodeSum % gradients.length]
+  }
+
+  const renderVerificationBadge = (verified?: boolean, status?: string) => {
+    if (status === "Trusted Partner") {
+      return (
+        <Badge className="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full">
+          <ShieldCheck className="h-3 w-3" /> Trusted Partner
+        </Badge>
+      )
+    }
+    if (status === "Business Verified" || verified) {
+      return (
+        <Badge className="bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full">
+          <CheckCircle2 className="h-3 w-3" /> Verified Business
+        </Badge>
+      )
+    }
+    return (
+      <Badge className="bg-slate-100 text-slate-500 border border-slate-200 dark:bg-white/5 dark:text-white/40 dark:border-white/10 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full">
+        Basic Partner
+      </Badge>
+    )
+  }
 
   useEffect(() => {
     async function fetchExplore() {
@@ -413,9 +447,9 @@ export default function ExplorePage() {
     }
 
     return (
-      <div className="flex gap-6 min-h-[700px] h-[calc(100vh-200px)] animate-in fade-in duration-300">
+      <div className="flex gap-6 flex-grow min-h-0 h-full animate-in fade-in duration-300">
         {/* Left List */}
-        <div className="w-1/3 overflow-y-auto custom-scrollbar space-y-3 pr-2">
+        <div className="w-[420px] shrink-0 overflow-y-auto custom-scrollbar space-y-3 pr-2">
           {results.map(op => (
             <div
               key={op.id}
@@ -443,94 +477,138 @@ export default function ExplorePage() {
         </div>
 
         {/* Right Preview */}
-        <div className="w-2/3 bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-sm">
-          {selectedItem && (
-            <div className="p-8 md:p-12 overflow-y-auto flex-grow custom-scrollbar">
-              <div className="flex justify-between items-start mb-8 pb-8 border-b border-slate-100 dark:border-white/5">
-                <div className="flex items-start gap-6">
-                  <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-white/5 dark:to-white/10 flex items-center justify-center font-black text-4xl text-slate-400 shrink-0 shadow-inner">
-                    {selectedItem.companyName[0]}
+        <div className="flex-1 bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-sm h-full">
+          {selectedItem && (() => {
+            const initials = (selectedItem.companyName || selectedItem.userName || "U").substring(0, 2).toUpperCase()
+            return (
+              <div className="flex flex-col h-full">
+                {/* Header Card (Logo, Company Name, Industry, Location, Team Size, Verification) */}
+                <div className="p-6 md:p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 relative flex-shrink-0">
+                  
+                  {/* Bookmark Button in Top-Right */}
+                  <button 
+                    onClick={(e) => toggleSave(selectedItem.id, e)} 
+                    className="absolute top-6 right-6 p-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0A0A0A] hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+                  >
+                    <Bookmark className={`h-4 w-4 ${savedIds.includes(selectedItem.id) ? 'text-blue-600 fill-blue-600' : 'text-slate-400'}`} />
+                  </button>
+
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left mt-2">
+                    {/* Logo initials container */}
+                    <div className={`h-16 w-16 md:h-20 md:w-20 rounded-2xl md:rounded-3xl bg-gradient-to-br ${getGradientClass(selectedItem.companyName || selectedItem.userName || "")} flex items-center justify-center text-white font-black text-2xl md:text-3xl tracking-tight shadow-md flex-shrink-0`}>
+                      {initials}
+                    </div>
+
+                    <div className="space-y-2 flex-grow pr-8">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 justify-center sm:justify-start">
+                        <h2 className="text-xl md:text-2xl font-black italic tracking-tight text-slate-900 dark:text-white leading-tight">
+                          {selectedItem.companyName}
+                        </h2>
+                        <div className="flex justify-center sm:justify-start">
+                          {renderVerificationBadge(selectedItem.verified, selectedItem.verificationStatus)}
+                        </div>
+                      </div>
+
+                      {/* Metadata details (Industry, Location, Employees) */}
+                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1.5 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-white/40">
+                        <div className="flex items-center gap-1.5">
+                          <Building2 className="h-3.5 w-3.5 text-primary" />
+                          <span>{selectedItem.industry || "Not Specified"}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <MapPin className="h-3.5 w-3.5 text-blue-500" />
+                          <span>{selectedItem.city ? `${selectedItem.city}, ${selectedItem.state}` : (selectedItem.location || "Global")}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Users className="h-3.5 w-3.5 text-emerald-500" />
+                          <span>{selectedItem.team || selectedItem.teamSize || "1-5"} Employees</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-2 pt-1">
-                    <h2 className="text-3xl font-black italic tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
-                      {selectedItem.companyName}
-                      {selectedItem.verified && <CheckCircle2 className="h-6 w-6 text-emerald-500" />}
-                    </h2>
-                    <p className="text-sm font-bold text-slate-500 max-w-md">{selectedItem.tagline}</p>
-                    <div className="flex items-center gap-4 pt-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      <span className="flex items-center gap-1.5"><Building2 className="h-3.5 w-3.5" /> {selectedItem.industry}</span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1.5">
-                        <MapPin className="h-3.5 w-3.5" /> {selectedItem.city ? `${selectedItem.city}, ${selectedItem.state}` : (selectedItem.location || "Global")}
+                </div>
+
+                {/* Scrollable Content */}
+                <div className="p-6 md:p-8 space-y-6 overflow-y-auto flex-grow custom-scrollbar">
+                  
+                  {/* Middle Card: Goal / Intent / Looking For */}
+                  <div className="space-y-2.5">
+                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1.5">
+                      <Target className="h-4 w-4 text-primary" /> Current Goal & Focus
+                    </h3>
+                    <div className="p-5 rounded-2xl border border-primary/10 bg-primary/[0.02] dark:border-primary/20 dark:bg-primary/[0.04] relative overflow-hidden">
+                      <div className="absolute top-0 left-0 h-full w-1.5 bg-primary" />
+                      <p className="text-sm font-medium leading-relaxed italic text-slate-700 dark:text-slate-300 pl-2">
+                        "{selectedItem.goal || 'Looking for B2B strategic alliances and reciprocal deals.'}"
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom Card: Offerings & Needs */}
+                  <div className="space-y-4 pt-2 border-t border-slate-100 dark:border-white/5">
+                    
+                    {/* Offerings list */}
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1.5">
+                        <Compass className="h-4 w-4 text-emerald-500" /> Services & Offerings
                       </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedItem.offerings || selectedItem.offers ? (
+                          (selectedItem.offerings || selectedItem.offers || []).map((off: string) => (
+                            <Badge 
+                              key={off} 
+                              variant="outline" 
+                              className="text-[9px] font-bold tracking-wide bg-slate-50 border-slate-200 hover:border-primary/40 dark:bg-white/5 dark:border-white/10 dark:text-white/80 dark:hover:border-primary/40 px-3 py-1 rounded-xl transition-all"
+                            >
+                              {off}
+                            </Badge>
+                          ))
+                        ) : (
+                          <span className="text-xs text-slate-400">None declared</span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Needs list */}
+                    <div className="space-y-2 pt-2">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1.5">
+                        <Zap className="h-4 w-4 text-blue-500" /> Looking For / Needs
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedItem.needs ? (
+                          (selectedItem.needs || []).map((need: string) => (
+                            <Badge 
+                              key={need} 
+                              variant="outline" 
+                              className="text-[9px] font-bold tracking-wide bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800 px-3 py-1 rounded-xl transition-all"
+                            >
+                              {need}
+                            </Badge>
+                          ))
+                        ) : (
+                          <span className="text-xs text-slate-400">None declared</span>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <button onClick={(e) => toggleSave(selectedItem.id, e)} className="p-3 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-                  <Bookmark className={`h-5 w-5 ${savedIds.includes(selectedItem.id) ? 'text-blue-600 fill-blue-600' : 'text-slate-400'}`} />
-                </button>
-              </div>
 
-              <div className="space-y-10">
-                <div className="bg-slate-50 dark:bg-white/5 rounded-2xl p-6 border border-slate-100 dark:border-white/5">
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
-                    <Target className="h-4 w-4 text-blue-500" /> Primary Need
-                  </h3>
-                  <p className="text-xl font-bold text-slate-800 dark:text-slate-200 leading-relaxed italic">"{selectedItem.goal}"</p>
-
-                  <div className="flex items-center gap-6 mt-6 pt-6 border-t border-slate-200 dark:border-white/10">
-                    <div>
-                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Target Budget</p>
-                      <p className="text-lg font-black text-emerald-600 dark:text-emerald-500">{selectedItem.budget || "Flexible"}</p>
-                    </div>
-                    <div>
-                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Deal Type</p>
-                      <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border-none font-black text-[9px] uppercase tracking-widest px-3 py-1">
-                        {selectedItem.dealType}
-                      </Badge>
-                    </div>
-                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="space-y-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Looking For</h3>
-                    <ul className="space-y-3">
-                      {(selectedItem.needs || []).map((need: string, i: number) => (
-                        <li key={i} className="flex items-start gap-3 text-sm font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-[#0A0A0A] p-3 rounded-xl border border-slate-100 dark:border-white/5">
-                          <Check className="h-4 w-4 text-emerald-500 shrink-0" />
-                          {need}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="space-y-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Can Offer</h3>
-                    <ul className="space-y-3">
-                      {(selectedItem.offerings || selectedItem.offers || []).map((offer: string, i: number) => (
-                        <li key={i} className="flex items-start gap-3 text-sm font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-[#0A0A0A] p-3 rounded-xl border border-slate-100 dark:border-white/5">
-                          <Check className="h-4 w-4 text-blue-500 shrink-0" />
-                          {offer}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                {/* Footer Actions */}
+                <div className="p-6 md:p-8 border-t border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 flex gap-3 flex-shrink-0">
+                  <Button
+                    onClick={() => {
+                      setIntroCompany({ id: selectedItem.id, name: selectedItem.companyName, industry: selectedItem.industry, verified: selectedItem.verified });
+                      setIsIntroModalOpen(true);
+                    }}
+                    className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-all"
+                  >
+                    <Send className="h-4 w-4" /> Request Intro
+                  </Button>
                 </div>
               </div>
-
-              <div className="mt-12 flex justify-end">
-                <Button
-                  onClick={() => {
-                    setIntroCompany({ id: selectedItem.id, name: selectedItem.companyName, industry: selectedItem.industry, verified: selectedItem.verified });
-                    setIsIntroModalOpen(true);
-                  }}
-                  className="h-12 px-8 rounded-xl font-black uppercase tracking-widest text-[11px] bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20"
-                >
-                  Request Introduction
-                </Button>
-              </div>
-            </div>
-          )}
+            )
+          })()}
         </div>
       </div>
     );
@@ -607,20 +685,22 @@ export default function ExplorePage() {
   );
 
   return (
-    <div className="max-w-[1500px] mx-auto space-y-8 pb-32 px-4 md:px-8">
+    <div className={`max-w-[1500px] mx-auto px-4 md:px-8 ${viewMode === 'split' ? 'h-[calc(100vh-96px)] md:h-[calc(100vh-112px)] lg:h-[calc(100vh-128px)] flex flex-col overflow-hidden space-y-3' : 'space-y-8 pb-32'}`}>
 
       {/* Page Title Header */}
-      <div className="pb-6 border-b border-slate-200 dark:border-white/10">
-        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-2">
+      <div className={`border-b border-slate-200 dark:border-white/10 flex-shrink-0 ${viewMode === 'split' ? 'pb-3' : 'pb-6'}`}>
+        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-1">
           Explore Opportunities
         </h1>
-        <p className="text-slate-500 dark:text-white/40 font-bold text-sm tracking-wide">
-          Search and connect with potential B2B partners across the network.
-        </p>
+        {viewMode !== 'split' && (
+          <p className="text-slate-500 dark:text-white/40 font-bold text-sm tracking-wide">
+            Search and connect with potential B2B partners across the network.
+          </p>
+        )}
       </div>
 
       {/* 🧭 NEW TOP LAYOUT: SEARCH & FILTERS */}
-      <div className="pt-6 pb-4 border-b border-slate-200 dark:border-white/10 space-y-5">
+      <div className={`border-b border-slate-200 dark:border-white/10 flex-shrink-0 ${viewMode === 'split' ? 'pt-3 pb-3 space-y-3' : 'pt-6 pb-4 space-y-5'}`}>
         <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
 
           {/* Large Search Bar */}
@@ -683,8 +763,8 @@ export default function ExplorePage() {
 
       {/* --- BEFORE SEARCH --- */}
       {!isSearching && (
-        <div className="space-y-12 animate-in fade-in duration-500 pt-4">
-          <div className="flex flex-wrap items-center gap-3">
+        <div className={`animate-in fade-in duration-500 pt-4 min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col space-y-4' : 'space-y-12'}`}>
+          <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 mr-2">
               <TrendingUp className="h-4 w-4 text-blue-500" /> Suggested Searches
             </span>
@@ -699,8 +779,8 @@ export default function ExplorePage() {
             ))}
           </div>
 
-          <div className="space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
+          <div className={`min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col space-y-4' : 'space-y-6'}`}>
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 flex-shrink-0">
               <h2 className="text-2xl font-black italic tracking-tighter text-slate-900 dark:text-white flex items-center gap-3">
                 <Clock className="h-6 w-6 text-slate-400" /> Live Opportunity Feed
               </h2>
@@ -708,7 +788,7 @@ export default function ExplorePage() {
             </div>
             {/* Force mobile to use feed view */}
             <div className="block lg:hidden">{renderFeedView()}</div>
-            <div className="hidden lg:block">
+            <div className={`hidden lg:block min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col' : ''}`}>
               {viewMode === 'feed' && renderFeedView()}
               {viewMode === 'split' && renderSplitView()}
               {viewMode === 'table' && renderTableView()}
@@ -719,8 +799,8 @@ export default function ExplorePage() {
 
       {/* --- AFTER SEARCH --- */}
       {isSearching && (
-        <div className="space-y-6 animate-in fade-in duration-500 pt-4">
-          <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
+        <div className={`animate-in fade-in duration-500 pt-4 min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col space-y-4' : 'space-y-6'}`}>
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 flex-shrink-0">
             <h2 className="text-xl font-black italic tracking-tight text-slate-900 dark:text-white">
               Results for "{activeSearch}"
             </h2>
@@ -732,7 +812,7 @@ export default function ExplorePage() {
           <div className="block lg:hidden">
             {searchState !== 'empty' && renderFeedView()}
           </div>
-          <div className="hidden lg:block">
+          <div className={`hidden lg:block min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col' : ''}`}>
             {searchState !== 'empty' && viewMode === 'feed' && renderFeedView()}
             {searchState !== 'empty' && viewMode === 'split' && renderSplitView()}
             {searchState !== 'empty' && viewMode === 'table' && renderTableView()}
