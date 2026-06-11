@@ -312,20 +312,22 @@ export default function ExplorePage() {
           className="bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-2xl p-6 hover:border-blue-300 dark:hover:border-blue-800 transition-colors flex flex-col md:flex-row gap-6 items-start md:items-center cursor-pointer shadow-sm hover:shadow-md"
         >
           {/* Logo & Identity */}
-          <div className="flex items-center gap-4 w-full md:w-[250px] shrink-0">
+          <div className="flex items-center gap-4 w-full md:w-[320px] shrink-0">
             <div className="h-12 w-12 rounded-xl bg-slate-100 dark:bg-white/5 flex items-center justify-center font-black text-xl text-slate-400 shrink-0">
               {op.companyName[0]}
             </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-1.5 mb-1">
+            <div className="min-w-0 flex-grow">
+              <div className="flex items-center gap-1.5 mb-1.5">
                 <Link href={`/business/${op.id}`} onClick={(e) => e.stopPropagation()}>
                   <h4 className="font-black text-sm text-slate-900 dark:text-white truncate hover:text-blue-600 transition-colors">{op.companyName}</h4>
                 </Link>
                 {op.verified && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />}
               </div>
-              <p className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-1.5 truncate">
-                <Briefcase className="h-3 w-3" /> {op.industry} <span className="mx-0.5">•</span> <MapPin className="h-3 w-3" /> {op.location || `${op.city}, ${op.state}`}
-              </p>
+              <div className="text-[10px] font-bold text-slate-500 uppercase flex flex-wrap items-center gap-x-2 gap-y-1 leading-normal">
+                <span className="flex items-center gap-1 shrink-0"><Briefcase className="h-3 w-3" /> {op.industry}</span>
+                <span className="text-slate-300 dark:text-white/10">•</span>
+                <span className="flex items-center gap-1 shrink-0"><MapPin className="h-3 w-3" /> {op.location || `${op.city}, ${op.state}`}</span>
+              </div>
             </div>
           </div>
 
@@ -411,14 +413,14 @@ export default function ExplorePage() {
     }
 
     return (
-      <div className="flex gap-6 h-[calc(100vh-250px)] animate-in fade-in duration-300">
+      <div className="flex gap-6 min-h-[700px] h-[calc(100vh-200px)] animate-in fade-in duration-300">
         {/* Left List */}
         <div className="w-1/3 overflow-y-auto custom-scrollbar space-y-3 pr-2">
           {results.map(op => (
             <div
               key={op.id}
               onClick={() => setSplitSelectedId(op.id)}
-              className={`p-5 rounded-2xl border-2 transition-all cursor-pointer ${selectedItem?.id === op.id ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/10' : 'border-slate-100 dark:border-white/5 hover:border-slate-200 bg-white dark:bg-[#0A0A0A]'}`}
+              className={`p-5 rounded-2xl border-2 transition-all cursor-pointer ${selectedItem?.id === op.id ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/10' : 'border-slate-200 dark:border-white/10 hover:border-blue-300 dark:hover:border-blue-900 bg-white dark:bg-[#0A0A0A]'}`}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2 min-w-0">
