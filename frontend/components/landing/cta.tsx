@@ -20,7 +20,7 @@ export function CTA() {
   return (
     <section 
       id="cta"
-      className="relative py-24 lg:py-32 bg-[#050508] overflow-hidden"
+      className="relative pt-24 pb-44 lg:pt-32 lg:pb-48 bg-[#050508] overflow-hidden"
     >
       {/* Top separator line */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
@@ -67,7 +67,7 @@ export function CTA() {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4.5 justify-center items-center w-full sm:w-auto">
+            <div id="cta-buttons" className="flex flex-col sm:flex-row gap-4.5 justify-center items-center w-full sm:w-auto">
               <Button
                 onClick={handlePrimaryCTA}
                 size="lg"

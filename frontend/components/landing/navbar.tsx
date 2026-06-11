@@ -115,15 +115,6 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            aria-label="Toggle navigation"
-            className="lg:hidden relative z-50 flex items-center justify-center h-10 w-10 rounded-xl border border-white/10 bg-white/5 text-white backdrop-blur-sm transition-all hover:border-cyan-500/30 active:scale-95"
-            onClick={() => setMobileOpen(v => !v)}
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
         </nav>
       </header>
 

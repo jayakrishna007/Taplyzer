@@ -11,18 +11,24 @@ interface DockItem {
 
 export function FloatingDock() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [activeTooltipIndex, setActiveTooltipIndex] = useState<number | null>(null)
+  const [clickTimeoutId, setClickTimeoutId] = useState<any>(null)
 
   const items: DockItem[] = [
     { label: "Home", targetId: "home", icon: Home },
     { label: "Features", targetId: "features", icon: LayoutGrid },
     { label: "How It Works", targetId: "how-it-works", icon: Workflow },
-    { label: "Get Started", targetId: "cta", icon: Sparkles },
+    { label: "Get Started", targetId: "cta-buttons", icon: Sparkles },
   ]
 
   const handleScroll = (targetId: string) => {
     const element = document.getElementById(targetId)
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      if (targetId === "cta-buttons") {
+        element.scrollIntoView({ behavior: "smooth", block: "center" })
+      } else {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
     }
   }
 
@@ -42,14 +48,34 @@ export function FloatingDock() {
             else if (dist === 1) scale = 1.15
           }
 
-          const isHovered = hoveredIndex === idx
+          const isTooltipVisible = activeTooltipIndex === idx
 
           return (
             <button
               key={item.label}
-              onClick={() => handleScroll(item.targetId)}
-              onMouseEnter={() => setHoveredIndex(idx)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => {
+                handleScroll(item.targetId)
+                if (clickTimeoutId) {
+                  clearTimeout(clickTimeoutId)
+                }
+                setActiveTooltipIndex(idx)
+                const tId = setTimeout(() => {
+                  setActiveTooltipIndex(null)
+                }, 1000)
+                setClickTimeoutId(tId)
+              }}
+              onMouseEnter={() => {
+                setHoveredIndex(idx)
+                setActiveTooltipIndex(idx)
+              }}
+              onMouseLeave={() => {
+                setHoveredIndex(null)
+                setActiveTooltipIndex(null)
+                if (clickTimeoutId) {
+                  clearTimeout(clickTimeoutId)
+                  setClickTimeoutId(null)
+                }
+              }}
               className="relative p-2.5 rounded-full bg-white/[0.03] border border-white/[0.04] text-white/70 hover:text-white hover:bg-white/[0.08] transition-all duration-200 cursor-pointer focus:outline-none flex items-center justify-center"
               style={{
                 transform: `scale(${scale})`,
@@ -61,7 +87,7 @@ export function FloatingDock() {
               {/* Tooltip Tag */}
               <div
                 className={`absolute bottom-full mb-3 left-1/2 -translate-x-1/2 px-2.5 py-1.5 rounded-lg bg-[#050508]/95 border border-white/10 text-white text-[11px] font-semibold tracking-wide whitespace-nowrap shadow-md transition-all duration-200 pointer-events-none ${
-                  isHovered
+                  isTooltipVisible
                     ? "opacity-100 translate-y-0 scale-100"
                     : "opacity-0 translate-y-1.5 scale-95"
                 }`}
