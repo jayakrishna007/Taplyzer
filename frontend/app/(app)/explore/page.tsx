@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
-  Search, Filter, MapPin, Building2, CheckCircle2, Bookmark, LayoutList,
+  Search, Filter, MapPin, Building2, CheckCircle2, LayoutList,
   LayoutPanelLeft, TableProperties, TrendingUp, Users, Check, Clock, Target, Sparkles,
   Briefcase, ShieldCheck, Send, Zap, Compass
 } from "lucide-react"
@@ -419,9 +419,6 @@ export default function ExplorePage() {
             >
               View
             </Button>
-            <button onClick={(e) => toggleSave(op.id, e)} className="p-2.5 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-              <Bookmark className={`h-4 w-4 ${savedIds.includes(op.id) ? 'text-blue-600 fill-blue-600' : 'text-slate-400'}`} />
-            </button>
           </div>
         </div>
       ))}
@@ -448,60 +445,85 @@ export default function ExplorePage() {
 
     return (
       <div className="flex gap-6 flex-grow min-h-0 h-full animate-in fade-in duration-300">
-        {/* Left List */}
-        <div className="w-[420px] shrink-0 overflow-y-auto custom-scrollbar space-y-3 pr-2">
-          {results.map(op => (
-            <div
-              key={op.id}
-              onClick={() => setSplitSelectedId(op.id)}
-              className={`p-5 rounded-2xl border-2 transition-all cursor-pointer ${selectedItem?.id === op.id ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/10' : 'border-slate-200 dark:border-white/10 hover:border-blue-300 dark:hover:border-blue-900 bg-white dark:bg-[#0A0A0A]'}`}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2 min-w-0">
-                  <div className="h-8 w-8 rounded-lg bg-slate-100 dark:bg-white/5 flex items-center justify-center font-black text-xs text-slate-400 shrink-0">
-                    {op.companyName[0]}
+        {/* Left List Column */}
+        <div className="w-[420px] shrink-0 flex flex-col min-h-0 h-full gap-4">
+          
+          {/* Compact Search inside Left List */}
+          <div className="flex-shrink-0 flex items-center gap-2">
+            <div className="relative flex-grow">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <Input
+                placeholder="Search opportunities..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="pl-11 pr-20 h-11 bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 font-bold text-sm w-full focus:ring-2 ring-blue-600/20 focus:border-blue-600 transition-all shadow-sm text-slate-900 dark:text-white"
+              />
+              <Button
+                onClick={() => executeSearch(searchTerm)}
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 px-4 rounded-lg bg-slate-900 hover:bg-blue-600 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-500 text-white font-black uppercase tracking-widest text-[9px] shadow-sm transition-colors"
+              >
+                Search
+              </Button>
+            </div>
+            {isSearching && (
+              <Button 
+                variant="ghost" 
+                onClick={() => { setIsSearching(false); setSearchState("none"); setSearchTerm(""); setResults(allBusinesses); }} 
+                className="text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 h-11 px-3 border border-slate-200 dark:border-white/10 rounded-xl flex-shrink-0"
+              >
+                Clear
+              </Button>
+            )}
+          </div>
+
+          {/* Scrollable Left List Cards */}
+          <div className="flex-grow overflow-y-auto custom-scrollbar space-y-3 pr-2 min-h-0">
+            {results.map(op => (
+              <div
+                key={op.id}
+                onClick={() => setSplitSelectedId(op.id)}
+                className={`p-5 rounded-2xl border-2 transition-all cursor-pointer ${selectedItem?.id === op.id ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/10' : 'border-slate-200 dark:border-white/10 hover:border-blue-300 dark:hover:border-blue-900 bg-white dark:bg-[#0A0A0A]'}`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="h-8 w-8 rounded-lg bg-slate-100 dark:bg-white/5 flex items-center justify-center font-black text-xs text-slate-400 shrink-0">
+                      {op.companyName[0]}
+                    </div>
+                    <Link href={`/business/${op.id}`} onClick={(e) => e.stopPropagation()}>
+                      <h4 className="font-black text-slate-900 dark:text-white text-sm italic hover:text-blue-600 transition-colors">{op.companyName}</h4>
+                    </Link>
+                    {op.verified && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />}
                   </div>
-                  <Link href={`/business/${op.id}`} onClick={(e) => e.stopPropagation()}>
-                    <h4 className="font-black text-slate-900 dark:text-white text-sm italic hover:text-blue-600 transition-colors">{op.companyName}</h4>
-                  </Link>
-                  {op.verified && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />}
+                </div>
+                <p className="text-xs font-bold text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 leading-relaxed">"{op.goal}"</p>
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400 border-none font-black text-[9px] uppercase tracking-widest">{op.industry}</Badge>
+                  {op.postedTime && <span className="text-[9px] font-black uppercase text-slate-400">{op.postedTime}</span>}
                 </div>
               </div>
-              <p className="text-xs font-bold text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 leading-relaxed">"{op.goal}"</p>
-              <div className="flex items-center justify-between">
-                <Badge className="bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400 border-none font-black text-[9px] uppercase tracking-widest">{op.industry}</Badge>
-                {op.postedTime && <span className="text-[9px] font-black uppercase text-slate-400">{op.postedTime}</span>}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Right Preview */}
-        <div className="flex-1 bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-sm h-full">
+        <div className="flex-grow bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-sm h-full">
           {selectedItem && (() => {
             const initials = (selectedItem.companyName || selectedItem.userName || "U").substring(0, 2).toUpperCase()
             return (
               <div className="flex flex-col h-full">
                 {/* Header Card (Logo, Company Name, Industry, Location, Team Size, Verification) */}
-                <div className="p-6 md:p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 relative flex-shrink-0">
-                  
-                  {/* Bookmark Button in Top-Right */}
-                  <button 
-                    onClick={(e) => toggleSave(selectedItem.id, e)} 
-                    className="absolute top-6 right-6 p-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0A0A0A] hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
-                  >
-                    <Bookmark className={`h-4 w-4 ${savedIds.includes(selectedItem.id) ? 'text-blue-600 fill-blue-600' : 'text-slate-400'}`} />
-                  </button>
+                <div className="p-4 md:p-5 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 relative flex-shrink-0">
 
-                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left mt-2">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left mt-1">
                     {/* Logo initials container */}
-                    <div className={`h-16 w-16 md:h-20 md:w-20 rounded-2xl md:rounded-3xl bg-gradient-to-br ${getGradientClass(selectedItem.companyName || selectedItem.userName || "")} flex items-center justify-center text-white font-black text-2xl md:text-3xl tracking-tight shadow-md flex-shrink-0`}>
+                    <div className={`h-12 w-12 md:h-14 md:w-14 rounded-xl md:rounded-2xl bg-gradient-to-br ${getGradientClass(selectedItem.companyName || selectedItem.userName || "")} flex items-center justify-center text-white font-black text-lg md:text-xl tracking-tight shadow-md flex-shrink-0`}>
                       {initials}
                     </div>
 
-                    <div className="space-y-2 flex-grow pr-8">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 justify-center sm:justify-start">
-                        <h2 className="text-xl md:text-2xl font-black italic tracking-tight text-slate-900 dark:text-white leading-tight">
+                    <div className="space-y-1 flex-grow pr-8">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 justify-center sm:justify-start">
+                        <h2 className="text-lg md:text-xl font-black italic tracking-tight text-slate-900 dark:text-white leading-tight">
                           {selectedItem.companyName}
                         </h2>
                         <div className="flex justify-center sm:justify-start">
@@ -510,17 +532,17 @@ export default function ExplorePage() {
                       </div>
 
                       {/* Metadata details (Industry, Location, Employees) */}
-                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1.5 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-white/40">
-                        <div className="flex items-center gap-1.5">
-                          <Building2 className="h-3.5 w-3.5 text-primary" />
+                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-white/40">
+                        <div className="flex items-center gap-1">
+                          <Building2 className="h-3 w-3 text-primary" />
                           <span>{selectedItem.industry || "Not Specified"}</span>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                          <MapPin className="h-3.5 w-3.5 text-blue-500" />
+                        <div className="flex items-center gap-1">
+                          <MapPin className="h-3 w-3 text-blue-500" />
                           <span>{selectedItem.city ? `${selectedItem.city}, ${selectedItem.state}` : (selectedItem.location || "Global")}</span>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                          <Users className="h-3.5 w-3.5 text-emerald-500" />
+                        <div className="flex items-center gap-1">
+                          <Users className="h-3 w-3 text-emerald-500" />
                           <span>{selectedItem.team || selectedItem.teamSize || "1-5"} Employees</span>
                         </div>
                       </div>
@@ -528,65 +550,64 @@ export default function ExplorePage() {
                   </div>
                 </div>
 
-                {/* Scrollable Content */}
-                <div className="p-6 md:p-8 space-y-6 overflow-y-auto flex-grow custom-scrollbar">
+                {/* Content */}
+                <div className="p-4 md:p-5 space-y-4 overflow-y-auto flex-grow custom-scrollbar">
                   
                   {/* Middle Card: Goal / Intent / Looking For */}
-                  <div className="space-y-2.5">
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1.5">
-                      <Target className="h-4 w-4 text-primary" /> Current Goal & Focus
+                  <div className="space-y-1.5">
+                    <h3 className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1">
+                      <Target className="h-3.5 w-3.5 text-primary" /> Current Goal & Focus
                     </h3>
-                    <div className="p-5 rounded-2xl border border-primary/10 bg-primary/[0.02] dark:border-primary/20 dark:bg-primary/[0.04] relative overflow-hidden">
-                      <div className="absolute top-0 left-0 h-full w-1.5 bg-primary" />
-                      <p className="text-sm font-medium leading-relaxed italic text-slate-700 dark:text-slate-300 pl-2">
+                    <div className="p-3.5 rounded-xl border-l-2 border-primary bg-primary/[0.02] dark:bg-primary/[0.04] relative overflow-hidden">
+                      <p className="text-xs font-semibold leading-relaxed italic text-slate-700 dark:text-slate-300">
                         "{selectedItem.goal || 'Looking for B2B strategic alliances and reciprocal deals.'}"
                       </p>
                     </div>
                   </div>
 
                   {/* Bottom Card: Offerings & Needs */}
-                  <div className="space-y-4 pt-2 border-t border-slate-100 dark:border-white/5">
+                  <div className="space-y-3 pt-2.5 border-t border-slate-100 dark:border-white/5">
                     
                     {/* Offerings list */}
-                    <div className="space-y-2">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1.5">
-                        <Compass className="h-4 w-4 text-emerald-500" /> Services & Offerings
+                    <div className="space-y-1">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1">
+                        <Compass className="h-3.5 w-3.5 text-emerald-500" /> Services & Offerings
                       </span>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-1">
                         {selectedItem.offerings || selectedItem.offers ? (
                           (selectedItem.offerings || selectedItem.offers || []).map((off: string) => (
                             <Badge 
                               key={off} 
                               variant="outline" 
-                              className="text-[9px] font-bold tracking-wide bg-slate-50 border-slate-200 hover:border-primary/40 dark:bg-white/5 dark:border-white/10 dark:text-white/80 dark:hover:border-primary/40 px-3 py-1 rounded-xl transition-all"
+                              className="text-[8px] font-black tracking-wider bg-slate-50 border-slate-200 hover:border-primary/40 dark:bg-white/5 dark:border-white/10 dark:text-white/80 dark:hover:border-primary/40 px-2 py-0.5 rounded-lg transition-all"
                             >
                               {off}
                             </Badge>
                           ))
                         ) : (
-                          <span className="text-xs text-slate-400">None declared</span>
+                          <span className="text-[10px] text-slate-400">None declared</span>
                         )}
                       </div>
                     </div>
 
                     {/* Needs list */}
-                    <div className="space-y-2 pt-2">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1.5">
-                        <Zap className="h-4 w-4 text-blue-500" /> Looking For / Needs
+                    <div className="space-y-1 pt-1.5">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 flex items-center gap-1">
+                        <Zap className="h-3.5 w-3.5 text-blue-500" /> Looking For / Needs
                       </span>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-1">
                         {selectedItem.needs ? (
                           (selectedItem.needs || []).map((need: string) => (
                             <Badge 
                               key={need} 
                               variant="outline" 
-                              className="text-[9px] font-bold tracking-wide bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800 px-3 py-1 rounded-xl transition-all"
+                              className="text-[8px] font-black tracking-wider bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800 px-2 py-0.5 rounded-lg transition-all"
                             >
                               {need}
                             </Badge>
                           ))
                         ) : (
-                          <span className="text-xs text-slate-400">None declared</span>
+                          <span className="text-[10px] text-slate-400">None declared</span>
                         )}
                       </div>
                     </div>
@@ -595,15 +616,15 @@ export default function ExplorePage() {
                 </div>
 
                 {/* Footer Actions */}
-                <div className="p-6 md:p-8 border-t border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 flex gap-3 flex-shrink-0">
+                <div className="p-4 md:p-5 border-t border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 flex gap-3 flex-shrink-0">
                   <Button
                     onClick={() => {
                       setIntroCompany({ id: selectedItem.id, name: selectedItem.companyName, industry: selectedItem.industry, verified: selectedItem.verified });
                       setIsIntroModalOpen(true);
                     }}
-                    className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-all"
+                    className="w-full h-10 md:h-11 rounded-xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[9px] shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-all"
                   >
-                    <Send className="h-4 w-4" /> Request Intro
+                    <Send className="h-3.5 w-3.5" /> Request Intro
                   </Button>
                 </div>
               </div>
@@ -687,105 +708,142 @@ export default function ExplorePage() {
   return (
     <div className={`max-w-[1500px] mx-auto px-4 md:px-8 ${viewMode === 'split' ? 'h-[calc(100vh-96px)] md:h-[calc(100vh-112px)] lg:h-[calc(100vh-128px)] flex flex-col overflow-hidden space-y-3' : 'space-y-8 pb-32'}`}>
 
-      {/* Page Title Header */}
-      <div className={`border-b border-slate-200 dark:border-white/10 flex-shrink-0 ${viewMode === 'split' ? 'pb-3' : 'pb-6'}`}>
-        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-1">
-          Explore Opportunities
-        </h1>
-        {viewMode !== 'split' && (
-          <p className="text-slate-500 dark:text-white/40 font-bold text-sm tracking-wide">
-            Search and connect with potential B2B partners across the network.
-          </p>
-        )}
-      </div>
-
-      {/* 🧭 NEW TOP LAYOUT: SEARCH & FILTERS */}
-      <div className={`border-b border-slate-200 dark:border-white/10 flex-shrink-0 ${viewMode === 'split' ? 'pt-3 pb-3 space-y-3' : 'pt-6 pb-4 space-y-5'}`}>
-        <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
-
-          {/* Large Search Bar */}
-          <div className="relative flex-grow">
-            <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-6 w-6 text-slate-400" />
-            <Input
-              placeholder="Search companies, needs, industries..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="pl-16 pr-32 h-16 rounded-[2rem] bg-white dark:bg-[#0A0A0A] border-2 border-slate-200 dark:border-white/10 font-bold text-lg focus:ring-4 ring-blue-600/20 focus:border-blue-600 transition-all shadow-sm text-slate-900 dark:text-white"
-            />
-            <Button
-              onClick={() => executeSearch(searchTerm)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 h-12 px-8 rounded-xl bg-slate-900 hover:bg-blue-600 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-500 text-white font-black uppercase tracking-widest text-[10px] shadow-md transition-colors"
-            >
-              Search
-            </Button>
+      {viewMode === 'split' ? (
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/10 flex-shrink-0">
+          <div>
+            <h1 className="text-xl font-black text-slate-900 dark:text-white tracking-tight italic">
+              Explore Opportunities
+            </h1>
           </div>
-
-          {/* View Toggles (Desktop only) */}
-          <div className="hidden lg:flex items-center bg-white dark:bg-[#0A0A0A] border-2 border-slate-200 dark:border-white/10 rounded-[1.5rem] p-1.5 shadow-sm shrink-0">
+          {/* View Toggles for Split View */}
+          <div className="flex items-center bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-xl p-1 shadow-sm shrink-0">
             <button
               onClick={() => setViewMode("feed")}
-              className={`p-3 rounded-xl transition-all ${viewMode === 'feed' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+              className="p-2 rounded-lg transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white"
               title="Feed View"
             >
-              <LayoutList className="h-5 w-5" />
+              <LayoutList className="h-4 w-4" />
             </button>
             <button
               onClick={() => setViewMode("split")}
-              className={`p-3 rounded-xl transition-all ${viewMode === 'split' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+              className="p-2 rounded-lg transition-all bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm"
               title="Split View"
             >
-              <LayoutPanelLeft className="h-5 w-5" />
+              <LayoutPanelLeft className="h-4 w-4" />
             </button>
             <button
               onClick={() => setViewMode("table")}
-              className={`p-3 rounded-xl transition-all ${viewMode === 'table' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+              className="p-2 rounded-lg transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white"
               title="Table View"
             >
-              <TableProperties className="h-5 w-5" />
+              <TableProperties className="h-4 w-4" />
             </button>
           </div>
         </div>
+      ) : (
+        <>
+          {/* Page Title Header */}
+          <div className="pb-6 border-b border-slate-200 dark:border-white/10 flex-shrink-0">
+            <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-2">
+              Explore Opportunities
+            </h1>
+            <p className="text-slate-500 dark:text-white/40 font-bold text-sm tracking-wide">
+              Search and connect with potential B2B partners across the network.
+            </p>
+          </div>
 
-        {/* Filter Row */}
-        <div className="flex items-center gap-3 overflow-x-auto pb-2 custom-scrollbar">
-          <Button onClick={() => alert('Advanced filters modal opening soon!')} variant="outline" className="rounded-full shrink-0 border-slate-200 dark:border-white/10 h-10 px-5 text-[11px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 bg-white dark:bg-[#0A0A0A]">
-            <Filter className="h-3.5 w-3.5 mr-2" /> All Filters
-          </Button>
-          <div className="h-6 w-px bg-slate-200 dark:bg-white/10 mx-1 shrink-0"></div>
-          {["Verified", "High Budget", "Nearby", "Newest", "Active", "Tech", "Manufacturing"].map(f => (
-            <Badge key={f} className="cursor-pointer shrink-0 bg-white dark:bg-[#0A0A0A] hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 px-4 py-2.5 font-black text-[10px] uppercase tracking-widest rounded-full transition-colors shadow-sm">
-              {f}
-            </Badge>
-          ))}
-        </div>
-      </div>
+          {/* 🧭 NEW TOP LAYOUT: SEARCH & FILTERS */}
+          <div className="pt-6 pb-4 border-b border-slate-200 dark:border-white/10 space-y-5 flex-shrink-0">
+            <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
+              {/* Large Search Bar */}
+              <div className="relative flex-grow">
+                <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-6 w-6 text-slate-400" />
+                <Input
+                  placeholder="Search companies, needs, industries..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  className="pl-16 pr-32 h-16 rounded-[2rem] bg-white dark:bg-[#0A0A0A] border-2 border-slate-200 dark:border-white/10 font-bold text-lg focus:ring-4 ring-blue-600/20 focus:border-blue-600 transition-all shadow-sm text-slate-900 dark:text-white"
+                />
+                <Button
+                  onClick={() => executeSearch(searchTerm)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-12 px-8 rounded-xl bg-slate-900 hover:bg-blue-600 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-500 text-white font-black uppercase tracking-widest text-[10px] shadow-md transition-colors"
+                >
+                  Search
+                </Button>
+              </div>
+
+              {/* View Toggles (Desktop only) */}
+              <div className="hidden lg:flex items-center bg-white dark:bg-[#0A0A0A] border-2 border-slate-200 dark:border-white/10 rounded-[1.5rem] p-1.5 shadow-sm shrink-0">
+                <button
+                  onClick={() => setViewMode("feed")}
+                  className={`p-3 rounded-xl transition-all ${viewMode === 'feed' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+                  title="Feed View"
+                >
+                  <LayoutList className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={() => setViewMode("split")}
+                  className="p-3 rounded-xl transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  title="Split View"
+                >
+                  <LayoutPanelLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={() => setViewMode("table")}
+                  className={`p-3 rounded-xl transition-all ${viewMode === 'table' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+                  title="Table View"
+                >
+                  <TableProperties className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Filter Row */}
+            <div className="flex items-center gap-3 overflow-x-auto pb-2 custom-scrollbar">
+              <Button onClick={() => alert('Advanced filters modal opening soon!')} variant="outline" className="rounded-full shrink-0 border-slate-200 dark:border-white/10 h-10 px-5 text-[11px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 bg-white dark:bg-[#0A0A0A]">
+                <Filter className="h-3.5 w-3.5 mr-2" /> All Filters
+              </Button>
+              <div className="h-6 w-px bg-slate-200 dark:bg-white/10 mx-1 shrink-0"></div>
+              {["Verified", "High Budget", "Nearby", "Newest", "Active", "Tech", "Manufacturing"].map(f => (
+                <Badge key={f} className="cursor-pointer shrink-0 bg-white dark:bg-[#0A0A0A] hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 px-4 py-2.5 font-black text-[10px] uppercase tracking-widest rounded-full transition-colors shadow-sm">
+                  {f}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* --- BEFORE SEARCH --- */}
       {!isSearching && (
         <div className={`animate-in fade-in duration-500 pt-4 min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col space-y-4' : 'space-y-12'}`}>
-          <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 mr-2">
-              <TrendingUp className="h-4 w-4 text-blue-500" /> Suggested Searches
-            </span>
-            {SUGGESTED_SEARCHES.map(s => (
-              <Badge
-                key={s}
-                onClick={() => executeSearch(s)}
-                className="cursor-pointer bg-blue-50/50 hover:bg-blue-100 dark:bg-blue-900/10 dark:hover:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30 px-4 py-2 font-black text-[10px] uppercase tracking-widest rounded-full transition-colors"
-              >
-                {s}
-              </Badge>
-            ))}
-          </div>
+          {viewMode !== 'split' && (
+            <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 mr-2">
+                <TrendingUp className="h-4 w-4 text-blue-500" /> Suggested Searches
+              </span>
+              {SUGGESTED_SEARCHES.map(s => (
+                <Badge
+                  key={s}
+                  onClick={() => executeSearch(s)}
+                  className="cursor-pointer bg-blue-50/50 hover:bg-blue-100 dark:bg-blue-900/10 dark:hover:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30 px-4 py-2 font-black text-[10px] uppercase tracking-widest rounded-full transition-colors"
+                >
+                  {s}
+                </Badge>
+              ))}
+            </div>
+          )}
 
           <div className={`min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col space-y-4' : 'space-y-6'}`}>
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 flex-shrink-0">
-              <h2 className="text-2xl font-black italic tracking-tighter text-slate-900 dark:text-white flex items-center gap-3">
-                <Clock className="h-6 w-6 text-slate-400" /> Live Opportunity Feed
-              </h2>
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{results.length} active</span>
-            </div>
+            {viewMode !== 'split' && (
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 flex-shrink-0">
+                <h2 className="text-2xl font-black italic tracking-tighter text-slate-900 dark:text-white flex items-center gap-3">
+                  <Clock className="h-6 w-6 text-slate-400" /> Live Opportunity Feed
+                </h2>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{results.length} active</span>
+              </div>
+            )}
             {/* Force mobile to use feed view */}
             <div className="block lg:hidden">{renderFeedView()}</div>
             <div className={`hidden lg:block min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col' : ''}`}>
@@ -800,14 +858,16 @@ export default function ExplorePage() {
       {/* --- AFTER SEARCH --- */}
       {isSearching && (
         <div className={`animate-in fade-in duration-500 pt-4 min-h-0 ${viewMode === 'split' ? 'flex-grow flex flex-col space-y-4' : 'space-y-6'}`}>
-          <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 flex-shrink-0">
-            <h2 className="text-xl font-black italic tracking-tight text-slate-900 dark:text-white">
-              Results for "{activeSearch}"
-            </h2>
-            <Button variant="ghost" onClick={() => { setIsSearching(false); setSearchState("none"); setSearchTerm(""); setResults(allBusinesses); }} className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 h-8 px-3">
-              Clear Search
-            </Button>
-          </div>
+          {viewMode !== 'split' && (
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 flex-shrink-0">
+              <h2 className="text-xl font-black italic tracking-tight text-slate-900 dark:text-white">
+                Results for "{activeSearch}"
+              </h2>
+              <Button variant="ghost" onClick={() => { setIsSearching(false); setSearchState("none"); setSearchTerm(""); setResults(allBusinesses); }} className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 h-8 px-3">
+                Clear Search
+              </Button>
+            </div>
+          )}
 
           <div className="block lg:hidden">
             {searchState !== 'empty' && renderFeedView()}

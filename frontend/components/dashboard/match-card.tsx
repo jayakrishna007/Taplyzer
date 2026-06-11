@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Briefcase, Zap, CheckCircle2, User, Target, Bookmark } from "lucide-react"
+import { MapPin, Briefcase, Zap, CheckCircle2, User, Target } from "lucide-react"
 import { toast } from "sonner"
 
 import Link from "next/link"
@@ -212,14 +212,6 @@ export function MatchCard({ match, onRequestIntro, onViewProfile }: MatchCardPro
               </Button>
             </Link>
           )}
-          <Button
-            variant="outline"
-            className="w-10 h-10 p-0 shrink-0 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/60 hover:bg-slate-50 dark:hover:bg-white/5 transition-all rounded-xl"
-            onClick={() => toast.success(`Saved ${match.companyName || match.candidateName} to your lists.`)}
-            aria-label="Save Match"
-          >
-            <Bookmark className="h-4 w-4" />
-          </Button>
         </div>
 
       </CardContent>
