@@ -125,7 +125,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main */}
-      <main className="flex-grow lg:ml-64 flex flex-col min-h-screen w-full overflow-x-hidden">
+      <main className="flex-grow lg:ml-64 flex flex-col min-h-screen w-full">
         {/* Header */}
         <header className="h-16 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-slate-200 dark:border-white/5 flex items-center justify-between px-4 md:px-6 sticky top-0 z-40 gap-3">
           <button className="lg:hidden p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 flex-shrink-0" onClick={() => setSidebarOpen(true)}>
@@ -164,11 +164,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             {/* Notification Bell */}
             <NotificationPanel />
 
-            {/* Zap status */}
-            <div className="h-9 w-9 rounded-xl bg-slate-100 dark:bg-white/5 flex items-center justify-center relative">
-              <div className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-primary border-2 border-white dark:border-black" />
-              <Zap className="h-4 w-4 text-slate-400" />
-            </div>
+
           </div>
         </header>
 
