@@ -47,7 +47,7 @@ export default function MatchesPage() {
         const cacheRes = await fetch(`/api/matches/${user._id}`, { method: "GET" })
         const cacheData = await cacheRes.json()
 
-        if (cacheData.matches && cacheData.matches.length > 0 && !cacheData.meta?.isStale) {
+        if (cacheData.matches && !cacheData.meta?.isStale) {
           // Deduplicate stale DB data by matchedUserId
           const seen = new Set<string>();
           const deduped = cacheData.matches.filter((m: any) => {

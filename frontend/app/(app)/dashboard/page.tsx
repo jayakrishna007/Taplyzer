@@ -137,11 +137,11 @@ export default function DashboardPage() {
         if (matchesRes.ok) {
           matchesData = await matchesRes.json();
           
-          // Fall back to POST to generate fresh cache if it's missing or stale
-          if (!matchesData.matches || matchesData.matches.length === 0 || matchesData.meta?.isStale) {
+          // Fall back to POST to generate fresh cache if it's stale
+          if (matchesData.meta?.isStale) {
             const freshRes = await fetch(`/api/matches/${user._id}`, { method: "POST" });
             if (freshRes.ok) {
-              matchesData = await freshRes.json();
+               matchesData = await freshRes.json();
             }
           }
           

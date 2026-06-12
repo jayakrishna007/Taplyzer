@@ -803,6 +803,7 @@ export async function POST(
 
     // Atomic replace: delete old cache, insert new
     await MatchRecord.deleteMany({ userId });
+    await Business.findOneAndUpdate({ ownerId: userId }, { lastMatchesCalculatedAt: now });
     if (formattedMatches.length > 0) {
       await MatchRecord.insertMany(
         formattedMatches.map((m) => ({
@@ -865,20 +866,17 @@ export async function GET(
   try {
     await dbConnect();
     const { userId } = await params;
-    const data = await MatchRecord.find({ userId }).sort({ score: -1 }).lean();
 
-    // Check if cache is still fresh
-    const first = data[0] as any;
-    
+    // Check if cache is still fresh using business profile's lastMatchesCalculatedAt
+    const [data, biz] = await Promise.all([
+      MatchRecord.find({ userId }).sort({ score: -1 }).lean(),
+      Business.findOne({ ownerId: userId }).select("lastMatchesCalculatedAt").lean() as Promise<any>
+    ]);
+
     let cacheAge: number | null = null;
-    if (first) {
-      const genTime = first.generatedAt ?? first.createdAt;
-      if (genTime) {
-        const parsedTime = new Date(genTime).getTime();
-        if (!isNaN(parsedTime)) {
-          cacheAge = Date.now() - parsedTime;
-        }
-      }
+    const calcTime = biz?.lastMatchesCalculatedAt ? new Date(biz.lastMatchesCalculatedAt).getTime() : null;
+    if (calcTime && !isNaN(calcTime)) {
+      cacheAge = Date.now() - calcTime;
     }
 
     const isStale = cacheAge === null || cacheAge >= CACHE_TTL_MS;
@@ -887,7 +885,7 @@ export async function GET(
       count: data.length,
       matches: data,
       meta: {
-        fromCache: data.length > 0,
+        fromCache: cacheAge !== null,
         isStale,
         cacheAgeMinutes: cacheAge !== null ? Math.round(cacheAge / 60000) : null,
       },
