@@ -27,7 +27,7 @@ const navigation = [
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
-  const { user, logOut } = useAuth()
+  const { user, logOut, isAdmin } = useAuth()
   const { theme, setTheme } = useTheme()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -94,7 +94,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
           {/* Nav */}
           <nav className="flex-grow px-3 space-y-1 overflow-y-auto">
-            {navigation.map((item) => {
+            {[
+              ...navigation,
+              ...(isAdmin ? [{ name: "Admin Panel", href: "/admin", icon: ShieldCheck }] : [])
+            ].map((item) => {
               const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
               return (
                 <Link
@@ -126,16 +129,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 truncate">{user?.email || "user@example.com"}</span>
               </div>
             </div>
-            {user?.email === "admin@taplyser.com" && (
-              <Button
-                variant="outline"
-                onClick={() => router.push("/admin")}
-                className="w-full flex items-center justify-start gap-3 px-4 py-3 h-auto rounded-xl font-bold border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all text-sm mb-2 text-primary"
-              >
-                <ShieldCheck className="h-4 w-4" />
-                Control Room
-              </Button>
-            )}
+
             <Button
               variant="ghost"
               onClick={logOut}
@@ -165,17 +159,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <span className={`text-[10px] font-black uppercase tracking-wider ${statusColorClass}`}>{statusText}</span>
             </div>
 
-            {user?.email === "admin@taplyser.com" && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => router.push("/admin")}
-                className="flex items-center gap-1.5 h-9 rounded-xl font-black uppercase tracking-widest text-[9px] text-primary border-primary/20 hover:bg-primary/5 mr-1"
-              >
-                <ShieldCheck className="h-3.5 w-3.5" />
-                Control Room
-              </Button>
-            )}
+
 
             {/* Dark Mode */}
             <button

@@ -196,13 +196,13 @@ export default function DashboardPage() {
             </p>
           )}
         </div>
-        <div className="flex flex-wrap items-center gap-3">
-           <Link href="/profile">
-             <Button asChild variant="outline" className="h-11 px-6 rounded-xl font-black uppercase tracking-widest text-[10px] border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
-               <span>Update Goal</span>
-             </Button>
-           </Link>
-        </div>
+         <div className="flex flex-wrap items-center gap-3">
+            <Link href="/profile">
+              <Button asChild variant="outline" className="h-11 px-6 rounded-xl font-black uppercase tracking-widest text-[10px] border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
+                <span>Update Goal</span>
+              </Button>
+            </Link>
+         </div>
       </div>
 
       {/* KPI Cards */}
