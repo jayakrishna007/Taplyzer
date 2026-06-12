@@ -21,7 +21,7 @@ interface Business {
   }
   status?: string
   createdAt: string
-  ownerId?: { name: string; email: string; status: string }
+  ownerId?: { name: string; email: string; status: string; verified: boolean }
   strength?: { teamSize?: string }
   location?: { city?: string }
   adminNotes?: string
@@ -30,17 +30,13 @@ interface Business {
 
 const VERIFICATION_TIERS = [
   { label: "Not Verified", value: "Not Verified", color: "text-slate-500 bg-slate-100 dark:bg-white/5" },
-  { label: "Basic Verified", value: "Basic Verified", color: "text-blue-600 bg-blue-100 dark:bg-blue-900/20" },
-  { label: "Business Verified", value: "Business Verified", color: "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/20" },
-  { label: "Trusted Partner", value: "Trusted Partner", color: "text-purple-600 bg-purple-100 dark:bg-purple-900/20" },
+  { label: "Verified", value: "Verified", color: "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/20" },
 ]
 
 const statusTabs = [
   { label: "All", value: "" },
   { label: "Not Verified", value: "Not Verified" },
-  { label: "Basic", value: "Basic Verified" },
-  { label: "Business", value: "Business Verified" },
-  { label: "Trusted", value: "Trusted Partner" },
+  { label: "Verified", value: "Verified" },
 ]
 
 export default function AdminVerificationPage() {
@@ -140,7 +136,13 @@ export default function AdminVerificationPage() {
     finally { setActionLoading(null) }
   }
 
-  const getVerificationTier = (b: Business) => b.trust?.verificationStatus || "Not Verified"
+  const getVerificationTier = (b: Business) => {
+    const raw = b.trust?.verificationStatus || "Not Verified"
+    if (["Verified", "Basic Verified", "Business Verified", "Trusted Partner"].includes(raw)) {
+      return "Verified"
+    }
+    return "Not Verified"
+  }
   const bizName = (b: Business) => b.brandName || b.companyName || "—"
   const isSuspended = (b: Business) => b.status === "SUSPENDED"
 
@@ -149,12 +151,11 @@ export default function AdminVerificationPage() {
       <AdminPageHeader title="Business Verification" subtitle="Trust & authenticity layer — set verification tiers and manage business profiles." />
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {[
           { label: "Not Verified", value: stats?.notVerified ?? "—", color: "text-slate-500" },
-          { label: "Basic Verified", value: stats?.basicVerified ?? "—", color: "text-blue-500" },
-          { label: "Business Verified", value: stats?.businessVerified ?? "—", color: "text-emerald-500" },
-          { label: "Trusted Partner", value: stats?.trustedPartner ?? "—", color: "text-purple-500" },
+          { label: "Verified", value: stats?.verified ?? "—", color: "text-emerald-500" },
+          { label: "Total Businesses", value: stats?.total ?? "—", color: "text-primary" },
         ].map((s) => (
           <div key={s.label} className="bg-white dark:bg-[#0A0A0A] rounded-xl border border-slate-200 dark:border-white/5 p-4">
             <p className={`text-2xl font-black ${s.color}`}>{s.value}</p>
@@ -257,6 +258,20 @@ export default function AdminVerificationPage() {
                           className="flex items-center gap-1 px-3 py-1.5 text-[11px] font-black rounded-xl bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-900/40 transition-colors disabled:opacity-50">
                           <PlayCircle className="h-3.5 w-3.5" /> Reinstate
                         </button>
+                      )}
+                      {/* Quick Verify / Unverify */}
+                      {biz.ownerId && (
+                        !biz.ownerId.verified ? (
+                          <button onClick={() => setVerification(biz._id, "Verified")} disabled={!!actionLoading}
+                            className="flex items-center gap-1 px-3 py-1.5 text-[11px] font-black rounded-xl bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-900/40 transition-colors disabled:opacity-50">
+                            <ShieldCheck className="h-3.5 w-3.5" /> Verify
+                          </button>
+                        ) : (
+                          <button onClick={() => setVerification(biz._id, "Not Verified")} disabled={!!actionLoading}
+                            className="flex items-center gap-1 px-3 py-1.5 text-[11px] font-black rounded-xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors disabled:opacity-50">
+                            <ShieldCheck className="h-3.5 w-3.5" /> Unverify
+                          </button>
+                        )
                       )}
                       {/* Expand to set verification tier */}
                       <button onClick={() => setExpandedId(expanded ? null : biz._id)}

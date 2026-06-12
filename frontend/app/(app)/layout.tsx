@@ -154,10 +154,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
           {/* Right */}
           <div className="flex items-center gap-2 ml-auto">
-            <div className="hidden md:flex flex-col items-end">
-              <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40">Status</span>
-              <span className={`text-[10px] font-black uppercase tracking-wider ${statusColorClass}`}>{statusText}</span>
-            </div>
+            <Link href="/dashboard/verify" className="hidden md:flex flex-col items-end group hover:opacity-80 transition-all cursor-pointer">
+              <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40 group-hover:text-primary transition-colors">Status</span>
+              <span className={`text-[10px] font-black uppercase tracking-wider ${statusColorClass} group-hover:underline decoration-2`}>{statusText}</span>
+            </Link>
 
 
 

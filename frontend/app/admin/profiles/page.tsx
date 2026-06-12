@@ -93,7 +93,7 @@ export default function AdminProfilesPage() {
                     <tr key={b._id} className="hover:bg-slate-50 dark:hover:bg-white/2 transition-colors">
                       <td className="px-4 py-3">
                         <p className="text-sm font-bold text-slate-800 dark:text-white/80">{b.name || "—"}</p>
-                        <p className="text-[11px] text-slate-400">{b.industry}</p>
+                        <p className="text-[11px] text-slate-400">{b.industry} {b.userId?.email && `• ${b.userId.email}`}</p>
                       </td>
                       <td className="px-4 py-3">
                         <span className="text-[11px] font-bold text-slate-500 dark:text-white/40">{b.goal || "Not set"}</span>

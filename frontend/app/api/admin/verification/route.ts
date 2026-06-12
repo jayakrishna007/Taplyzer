@@ -78,7 +78,7 @@ export async function GET(req: NextRequest) {
 
     const [businesses, total] = await Promise.all([
       Business.find(query)
-        .populate("ownerId", "name email status role")
+        .populate("ownerId", "name email status role verified")
         .sort({ createdAt: -1 })
         .skip((page - 1) * limit)
         .limit(limit)
@@ -86,12 +86,10 @@ export async function GET(req: NextRequest) {
       Business.countDocuments(query),
     ]);
 
-    const [notVerified, basicVerified, businessVerified, trustedPartner, unset] =
+    const [notVerified, verified, unset] =
       await Promise.all([
         Business.countDocuments({ "trust.verificationStatus": "Not Verified" }),
-        Business.countDocuments({ "trust.verificationStatus": "Basic Verified" }),
-        Business.countDocuments({ "trust.verificationStatus": "Business Verified" }),
-        Business.countDocuments({ "trust.verificationStatus": "Trusted Partner" }),
+        Business.countDocuments({ "trust.verificationStatus": { $in: ["Verified", "Basic Verified", "Business Verified", "Trusted Partner"] } }),
         Business.countDocuments({
           $or: [
             { "trust.verificationStatus": { $exists: false } },
@@ -107,11 +105,8 @@ export async function GET(req: NextRequest) {
       total,
       pages: Math.ceil(total / limit),
       stats: {
-        notVerified,
-        basicVerified,
-        businessVerified,
-        trustedPartner,
-        unset,
+        notVerified: notVerified + unset,
+        verified,
         total: totalBusinesses,
       },
     });
@@ -150,6 +145,7 @@ export async function PATCH(req: NextRequest) {
         "Basic Verified",
         "Business Verified",
         "Trusted Partner",
+        "Verified",
       ];
       if (!validStatuses.includes(verificationStatus)) {
         return NextResponse.json({ error: "Invalid verification status" }, { status: 400 });
@@ -161,9 +157,10 @@ export async function PATCH(req: NextRequest) {
       logAction = `BUSINESS_VERIFICATION_SET_${verificationStatus.toUpperCase().replace(/ /g, "_")}`;
       notes = adminNotes || `Verification set to ${verificationStatus}`;
 
-      // Sync user.verified flag — Business Verified & Trusted Partner = verified user
+      // Sync user.verified flag — Verified, Business Verified & Trusted Partner = verified user
       if (biz.ownerId) {
         const shouldBeVerified =
+          verificationStatus === "Verified" ||
           verificationStatus === "Business Verified" ||
           verificationStatus === "Trusted Partner";
         await User.findByIdAndUpdate(biz.ownerId, { verified: shouldBeVerified });

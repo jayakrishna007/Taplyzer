@@ -75,12 +75,29 @@ export async function GET(req: NextRequest) {
       User.countDocuments({ role: "USER", activelyLookingFor: "" }),
     ]);
 
+    const profiles = enriched.map(p => ({
+      _id: p._id,
+      name: p.companyName || p.name || "—",
+      industry: p.industry || "—",
+      userId: { name: p.name, email: p.email },
+      offerings: p.offerings,
+      needs: p.needs,
+      goal: p.currentGoal || p.activelyLookingFor || "Not set",
+      profileScore: p.profileScore || 0,
+      updatedAt: p.intentLastUpdated || p.createdAt || new Date().toISOString(),
+    }));
+
     return NextResponse.json({
-      users: enriched,
+      profiles,
       total,
       page,
       pages: Math.ceil(total / limit),
-      stats: { totalUsers, completeProfiles, staleIntent, noIntent },
+      stats: {
+        total: totalUsers,
+        highQuality: completeProfiles,
+        stale: staleIntent,
+        needsImprovement: noIntent,
+      },
     });
   } catch (err: any) {
     console.error("Admin profiles error:", err);

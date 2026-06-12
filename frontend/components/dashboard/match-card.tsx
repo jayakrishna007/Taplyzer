@@ -51,23 +51,17 @@ interface MatchCardProps {
 
 export function MatchCard({ match, onRequestIntro, onViewProfile }: MatchCardProps) {
   const renderVerificationBadge = (status?: string) => {
-    if (status === "Trusted Partner") {
+    const isVerified = ["Verified", "Business Verified", "Trusted Partner", "Basic Verified"].includes(status || "") || match.verified
+    if (isVerified) {
       return (
         <Badge className="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0">
-          <ShieldCheck className="h-3 w-3" /> Trusted Partner
-        </Badge>
-      )
-    }
-    if (status === "Business Verified" || match.verified) {
-      return (
-        <Badge className="bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0">
-          <CheckCircle2 className="h-3 w-3" /> Verified Business
+          <ShieldCheck className="h-3 w-3" /> Verified
         </Badge>
       )
     }
     return (
       <Badge className="bg-slate-100 text-slate-500 border border-slate-200 dark:bg-white/5 dark:text-white/40 dark:border-white/10 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0">
-        Basic Partner
+        Not Verified
       </Badge>
     )
   }

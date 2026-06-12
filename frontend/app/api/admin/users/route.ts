@@ -148,6 +148,14 @@ export async function PATCH(req: NextRequest) {
 
     const previousState = { status: target.status, role: target.role, verified: target.verified };
     await User.findByIdAndUpdate(userId, op.update);
+
+    // Sync business verification status
+    if (action === "verify") {
+      await Business.findOneAndUpdate({ ownerId: userId }, { "trust.verificationStatus": "Verified" });
+    } else if (action === "unverify") {
+      await Business.findOneAndUpdate({ ownerId: userId }, { "trust.verificationStatus": "Not Verified" });
+    }
+
     await AdminLog.create({
       adminId: admin._id,
       action: op.logAction,
