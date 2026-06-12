@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Briefcase, Zap, CheckCircle2, User, Target } from "lucide-react"
+import { MapPin, Briefcase, Zap, CheckCircle2, User, Target, ShieldCheck } from "lucide-react"
 import { toast } from "sonner"
 
 import Link from "next/link"
@@ -50,6 +50,28 @@ interface MatchCardProps {
 }
 
 export function MatchCard({ match, onRequestIntro, onViewProfile }: MatchCardProps) {
+  const renderVerificationBadge = (status?: string) => {
+    if (status === "Trusted Partner") {
+      return (
+        <Badge className="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0">
+          <ShieldCheck className="h-3 w-3" /> Trusted Partner
+        </Badge>
+      )
+    }
+    if (status === "Business Verified" || match.verified) {
+      return (
+        <Badge className="bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0">
+          <CheckCircle2 className="h-3 w-3" /> Verified Business
+        </Badge>
+      )
+    }
+    return (
+      <Badge className="bg-slate-100 text-slate-500 border border-slate-200 dark:bg-white/5 dark:text-white/40 dark:border-white/10 flex items-center gap-1 font-black text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0">
+        Basic Partner
+      </Badge>
+    )
+  }
+
   return (
     <Card className="group relative bg-white dark:bg-[#0A0A0A] border-slate-200 dark:border-white/5 rounded-2xl md:rounded-[2.5rem] overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500">
       <CardContent className="p-5 md:p-8">
@@ -59,11 +81,6 @@ export function MatchCard({ match, onRequestIntro, onViewProfile }: MatchCardPro
           <div className="flex items-center gap-3">
             <div className="h-14 w-14 md:h-16 md:w-16 rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-slate-100 dark:border-white/10 group-hover:bg-primary transition-all duration-500 relative flex-shrink-0">
               <span className="text-2xl font-black text-primary group-hover:text-white transition-colors">{(match.companyName || match.candidateName || 'T')[0]}</span>
-              {match.verified && (
-                <div className="absolute -top-1.5 -right-1.5 bg-emerald-500 text-white rounded-full p-0.5 shadow-lg">
-                  <CheckCircle2 className="h-3 w-3" />
-                </div>
-              )}
             </div>
             <div>
               <h3 className="text-base md:text-xl font-black text-slate-900 dark:text-white italic tracking-tight leading-tight">{match.companyName || match.candidateName}</h3>
@@ -76,84 +93,11 @@ export function MatchCard({ match, onRequestIntro, onViewProfile }: MatchCardPro
             </div>
           </div>
 
-          {/* Score */}
-          <div className="text-right flex-shrink-0">
-            <div className="flex items-center gap-1 justify-end">
-              <Zap className="h-4 w-4 text-primary fill-primary" />
-              <span className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white italic">{match.score}%</span>
-            </div>
-            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Match Score</span>
+          <div className="text-right flex-shrink-0 flex flex-col items-end justify-center">
+            {renderVerificationBadge(match.verificationStatus)}
           </div>
         </div>
 
-        {/* Score Breakdown (v3.1) */}
-        {match.scoreBreakdown && (() => {
-          const isV3_1 = match.scoreBreakdown.aNeedsMetByBOffers !== undefined || match.scoreBreakdown.profileCompleteness !== undefined;
-          
-          const intentVal = isV3_1 
-            ? (match.scoreBreakdown.aNeedsMetByBOffers ?? 0) + 
-              (match.scoreBreakdown.bNeedsMetByAOffers ?? 0)
-            : (match.scoreBreakdown.intentMatch ?? match.scoreBreakdown.intentRelevance ?? 0) + (match.scoreBreakdown.semantic ?? 0);
-            
-          const intentMax = isV3_1 ? 90 : 50;
-          
-          const locVal = isV3_1 ? (match.scoreBreakdown.locationProximity ?? 0) : (match.scoreBreakdown.location ?? 0);
-          const locMax = isV3_1 ? 5 : 15;
-          
-          const trustVal = isV3_1
-            ? (match.scoreBreakdown.verification ?? 0)
-            : (match.scoreBreakdown.verification ?? 0);
-          const trustMax = 5;
-
-          return (
-            <div className="mb-4 space-y-3 px-1">
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { label: "Intent", val: intentVal, max: intentMax, color: "bg-primary" },
-                  { label: "Location", val: locVal, max: locMax, color: "bg-blue-500" },
-                  { label: "Trust", val: trustVal, max: trustMax, color: "bg-emerald-500" },
-                ].map(signal => {
-                  const percentage = signal.max > 0 ? Math.round((signal.val / signal.max) * 100) : 0;
-                  return (
-                    <div key={signal.label} className="space-y-1">
-                      <div className="flex justify-between text-[8px] font-black uppercase tracking-tighter text-slate-400">
-                        <span>{signal.label}</span>
-                        <span>{percentage}%</span>
-                      </div>
-                      <div className="h-1 w-full bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${signal.color} transition-all duration-1000`}
-                          style={{ width: `${Math.min(percentage, 100)}%` }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {isV3_1 && (
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[9px] text-slate-500 dark:text-slate-400 font-bold border-t border-slate-100 dark:border-white/5 pt-2.5 transition-all">
-                  <div className="flex justify-between items-center">
-                    <span>🎯 Needs Met (A):</span>
-                    <span className="font-extrabold text-primary">{match.scoreBreakdown.aNeedsMetByBOffers}/80</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span>🤝 Needs Met (B):</span>
-                    <span className="font-extrabold text-slate-600 dark:text-slate-300">{match.scoreBreakdown.bNeedsMetByAOffers}/10</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span>📍 Location:</span>
-                    <span className="font-extrabold text-blue-500">{match.scoreBreakdown.locationProximity}/5</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span>🛡️ Verification:</span>
-                    <span className="font-extrabold text-emerald-500">{match.scoreBreakdown.verification}/5</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })()}
 
         {/* Intent Box */}
         <div className="p-4 rounded-xl md:rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 mb-4">

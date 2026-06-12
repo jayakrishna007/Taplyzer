@@ -11,6 +11,8 @@ import { ViewProfileModal } from "@/components/modals/view-profile-modal"
 import { EmptyState } from "@/components/ui/empty-state"
 import { useAuth } from "@/components/auth-provider"
 import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 export default function MatchesPage() {
   const [search, setSearch] = useState("")
@@ -26,6 +28,8 @@ export default function MatchesPage() {
   const [cacheAgeMinutes, setCacheAgeMinutes] = useState<number | null>(null)
 
   const { user } = useAuth()
+  const router = useRouter()
+  const [showRefreshWarning, setShowRefreshWarning] = useState(false)
 
   // ── GET-first strategy: instant load from cache, fall back to engine run ──
   const fetchMatches = useCallback(async (forceRefresh = false) => {
@@ -76,6 +80,9 @@ export default function MatchesPage() {
         setAllMatches(deduped)
         setFromCache(false)
         setCacheAgeMinutes(0)
+        if (forceRefresh) {
+          window.location.reload()
+        }
       }
     } catch (err) {
       console.error("Failed to fetch matches", err)
@@ -115,25 +122,44 @@ export default function MatchesPage() {
     <div className="space-y-6">
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-1">
-            Matches
-          </h1>
-          <div className="flex items-center gap-2 flex-wrap">
-            <p className="text-slate-500 dark:text-white/40 font-medium text-xs uppercase tracking-widest font-black">
-              Businesses matched to your intent profile
-            </p>
-            {fromCache && cacheAgeMinutes !== null && (
-              <span className="text-[9px] font-black uppercase tracking-widest text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">
-                ⚡ Cached · {cacheAgeMinutes < 1 ? "just now" : `${cacheAgeMinutes}m ago`}
-              </span>
-            )}
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-row items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight italic mb-1">
+              Matches
+            </h1>
+            <div className="flex items-center gap-2 flex-wrap">
+              <p className="text-slate-500 dark:text-white/40 font-medium text-xs uppercase tracking-widest font-black">
+                Businesses matched to your intent profile
+              </p>
+              {fromCache && cacheAgeMinutes !== null && (
+                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                  ⚡ Cached · {cacheAgeMinutes < 1 ? "just now" : `${cacheAgeMinutes}m ago`}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {/* Refresh button — forces a fresh engine run */}
+            <button
+              onClick={() => setShowRefreshWarning(true)}
+              disabled={isRefreshing}
+              title="Refresh matches"
+              className="h-11 w-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary transition-all flex-shrink-0 disabled:opacity-50"
+            >
+              <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
+            </button>
+
+            <button className="h-11 w-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary transition-all flex-shrink-0">
+              <Bell className="h-4 w-4" />
+            </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 w-full sm:w-auto">
-          <div className="relative flex-grow sm:flex-grow-0 sm:w-[240px]">
+        {/* Left-aligned Search Bar that fits perfectly for mobile */}
+        <div className="w-full max-w-md">
+          <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
             <Input
               placeholder="Search matches..."
@@ -142,38 +168,12 @@ export default function MatchesPage() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-
-          {/* Refresh button — forces a fresh engine run */}
-          <button
-            onClick={() => fetchMatches(true)}
-            disabled={isRefreshing}
-            title="Refresh matches"
-            className="h-11 w-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary transition-all flex-shrink-0 disabled:opacity-50"
-          >
-            <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
-          </button>
-
-          <button className="h-11 w-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary transition-all flex-shrink-0">
-            <Bell className="h-4 w-4" />
-          </button>
         </div>
       </div>
 
       {/* Filters Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => setIndustryFilter("ALL")}
-            className={`h-9 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${
-              industryFilter === "ALL"
-                ? "border-primary text-primary bg-primary/5"
-                : "border-slate-200 dark:border-white/10 text-slate-500 hover:border-primary/50"
-            }`}
-          >
-            All Industries
-          </button>
-        </div>
-
+      <div className="flex items-center justify-between border-t border-slate-100 dark:border-white/5 pt-4">
+        <div />
         <div className="text-[9px] font-black uppercase tracking-widest text-slate-400">
           {filteredMatches.length} Companies Found
         </div>
@@ -203,15 +203,24 @@ export default function MatchesPage() {
             />
           ))}
         </div>
+      ) : allMatches.length === 0 ? (
+        <EmptyState
+          icon={Users}
+          title="No Matches Available"
+          description="We couldn't find any matches based on your current intent profile. Try updating your profile offerings, needs, or goal to get matches."
+          actionLabel="Update Profile"
+          onAction={() => {
+            router.push("/profile")
+          }}
+        />
       ) : (
         <EmptyState
           icon={Users}
           title="No Matches Found"
-          description="Try adjusting your filters or update your profile offerings & needs to improve match quality."
-          actionLabel="Clear Filters"
+          description="No matches fit your search query. Try clearing the search filter."
+          actionLabel="Clear Search"
           onAction={() => {
             setSearch("")
-            setIndustryFilter("ALL")
           }}
         />
       )}
@@ -241,6 +250,35 @@ export default function MatchesPage() {
           }}
         />
       )}
+
+      <Dialog open={showRefreshWarning} onOpenChange={setShowRefreshWarning}>
+        <DialogContent className="sm:max-w-[400px] rounded-[2rem] p-8 gap-6 border-none shadow-2xl bg-white dark:bg-[#0A0A0A]">
+          <DialogTitle className="text-xl font-black italic text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+            ⚠️ Refresh Warning
+          </DialogTitle>
+          <DialogDescription className="text-sm font-medium text-slate-500 dark:text-white/60 leading-relaxed">
+            Warning: By refreshing the page, the content profiles and matches may change. Do you wish to proceed?
+          </DialogDescription>
+          <div className="flex gap-3 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => setShowRefreshWarning(false)}
+              className="flex-1 h-11 rounded-xl font-bold uppercase tracking-widest text-[10px] border-slate-200 dark:border-white/10"
+            >
+              Close
+            </Button>
+            <Button
+              onClick={() => {
+                setShowRefreshWarning(false);
+                fetchMatches(true);
+              }}
+              className="flex-1 h-11 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20"
+            >
+              Refresh
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

@@ -14,6 +14,7 @@ import { ViewProfileModal } from "@/components/modals/view-profile-modal"
 import { useAuth } from "@/components/auth-provider"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 // Removed suggestedMatches static array — real matches loaded from API
 
@@ -23,15 +24,55 @@ const recentActivity = [
   { id: 3, type: "rating", content: "New rating received (5★)", time: "1 day ago", icon: Target, color: "text-amber-500" },
 ]
 
-const upcomingMeetings = [
-  { id: 1, name: "FinBridge Capital", time: "Tomorrow 11:00 AM" },
-  { id: 2, name: "AgroMax Pvt Ltd", time: "Friday 3:30 PM" }
-]
-
-const exploreTrending = [
-  { id: 1, name: "MedCore Systems", industry: "Healthcare Tech" },
-  { id: 2, name: "BrightChain Logistics", industry: "Supply Chain" },
-  { id: 3, name: "GreenLeaf Foods", industry: "FMCG" }
+const exploreTrending: Match[] = [
+  {
+    matchedUserId: "trending-1",
+    companyName: "MedCore Systems",
+    candidateName: "MedCore Systems",
+    industry: "Healthcare Tech",
+    location: "San Francisco, CA",
+    score: 94,
+    offerings: ["Medical Imaging API", "EHR Integration", "Telehealth Platform"],
+    needs: ["Enterprise Hospitals", "Healthcare Compliance Consulting"],
+    goal: "Expanding enterprise clinical integrations across regional hospitals.",
+    offeringGoal: "Providing advanced, compliant medical imaging APIs and telemetry integrations.",
+    reasons: ["Highly compatible with health systems", "Strong reputation"],
+    verified: true,
+    verificationStatus: "Business Verified",
+    teamSize: "11-50"
+  },
+  {
+    matchedUserId: "trending-2",
+    companyName: "BrightChain Logistics",
+    candidateName: "BrightChain Logistics",
+    industry: "Supply Chain",
+    location: "Chicago, IL",
+    score: 88,
+    offerings: ["Cold-Chain IoT Tracking", "Inventory Optimization AI"],
+    needs: ["FMCG Manufacturers", "Warehouse partners"],
+    goal: "Optimizing multi-modal logistics with predictive IoT telemetry.",
+    offeringGoal: "Reducing food/pharma wastage via dynamic routing and IoT monitoring.",
+    reasons: ["Perfect geographic alignment", "Validated tracking hardware"],
+    verified: true,
+    verificationStatus: "Trusted Partner",
+    teamSize: "51-200"
+  },
+  {
+    matchedUserId: "trending-3",
+    companyName: "GreenLeaf Foods",
+    candidateName: "GreenLeaf Foods",
+    industry: "FMCG",
+    location: "Austin, TX",
+    score: 82,
+    offerings: ["Organic Raw Materials", "Sustainable Packaging"],
+    needs: ["Retail Distribution Partners", "Eco-friendly logistics"],
+    goal: "Sourcing sustainable packaging options and local distributors.",
+    offeringGoal: "Providing premium organic agricultural ingredients with full traceability.",
+    reasons: ["High synergy with supply chain needs"],
+    verified: false,
+    verificationStatus: "Basic Partner",
+    teamSize: "1-10"
+  }
 ]
 
 export default function DashboardPage() {
@@ -47,6 +88,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [showVerifyPopup, setShowVerifyPopup] = useState(false)
+  const [showRefreshWarning, setShowRefreshWarning] = useState(false)
 
   const refreshMatches = async () => {
     if (!user?._id) return;
@@ -62,8 +104,9 @@ export default function DashboardPage() {
           seen.add(id);
           return true;
         });
-        setMatches(deduped.slice(0, 4));
+        setMatches(deduped.slice(0, 1));
         toast.success("Matches updated successfully!");
+        window.location.reload();
       } else {
         toast.error("Failed to refresh matches");
       }
@@ -109,7 +152,7 @@ export default function DashboardPage() {
             seen.add(id);
             return true;
           });
-          setMatches(deduped.slice(0, 4));
+          setMatches(deduped.slice(0, 1));
         }
 
         if (meetingsRes.ok) {
@@ -159,112 +202,117 @@ export default function DashboardPage() {
                <span>Update Goal</span>
              </Button>
            </Link>
-           <Link href="/explore">
-             <Button asChild variant="outline" className="h-11 px-6 rounded-xl font-black uppercase tracking-widest text-[10px] border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
-               <span>Explore Matches</span>
-             </Button>
-           </Link>
-           <Link href="/requests">
-             <Button asChild className="h-11 px-6 rounded-xl font-black uppercase tracking-widest text-[10px] bg-primary text-white shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
-               <span>View Requests</span>
-             </Button>
-           </Link>
         </div>
       </div>
 
       {/* KPI Cards */}
       <StatsCards />
 
-      <div className="grid xl:grid-cols-3 gap-6">
-        <div className="xl:col-span-2 space-y-6">
-
+      {/* Main Sections Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
           {/* Suggested Matches */}
-          <section className="bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 p-6 md:p-8 rounded-[2.5rem]">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight italic">Suggested Matches</h2>
-                <button
-                  onClick={refreshMatches}
-                  disabled={isRefreshing || isLoading}
-                  title="Recalculate matches"
-                  className="p-1.5 rounded-xl text-slate-400 hover:text-primary transition-all hover:bg-slate-100 dark:hover:bg-white/5 disabled:opacity-50"
-                >
-                  <RefreshCw className={`h-4.5 w-4.5 ${isRefreshing ? "animate-spin" : ""}`} />
-                </button>
-              </div>
-              <Badge variant="outline" className="border-primary/20 text-primary uppercase font-black text-[9px] tracking-widest">High Intent</Badge>
-            </div>
-            
-            <div className="grid gap-4 mb-6">
-              {isLoading ? (
-                <div className="py-10 text-center"><p className="text-slate-500 font-bold">Finding matches...</p></div>
-              ) : matches.length === 0 ? (
-                <div className="py-10 text-center">
-                  <p className="text-slate-500 font-bold mb-4">No matches found yet.</p>
-                  <Link href="/profile">
-                    <Button variant="outline" size="sm">Complete your profile to get matches</Button>
-                  </Link>
+          <section className="bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 p-5 md:p-6 rounded-3xl h-full flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-lg font-black text-slate-900 dark:text-white tracking-tight italic">Suggested Matches</h2>
+                  <button
+                    onClick={() => setShowRefreshWarning(true)}
+                    disabled={isRefreshing || isLoading}
+                    title="Recalculate matches"
+                    className="p-1.5 rounded-xl text-slate-400 hover:text-primary transition-all hover:bg-slate-100 dark:hover:bg-white/5 disabled:opacity-50"
+                  >
+                    <RefreshCw className={`h-4.5 w-4.5 ${isRefreshing ? "animate-spin" : ""}`} />
+                  </button>
                 </div>
-              ) : (
-                matches.map((match, idx) => (
-                  <MatchCard 
-                    key={`${match.matchedUserId?.toString() ?? "match"}-${idx}`} 
-                    match={match} 
-                    onRequestIntro={() => {
-                      setSelectedCompany({ 
-                        id: match.matchedUserId, 
-                        name: match.companyName || match.candidateName, 
-                        industry: match.industry, 
-                        verified: match.verified,
-                        matchScore: match.score
-                      });
-                      setIsModalOpen(true);
-                    }} 
-                    onViewProfile={(m) => {
-                      setViewProfileMatch(m);
-                      setIsProfileOpen(true);
-                    }}
-                  />
-                ))
-              )}
+                <Badge variant="outline" className="border-primary/20 text-primary uppercase font-black text-[9px] tracking-widest">High Intent</Badge>
+              </div>
+              
+              <div className="grid gap-4 mb-4">
+                {isLoading ? (
+                  <div className="py-10 text-center"><p className="text-slate-500 font-bold">Finding matches...</p></div>
+                ) : matches.length === 0 ? (
+                  <div className="py-10 text-center">
+                    <p className="text-slate-500 font-bold mb-4">No matches found yet.</p>
+                    <Link href="/profile">
+                      <Button variant="outline" size="sm">Complete your profile to get matches</Button>
+                    </Link>
+                  </div>
+                ) : (
+                  matches.map((match, idx) => (
+                    <MatchCard 
+                      key={`${match.matchedUserId?.toString() ?? "match"}-${idx}`} 
+                      match={match} 
+                      onRequestIntro={() => {
+                        setSelectedCompany({ 
+                          id: match.matchedUserId, 
+                          name: match.companyName || match.candidateName, 
+                          industry: match.industry, 
+                          verified: match.verified,
+                          matchScore: match.score
+                        });
+                        setIsModalOpen(true);
+                      }} 
+                      onViewProfile={(m) => {
+                        setViewProfileMatch(m);
+                        setIsProfileOpen(true);
+                      }}
+                    />
+                  ))
+                )}
+              </div>
             </div>
 
             <Link href="/matches">
-              <Button variant="ghost" className="w-full h-12 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-100 dark:hover:bg-white/10 transition-all">
+              <Button variant="ghost" className="w-full h-11 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-100 dark:hover:bg-white/10 transition-all">
                 View All Matches <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </Link>
           </section>
-
-          {/* Explore Opportunities Widget */}
-          <section className="bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 p-6 md:p-8 rounded-[2.5rem]">
-             <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight italic mb-6">Explore Trending</h2>
-             <div className="grid sm:grid-cols-3 gap-4">
-               {exploreTrending.map(t => (
-                 <div key={t.id} className="p-5 border border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] rounded-2xl hover:border-primary/30 transition-colors">
-                    <h4 className="font-black text-slate-900 dark:text-white mb-1">{t.name}</h4>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">{t.industry}</span>
-                    <div className="flex gap-2">
-                       <Link href="/profile" className="flex-1">
-                         <Button asChild size="sm" variant="outline" className="w-full h-8 text-[9px] font-black uppercase tracking-widest border-slate-200 dark:border-white/10"><span>Profile</span></Button>
-                       </Link>
-                       <Link href="/explore" className="flex-1">
-                         <Button asChild size="sm" className="w-full h-8 text-[9px] font-black uppercase tracking-widest bg-primary text-white"><span>Explore</span></Button>
-                       </Link>
-                    </div>
-                 </div>
-               ))}
-             </div>
-          </section>
-
         </div>
 
-        {/* Sidebar Widgets */}
-        <div className="space-y-6">
-           <IntroRequests />
+        <div>
+          {/* Explore Opportunities Widget */}
+          <section className="bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/5 p-5 md:p-6 rounded-3xl h-full flex flex-col justify-between">
+             <div>
+               <h2 className="text-lg font-black text-slate-900 dark:text-white tracking-tight italic mb-4">Explore Trending</h2>
+               <div className="grid grid-cols-1 gap-3.5 mb-4">
+                 {exploreTrending.slice(0, 2).map(t => (
+                   <div key={t.matchedUserId} className="p-4 border border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] rounded-xl hover:border-primary/30 transition-colors">
+                      <h4 className="font-black text-slate-900 dark:text-white mb-0.5 truncate text-sm">{t.companyName}</h4>
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-3 block">{t.industry}</span>
+                      <div className="flex gap-2">
+                         <Button 
+                           size="sm" 
+                           variant="outline" 
+                           className="flex-1 h-8 text-[9px] font-black uppercase tracking-widest border-slate-200 dark:border-white/10"
+                           onClick={() => {
+                             setViewProfileMatch(t);
+                             setIsProfileOpen(true);
+                           }}
+                         >
+                           Profile
+                         </Button>
+                         <Link href="/explore" className="flex-1">
+                           <Button asChild size="sm" className="w-full h-8 text-[9px] font-black uppercase tracking-widest bg-primary text-white"><span>Explore</span></Button>
+                         </Link>
+                      </div>
+                   </div>
+                 ))}
+               </div>
+             </div>
+          </section>
+        </div>
+      </div>
 
-           {/* Upcoming Meetings Widget */}
-           <Card className="p-6 bg-white dark:bg-[#0A0A0A] border-slate-200 dark:border-white/5 rounded-[2rem]">
+      {/* Bottom Row: 4 Widgets in a row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+         <IntroRequests />
+
+         {/* Upcoming Meetings Widget */}
+         <Card className="p-6 bg-white dark:bg-[#0A0A0A] border-slate-200 dark:border-white/5 rounded-[2rem] flex flex-col justify-between">
+            <div>
               <div className="flex items-center justify-between mb-5">
                 <h3 className="text-base font-black text-slate-900 dark:text-white tracking-tight italic">Upcoming Meetings</h3>
                 <Link href="/meetings">
@@ -281,8 +329,8 @@ export default function DashboardPage() {
                             <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                                <Video className="h-5 w-5 text-primary" />
                             </div>
-                            <div>
-                               <h4 className="font-bold text-sm text-slate-900 dark:text-white truncate max-w-[150px]">
+                            <div className="min-w-0 flex-1">
+                               <h4 className="font-bold text-sm text-slate-900 dark:text-white truncate">
                                  {m.organizerId?._id === user?._id ? (m.connectionId?.userBBizName || "Meeting") : (m.connectionId?.userABizName || "Meeting")}
                                </h4>
                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1 mt-0.5">
@@ -291,7 +339,7 @@ export default function DashboardPage() {
                             </div>
                          </div>
                          <div className="flex gap-2 mt-2">
-                            <a href={m.meetLink} target="_blank" rel="noopener noreferrer" className="flex-1">
+                            <a href={m.meetLink} target="_blank" rel="noopener noreferrer" className="w-full">
                               <Button size="sm" className="w-full h-8 text-[9px] font-black uppercase tracking-widest bg-emerald-500 hover:bg-emerald-600 text-white transition-all">Join</Button>
                             </a>
                          </div>
@@ -299,10 +347,12 @@ export default function DashboardPage() {
                    ))
                  )}
               </div>
-           </Card>
+            </div>
+         </Card>
 
-           {/* Performance Insights */}
-           <Card className="p-6 bg-slate-900 dark:bg-primary/10 border-none rounded-[2rem] text-white">
+         {/* Performance Insights */}
+         <Card className="p-6 bg-slate-900 dark:bg-primary/10 border-none rounded-[2rem] text-white flex flex-col justify-between">
+            <div>
               <h3 className="text-base font-black tracking-tight italic mb-4 flex items-center gap-2"><Zap className="h-5 w-5 text-amber-400" /> Performance Insights</h3>
               <ul className="space-y-4">
                  <li className="flex items-start gap-3">
@@ -318,10 +368,12 @@ export default function DashboardPage() {
                    <p className="text-xs font-medium text-white/80 leading-relaxed">Respond faster to increase your ranking in Explore feeds.</p>
                  </li>
               </ul>
-           </Card>
+            </div>
+         </Card>
 
-           {/* Recent Activity */}
-           <Card className="p-6 bg-white dark:bg-[#0A0A0A] border-slate-200 dark:border-white/5 rounded-[2rem]">
+         {/* Recent Activity */}
+         <Card className="p-6 bg-white dark:bg-[#0A0A0A] border-slate-200 dark:border-white/5 rounded-[2rem] flex flex-col justify-between">
+            <div>
               <h3 className="text-base font-black text-slate-900 dark:text-white tracking-tight italic mb-5">Recent Activity</h3>
               <div className="space-y-4">
                  {recentActivity.map((act) => (
@@ -329,16 +381,15 @@ export default function DashboardPage() {
                        <div className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 shadow-sm`}>
                           <act.icon className={`h-4 w-4 ${act.color}`} />
                        </div>
-                       <div>
+                       <div className="min-w-0 flex-1">
                           <p className="text-xs font-bold text-slate-900 dark:text-white leading-relaxed">{act.content}</p>
                           <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mt-1 block">{act.time}</span>
                        </div>
                     </div>
                  ))}
               </div>
-           </Card>
-
-        </div>
+            </div>
+         </Card>
       </div>
 
       {selectedCompany && (
@@ -425,6 +476,35 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
+
+      <Dialog open={showRefreshWarning} onOpenChange={setShowRefreshWarning}>
+        <DialogContent className="sm:max-w-[400px] rounded-[2rem] p-8 gap-6 border-none shadow-2xl bg-white dark:bg-[#0A0A0A]">
+          <DialogTitle className="text-xl font-black italic text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+            ⚠️ Recalculate Warning
+          </DialogTitle>
+          <DialogDescription className="text-sm font-medium text-slate-500 dark:text-white/60 leading-relaxed">
+            Warning: By refreshing the page, the content profiles and suggested matches may change. Do you wish to proceed?
+          </DialogDescription>
+          <div className="flex gap-3 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => setShowRefreshWarning(false)}
+              className="flex-1 h-11 rounded-xl font-bold uppercase tracking-widest text-[10px] border-slate-200 dark:border-white/10"
+            >
+              Close
+            </Button>
+            <Button
+              onClick={() => {
+                setShowRefreshWarning(false);
+                refreshMatches();
+              }}
+              className="flex-1 h-11 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20"
+            >
+              Refresh
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

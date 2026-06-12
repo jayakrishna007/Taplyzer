@@ -28,7 +28,7 @@ export function CTA() {
       <div className="mx-auto max-w-5xl px-6 lg:px-8 relative z-10">
         
         {/* Glow Panel Container */}
-        <div className="relative rounded-[32px] overflow-hidden border border-purple-500/20 bg-[#07070c]/55 shadow-[0_0_50px_rgba(139,92,246,0.1)] backdrop-blur-xl transition-all duration-300 hover:border-purple-500/30">
+        <div id="cta-card" className="relative rounded-[32px] overflow-hidden border border-purple-500/20 bg-[#07070c]/55 shadow-[0_0_50px_rgba(139,92,246,0.1)] backdrop-blur-xl transition-all duration-300 hover:border-purple-500/30">
           
           {/* Subtle grid pattern overlay */}
           <div
@@ -42,17 +42,7 @@ export function CTA() {
           {/* Centered Panel Content */}
           <div className="relative z-10 text-center px-6 sm:px-12 py-16 sm:py-20 lg:py-24 max-w-3xl mx-auto flex flex-col items-center">
             
-            {/* Stars rating element */}
-            <div className="flex flex-col items-center gap-2 mb-8">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4.5 w-4.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <span className="text-[11px] font-black uppercase text-white/45 tracking-widest">
-                Trusted by thousands of businesses worldwide
-              </span>
-            </div>
+
 
             {/* Title */}
             <h2 className="text-3xl sm:text-4.5xl lg:text-5xl font-black text-white tracking-tight leading-[1.1] text-balance mb-6 uppercase font-sans">

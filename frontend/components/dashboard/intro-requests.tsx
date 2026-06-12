@@ -17,7 +17,7 @@ export function IntroRequests() {
       const res = await fetch(`/api/requests/${user._id}`);
       if (res.ok) {
         const data = await res.json();
-        setRequests((data.received || []).filter((r: any) => r.status === "pending").slice(0, 3));
+        setRequests((data.received || []).filter((r: any) => r.status === "pending").slice(0, 2));
       }
     } catch (err) {
       console.error("Failed to fetch requests:", err);

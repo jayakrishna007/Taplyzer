@@ -31,10 +31,28 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { theme, setTheme } = useTheme()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [verificationStatus, setVerificationStatus] = useState<string>("Not Verified")
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (!user) return
+    async function fetchStatus() {
+      try {
+        const res = await fetch("/api/profile")
+        if (res.ok) {
+          const data = await res.json()
+          const status = data.business?.trust?.verificationStatus || "Not Verified"
+          setVerificationStatus(status)
+        }
+      } catch (err) {
+        console.error("Failed to fetch verification status:", err)
+      }
+    }
+    fetchStatus()
+  }, [user, pathname])
 
   useEffect(() => {
     if (!user) return
@@ -44,6 +62,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       router.push("/profile/setup")
     }
   }, [pathname, router, user])
+
+  const isVerified = ["Business Verified", "Basic Verified", "Trusted Partner"].includes(verificationStatus)
+  const isPending = verificationStatus === "Under Review"
+
+  const statusText = isVerified ? "Verified" : isPending ? "Pending" : "Not Verified"
+  const statusColorClass = isVerified ? "text-emerald-500" : isPending ? "text-amber-500" : "text-red-500"
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-black flex">
@@ -137,8 +161,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {/* Right */}
           <div className="flex items-center gap-2 ml-auto">
             <div className="hidden md:flex flex-col items-end">
-              <span className="text-[9px] font-black uppercase tracking-widest text-primary">Status</span>
-              <span className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-wider">Verified</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white/40">Status</span>
+              <span className={`text-[10px] font-black uppercase tracking-wider ${statusColorClass}`}>{statusText}</span>
             </div>
 
             {user?.email === "admin@taplyser.com" && (

@@ -22,12 +22,25 @@ export function FloatingDock() {
   ]
 
   const handleScroll = (targetId: string) => {
-    const element = document.getElementById(targetId)
+    let actualTargetId = targetId
+    const isDesktop = typeof window !== "undefined" && window.innerWidth >= 1024
+    if (targetId === "cta-buttons" && isDesktop) {
+      actualTargetId = "cta-card"
+    }
+    const element = document.getElementById(actualTargetId)
     if (element) {
-      if (targetId === "cta-buttons") {
-        element.scrollIntoView({ behavior: "smooth", block: "center" })
+      if (isDesktop) {
+        if (actualTargetId === "features" || actualTargetId === "how-it-works" || actualTargetId === "cta-card") {
+          element.scrollIntoView({ behavior: "smooth", block: "center" })
+        } else {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
       } else {
-        element.scrollIntoView({ behavior: "smooth" })
+        if (actualTargetId === "cta-buttons") {
+          element.scrollIntoView({ behavior: "smooth", block: "center" })
+        } else {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
       }
     }
   }

@@ -16,6 +16,45 @@ import {
 
 const STEPS = ["Identity", "Location", "Offerings", "Needs", "Goal"]
 
+const CITIES_BY_STATE: Record<string, string[]> = {
+  "Andhra Pradesh": ["Amaravati"],
+  "Arunachal Pradesh": ["Itanagar"],
+  "Assam": ["Dispur"],
+  "Bihar": ["Patna"],
+  "Chhattisgarh": ["Raipur"],
+  "Goa": ["Panaji"],
+  "Gujarat": ["Gandhinagar"],
+  "Haryana": ["Chandigarh"],
+  "Himachal Pradesh": ["Shimla"],
+  "Jharkhand": ["Ranchi"],
+  "Karnataka": ["Bengaluru"],
+  "Kerala": ["Thiruvananthapuram"],
+  "Madhya Pradesh": ["Bhopal"],
+  "Maharashtra": ["Mumbai"],
+  "Manipur": ["Imphal"],
+  "Meghalaya": ["Shillong"],
+  "Mizoram": ["Aizawl"],
+  "Nagaland": ["Kohima"],
+  "Odisha": ["Bhubaneswar"],
+  "Punjab": ["Chandigarh"],
+  "Rajasthan": ["Jaipur"],
+  "Sikkim": ["Gangtok"],
+  "Tamil Nadu": ["Chennai"],
+  "Telangana": ["Hyderabad"],
+  "Tripura": ["Agartala"],
+  "Uttar Pradesh": ["Lucknow"],
+  "Uttarakhand": ["Dehradun"],
+  "West Bengal": ["Kolkata"],
+  "Andaman & Nicobar": ["Port Blair"],
+  "Chandigarh": ["Chandigarh"],
+  "Dadra & Nagar Haveli": ["Daman"],
+  "Delhi": ["New Delhi"],
+  "Jammu & Kashmir": ["Srinagar"],
+  "Ladakh": ["Leh"],
+  "Lakshadweep": ["Kavaratti"],
+  "Puducherry": ["Puducherry"]
+}
+
 type FormData = {
   companyPhone: string; role: string
   companyName: string; industry: string; customIndustry: string
@@ -452,7 +491,36 @@ export default function ProfileSetupPage() {
                       {renderHelpIcon("state")}
                     </div>
                     {renderHelpText("state")}
-                    <Input value={formData.state} onChange={e => set("state", e.target.value)} placeholder="Maharashtra" className={inputCls} />
+                    <select
+                      value={formData.state || ""}
+                      onChange={e => {
+                        const selectedState = e.target.value
+                        set("state", selectedState)
+                        const defaultCity = CITIES_BY_STATE[selectedState]?.[0] || ""
+                        set("city", defaultCity)
+                      }}
+                      className={`${selectCls} ${
+                        formData.state ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-white/30"
+                      }`}
+                    >
+                      <option value="" disabled className="bg-white dark:bg-[#0a0a0a] text-slate-400 dark:text-white/30">
+                        Select State
+                      </option>
+                      {formData.state && !Object.keys(CITIES_BY_STATE).includes(formData.state) && (
+                        <option value={formData.state} className="bg-white dark:bg-[#0a0a0a] text-slate-900 dark:text-white">
+                          {formData.state} (Custom)
+                        </option>
+                      )}
+                      {Object.keys(CITIES_BY_STATE).map(stateName => (
+                        <option
+                          key={stateName}
+                          value={stateName}
+                          className="bg-white dark:bg-[#0a0a0a] text-slate-900 dark:text-white"
+                        >
+                          {stateName}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center gap-1.5">
@@ -460,7 +528,32 @@ export default function ProfileSetupPage() {
                       {renderHelpIcon("city")}
                     </div>
                     {renderHelpText("city")}
-                    <Input value={formData.city} onChange={e => set("city", e.target.value)} placeholder="Mumbai" className={inputCls} />
+                    <select
+                      value={formData.city || ""}
+                      onChange={e => set("city", e.target.value)}
+                      className={`${selectCls} ${
+                        formData.city ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-white/30"
+                      }`}
+                      disabled={!formData.state}
+                    >
+                      <option value="" disabled className="bg-white dark:bg-[#0a0a0a] text-slate-400 dark:text-white/30">
+                        {formData.state ? "Select City" : "Select State First"}
+                      </option>
+                      {formData.city && (!formData.state || !CITIES_BY_STATE[formData.state]?.includes(formData.city)) && (
+                        <option value={formData.city} className="bg-white dark:bg-[#0a0a0a] text-slate-900 dark:text-white">
+                          {formData.city} (Custom)
+                        </option>
+                      )}
+                      {formData.state && CITIES_BY_STATE[formData.state]?.map(cityName => (
+                        <option
+                          key={cityName}
+                          value={cityName}
+                          className="bg-white dark:bg-[#0a0a0a] text-slate-900 dark:text-white"
+                        >
+                          {cityName}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -470,7 +563,15 @@ export default function ProfileSetupPage() {
                       {renderHelpIcon("pincode")}
                     </div>
                     {renderHelpText("pincode")}
-                    <Input value={formData.pincode} onChange={e => set("pincode", e.target.value)} placeholder="400001" className={inputCls} />
+                    <Input
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={6}
+                      value={formData.pincode}
+                      onChange={e => set("pincode", e.target.value.replace(/\D/g, "").slice(0, 6))}
+                      placeholder="400001"
+                      className={inputCls}
+                    />
                   </div>
                   <div className="space-y-2 sm:col-span-2">
                     <div className="flex items-center gap-1.5">
