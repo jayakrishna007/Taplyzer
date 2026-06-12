@@ -19,6 +19,20 @@ export async function POST(req: Request) {
       return NextResponse.json({ msg: "ownerId is required" }, { status: 400 });
     }
 
+    // Load existing business profile
+    const existing = await Business.findOne({ ownerId });
+    
+    // Merge trust fields to prevent overwriting existing verificationStatus or other keys
+    if (businessData.trust) {
+      const existingTrust = existing?.trust || {};
+      const payloadTrust = businessData.trust || {};
+      businessData.trust = {
+        ...existingTrust,
+        ...payloadTrust,
+        verificationStatus: payloadTrust.verificationStatus || existingTrust.verificationStatus || "Not Verified"
+      };
+    }
+
     // Update the business profile
     const business = await Business.findOneAndUpdate(
       { ownerId },

@@ -55,6 +55,7 @@ export default function VerifyPage() {
             gst: regNumber,
             website,
             linkedin,
+            verificationStatus: "Under Review"
           }
         })
       })
