@@ -1,6 +1,68 @@
 import { db } from "./db";
 import * as admin from "firebase-admin";
 
+interface CacheEntry {
+  timestamp: number;
+  data: any;
+}
+
+const queryCache = new Map<string, CacheEntry>();
+const CACHE_TTL = 30000; // 30 seconds
+
+function cloneMongooseDoc(doc: any): any {
+  if (doc === null || doc === undefined) return doc;
+  
+  if (doc instanceof MongooseDoc) {
+    const dataCopy = JSON.parse(JSON.stringify(doc));
+    delete dataCopy._id;
+    delete dataCopy.id;
+    for (const key of Object.keys(dataCopy)) {
+      if (dataCopy[key] && typeof dataCopy[key] === "object") {
+        dataCopy[key] = cloneMongooseDoc(dataCopy[key]);
+      }
+    }
+    return new MongooseDoc((doc as any)._collectionName, dataCopy, doc.id);
+  } else if (Array.isArray(doc)) {
+    return doc.map(cloneMongooseDoc);
+  } else if (doc && typeof doc === "object" && !(doc instanceof Date)) {
+    const copy: any = {};
+    for (const key of Object.keys(doc)) {
+      copy[key] = cloneMongooseDoc(doc[key]);
+    }
+    return copy;
+  }
+  return doc;
+}
+
+function getFromCache(collectionName: string, queryKey: string): any | null {
+  const fullKey = `${collectionName}:${queryKey}`;
+  const entry = queryCache.get(fullKey);
+  if (entry && Date.now() - entry.timestamp < CACHE_TTL) {
+    return cloneMongooseDoc(entry.data);
+  }
+  if (entry) {
+    queryCache.delete(fullKey);
+  }
+  return null;
+}
+
+function setToCache(collectionName: string, queryKey: string, data: any): void {
+  const fullKey = `${collectionName}:${queryKey}`;
+  queryCache.set(fullKey, {
+    timestamp: Date.now(),
+    data: cloneMongooseDoc(data),
+  });
+}
+
+export function invalidateCache(collectionName: string): void {
+  const prefix = `${collectionName}:`;
+  for (const key of queryCache.keys()) {
+    if (key.startsWith(prefix)) {
+      queryCache.delete(key);
+    }
+  }
+}
+
 function getNestedValue(obj: any, path: string): any {
   if (!obj || !path) return undefined;
   const parts = path.split(".");
@@ -30,6 +92,7 @@ export class MongooseDoc {
     delete (dataToSave as any)._id;
     delete (dataToSave as any).id;
     await db.collection(this._collectionName).doc(this.id).set(dataToSave, { merge: true });
+    invalidateCache(this._collectionName);
     return this;
   }
 
@@ -170,6 +233,21 @@ export class FirestoreQuery {
   }
 
   async exec(): Promise<any> {
+    const queryKey = JSON.stringify({
+      queryObj: this.queryObj,
+      sortObj: this.sortObj,
+      limitVal: this.limitVal,
+      skipVal: this.skipVal,
+      selectFields: this.selectFields,
+      populates: this.populates,
+      isSingleDoc: this.isSingleDoc
+    });
+
+    const cached = getFromCache(this.collectionName, queryKey);
+    if (cached !== null) {
+      return cached;
+    }
+
     try {
       let queryRef: admin.firestore.Query = db.collection(this.collectionName);
       let canUseDirectQuery = true;
@@ -184,12 +262,16 @@ export class FirestoreQuery {
         const isIdField = key === "_id" || key === "id";
         const dbField = isIdField ? admin.firestore.FieldPath.documentId() : key;
 
-        if (val && typeof val === "object" && !Array.isArray(val)) {
+        if (val && typeof val === "object" && !Array.isArray(val) && !(val instanceof Date)) {
           for (const op of Object.keys(val)) {
             if (op === "$eq") {
               queryRef = queryRef.where(dbField, "==", val[op]);
             } else if (op === "$in") {
               queryRef = queryRef.where(dbField, "in", val[op]);
+            } else if (op === "$ne") {
+              queryRef = queryRef.where(dbField, "!=", val[op]);
+            } else if (op === "$nin") {
+              queryRef = queryRef.where(dbField, "not-in", val[op]);
             } else if (op === "$gt") {
               queryRef = queryRef.where(dbField, ">", val[op]);
             } else if (op === "$gte") {
@@ -276,30 +358,45 @@ export class FirestoreQuery {
               targetColl = "users";
             }
 
-            for (const doc of results) {
-              const refId = doc[pop.path];
-              if (refId && typeof refId === "string") {
-                const refSnap = await db.collection(targetColl).doc(refId).get();
-                if (refSnap.exists) {
-                  const refData = refSnap.data() || {};
+            const refIds = results
+              .map(doc => doc[pop.path])
+              .filter(id => id && typeof id === "string");
+            
+            const uniqueIds = Array.from(new Set(refIds));
+            
+            if (uniqueIds.length > 0) {
+              const refs = uniqueIds.map(id => db.collection(targetColl).doc(id));
+              const snaps = await db.getAll(...refs);
+              const docMap = new Map<string, any>();
+              
+              for (const snap of snaps) {
+                if (snap.exists) {
+                  const refData = snap.data() || {};
                   for (const k of Object.keys(refData)) {
                     if (refData[k] && typeof refData[k] === "object" && typeof refData[k].toDate === "function") {
                       refData[k] = refData[k].toDate();
                     }
                   }
-                  const refDoc: any = new MongooseDoc(targetColl, refData, refSnap.id);
+                  const refDoc = new MongooseDoc(targetColl, refData, snap.id);
                   if (pop.selectFields) {
                     const fields = pop.selectFields.split(/\s+/).filter(Boolean);
-                    const selectedDoc: any = new MongooseDoc(targetColl, {}, refSnap.id);
+                    const selectedDoc: any = new MongooseDoc(targetColl, {}, snap.id);
                     for (const field of fields) {
                       if (refDoc[field] !== undefined) {
                         selectedDoc[field] = refDoc[field];
                       }
                     }
-                    doc[pop.path] = selectedDoc;
+                    docMap.set(snap.id, selectedDoc);
                   } else {
-                    doc[pop.path] = refDoc;
+                    docMap.set(snap.id, refDoc);
                   }
+                }
+              }
+              
+              for (const doc of results) {
+                const refId = doc[pop.path];
+                if (refId && typeof refId === "string") {
+                  doc[pop.path] = docMap.get(refId) || null;
                 }
               }
             }
@@ -307,8 +404,11 @@ export class FirestoreQuery {
         }
 
         if (this.isSingleDoc) {
-          return results[0] || null;
+          const res = results[0] || null;
+          setToCache(this.collectionName, queryKey, res);
+          return res;
         }
+        setToCache(this.collectionName, queryKey, results);
         return results;
       }
     } catch (err: any) {
@@ -420,32 +520,45 @@ export class FirestoreQuery {
           targetColl = "users";
         }
 
-        // Only run populate on sliced results to avoid fetching thousands of documents
-        for (const doc of results) {
-          const refId = doc[pop.path];
-          if (refId && typeof refId === "string") {
-            const refSnap = await db.collection(targetColl).doc(refId).get();
-            if (refSnap.exists) {
-              const refData = refSnap.data() || {};
+        const refIds = results
+          .map(doc => doc[pop.path])
+          .filter(id => id && typeof id === "string");
+        
+        const uniqueIds = Array.from(new Set(refIds));
+        
+        if (uniqueIds.length > 0) {
+          const refs = uniqueIds.map(id => db.collection(targetColl).doc(id));
+          const snaps = await db.getAll(...refs);
+          const docMap = new Map<string, any>();
+          
+          for (const snap of snaps) {
+            if (snap.exists) {
+              const refData = snap.data() || {};
               for (const k of Object.keys(refData)) {
                 if (refData[k] && typeof refData[k] === "object" && typeof refData[k].toDate === "function") {
                   refData[k] = refData[k].toDate();
                 }
               }
-              const refDoc: any = new MongooseDoc(targetColl, refData, refSnap.id);
-              
+              const refDoc = new MongooseDoc(targetColl, refData, snap.id);
               if (pop.selectFields) {
                 const fields = pop.selectFields.split(/\s+/).filter(Boolean);
-                const selectedDoc: any = new MongooseDoc(targetColl, {}, refSnap.id);
+                const selectedDoc: any = new MongooseDoc(targetColl, {}, snap.id);
                 for (const field of fields) {
                   if (refDoc[field] !== undefined) {
                     selectedDoc[field] = refDoc[field];
                   }
                 }
-                doc[pop.path] = selectedDoc;
+                docMap.set(snap.id, selectedDoc);
               } else {
-                doc[pop.path] = refDoc;
+                docMap.set(snap.id, refDoc);
               }
+            }
+          }
+          
+          for (const doc of results) {
+            const refId = doc[pop.path];
+            if (refId && typeof refId === "string") {
+              doc[pop.path] = docMap.get(refId) || null;
             }
           }
         }
@@ -453,9 +566,12 @@ export class FirestoreQuery {
     }
 
     if (this.isSingleDoc) {
-      return results[0] || null;
+      const res = results[0] || null;
+      setToCache(this.collectionName, queryKey, res);
+      return res;
     }
 
+    setToCache(this.collectionName, queryKey, results);
     return results;
   }
 }
@@ -494,6 +610,7 @@ export class FirestoreModel {
         });
         results.push(new MongooseDoc(this.collectionName, itemCopy, docRef.id));
       }
+      invalidateCache(this.collectionName);
       return results;
     } else {
       const itemCopy = { ...data };
@@ -504,6 +621,7 @@ export class FirestoreModel {
         createdAt: new Date(),
         updatedAt: new Date()
       });
+      invalidateCache(this.collectionName);
       return new MongooseDoc(this.collectionName, itemCopy, docRef.id);
     }
   }
@@ -531,6 +649,7 @@ export class FirestoreModel {
 
     const docId = doc.id;
     await db.collection(this.collectionName).doc(docId).set(cleanedUpdate, { merge: true });
+    invalidateCache(this.collectionName);
     
     if (options.new) {
       return this.findById(docId);
@@ -556,6 +675,7 @@ export class FirestoreModel {
     }
 
     await db.collection(this.collectionName).doc(doc.id).set(cleanedUpdate, { merge: true });
+    invalidateCache(this.collectionName);
     return { matchedCount: 1, modifiedCount: 1 };
   }
 
@@ -567,6 +687,7 @@ export class FirestoreModel {
       batch.delete(ref);
     }
     await batch.commit();
+    invalidateCache(this.collectionName);
     return { deletedCount: docs.length };
   }
 
@@ -574,16 +695,82 @@ export class FirestoreModel {
     const doc = await this.findOne(query);
     if (!doc) return { deletedCount: 0 };
     await db.collection(this.collectionName).doc(doc.id).delete();
+    invalidateCache(this.collectionName);
     return { deletedCount: 1 };
   }
 
-  async countDocuments(query: any = {}) {
-    const results = await this.find(query);
-    return results.length;
+  async countDocuments(query: any = {}): Promise<number> {
+    const queryKey = JSON.stringify({ countQuery: query });
+    const cached = getFromCache(this.collectionName, queryKey);
+    if (cached !== null) {
+      return cached;
+    }
+
+    let count: number;
+    try {
+      let queryRef: admin.firestore.Query = db.collection(this.collectionName);
+      let canUseDirectQuery = true;
+
+      for (const key of Object.keys(query)) {
+        const val = query[key];
+        if (key === "$or" || key === "$and" || key === "$nor") {
+          canUseDirectQuery = false;
+          break;
+        }
+
+        const isIdField = key === "_id" || key === "id";
+        const dbField = isIdField ? admin.firestore.FieldPath.documentId() : key;
+
+        if (val && typeof val === "object" && !Array.isArray(val) && !(val instanceof Date)) {
+          for (const op of Object.keys(val)) {
+            if (op === "$eq") {
+              queryRef = queryRef.where(dbField, "==", val[op]);
+            } else if (op === "$in") {
+              queryRef = queryRef.where(dbField, "in", val[op]);
+            } else if (op === "$ne") {
+              queryRef = queryRef.where(dbField, "!=", val[op]);
+            } else if (op === "$nin") {
+              queryRef = queryRef.where(dbField, "not-in", val[op]);
+            } else if (op === "$gt") {
+              queryRef = queryRef.where(dbField, ">", val[op]);
+            } else if (op === "$gte") {
+              queryRef = queryRef.where(dbField, ">=", val[op]);
+            } else if (op === "$lt") {
+              queryRef = queryRef.where(dbField, "<", val[op]);
+            } else if (op === "$lte") {
+              queryRef = queryRef.where(dbField, "<=", val[op]);
+            } else {
+              canUseDirectQuery = false;
+              break;
+            }
+          }
+        } else {
+          queryRef = queryRef.where(dbField, "==", val);
+        }
+        if (!canUseDirectQuery) break;
+      }
+
+      if (canUseDirectQuery) {
+        const snapshot = await queryRef.count().get();
+        count = snapshot.data().count;
+      } else {
+        const results = await this.find(query).exec();
+        count = results.length;
+      }
+    } catch (err: any) {
+      console.warn(`Direct count failed for ${this.collectionName}, falling back to in-memory count. Error: ${err.message}`);
+      const results = await this.find(query).exec();
+      count = results.length;
+    }
+
+    setToCache(this.collectionName, queryKey, count);
+    return count;
   }
 
   async insertMany(docs: any[]) {
-    return this.create(docs);
+    const res = await this.create(docs);
+    invalidateCache(this.collectionName);
+    return res;
   }
 
   async findByIdAndDelete(id: any) {
@@ -591,13 +778,28 @@ export class FirestoreModel {
     const doc = await this.findById(docId);
     if (!doc) return null;
     await db.collection(this.collectionName).doc(docId).delete();
+    invalidateCache(this.collectionName);
     return doc;
   }
 
   async aggregate(pipeline: any[]) {
-    let results = await this.find({}).exec();
+    const queryKey = JSON.stringify({ pipeline });
+    const cached = getFromCache(this.collectionName, queryKey);
+    if (cached !== null) {
+      return cached;
+    }
 
-    for (const stage of pipeline) {
+    let initialQuery = {};
+    let startStageIdx = 0;
+    if (pipeline.length > 0 && pipeline[0].$match) {
+      initialQuery = pipeline[0].$match;
+      startStageIdx = 1;
+    }
+
+    let results = await this.find(initialQuery).exec();
+
+    for (let i = startStageIdx; i < pipeline.length; i++) {
+      const stage = pipeline[i];
       if (stage.$match) {
         results = results.filter((doc: any) => evaluateFilter(doc, stage.$match));
       } else if (stage.$group) {
@@ -821,8 +1023,40 @@ export class FirestoreModel {
         }
       } else if (stage.$lookup) {
         const { from, localField, foreignField, as } = stage.$lookup;
-        const foreignModel = new FirestoreModel(from);
-        const foreignDocs = await foreignModel.find({}).exec();
+        const localValues = results
+          .map((doc: any) => getNestedValue(doc, localField))
+          .filter((val: any) => val !== undefined && val !== null);
+
+        let foreignDocs: any[] = [];
+        if (localValues.length > 0) {
+          const uniqueIds = Array.from(new Set(localValues.map((v: any) => String(v)))) as string[];
+          if (foreignField === "_id" || foreignField === "id" || foreignField === admin.firestore.FieldPath.documentId()) {
+            const refs = uniqueIds.map((id: string) => db.collection(from as string).doc(id));
+            const snaps = await db.getAll(...refs);
+            foreignDocs = snaps
+              .filter(snap => snap.exists)
+              .map(snap => {
+                const data = snap.data() || {};
+                for (const k of Object.keys(data)) {
+                  if (data[k] && typeof data[k] === "object" && typeof data[k].toDate === "function") {
+                    data[k] = data[k].toDate();
+                  }
+                }
+                return new MongooseDoc(from as string, data, snap.id);
+              });
+          } else {
+            const chunks: any[][] = [];
+            for (let i = 0; i < uniqueIds.length; i += 30) {
+              chunks.push(uniqueIds.slice(i, i + 30));
+            }
+            const promises = chunks.map(chunk => 
+              new FirestoreModel(from as string).find({ [foreignField]: { $in: chunk } }).exec()
+            );
+            const chunkResults = await Promise.all(promises);
+            foreignDocs = chunkResults.flat();
+          }
+        }
+
         for (const doc of results) {
           const lVal = getNestedValue(doc, localField);
           const matches = foreignDocs.filter((fd: any) => {
@@ -853,6 +1087,8 @@ export class FirestoreModel {
         results = [{ [countField]: results.length }];
       }
     }
+
+    setToCache(this.collectionName, queryKey, results);
     return results;
   }
 }

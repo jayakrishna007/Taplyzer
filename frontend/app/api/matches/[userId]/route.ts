@@ -870,7 +870,7 @@ export async function GET(
     // Check if cache is still fresh using business profile's lastMatchesCalculatedAt
     const [data, biz] = await Promise.all([
       MatchRecord.find({ userId }).sort({ score: -1 }).lean(),
-      Business.findOne({ ownerId: userId }).select("lastMatchesCalculatedAt").lean() as Promise<any>
+      Business.findOne({ ownerId: userId }).select("lastMatchesCalculatedAt").lean() as unknown as Promise<any>
     ]);
 
     let cacheAge: number | null = null;

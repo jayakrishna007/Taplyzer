@@ -90,11 +90,27 @@ app.post("/generate-matches/:userId", async (req, res) => {
     // Score every candidate
     const results = [];
 
+    // Fetch all candidate users in a single batch read
+    const candidateUserIds = candidatesSnapshot.docs
+      .map(doc => doc.data().userId)
+      .filter(Boolean);
+    const uniqueUserIds = Array.from(new Set(candidateUserIds));
+
+    const userMap = new Map();
+    if (uniqueUserIds.length > 0) {
+      const refs = uniqueUserIds.map(id => db.collection("users").doc(id));
+      const snaps = await db.getAll(...refs);
+      for (const snap of snaps) {
+        if (snap.exists) {
+          userMap.set(snap.id, snap.data());
+        }
+      }
+    }
+
     for (const doc of candidatesSnapshot.docs) {
       const candidate = doc.data();
-      const candidateUserDoc = await db.collection("users").doc(candidate.userId).get();
-      if (!candidateUserDoc.exists) continue;
-      const candidateUser = candidateUserDoc.data();
+      const candidateUser = userMap.get(candidate.userId);
+      if (!candidateUser) continue;
 
       // 1. Semantic Relevance (intent ↔ offering)
       const relevance = cosineSimilarity(intent.embedding, candidate.embedding);

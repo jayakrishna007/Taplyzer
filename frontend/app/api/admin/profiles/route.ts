@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
       User.countDocuments({ role: "USER", activelyLookingFor: "" }),
     ]);
 
-    const profiles = enriched.map(p => ({
+    const profiles = enriched.map((p: any) => ({
       _id: p._id,
       name: p.companyName || p.name || "—",
       industry: p.industry || "—",
