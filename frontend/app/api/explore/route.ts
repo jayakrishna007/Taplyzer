@@ -32,6 +32,8 @@ export async function GET(req: Request) {
         offerings: biz.offerings || [],
         needs: biz.needs || [],
         goal: biz.intent?.currentGoal || "",
+        goalType: biz.intent?.goalType || "",
+        goalIndustry: biz.intent?.goalIndustry || "",
         verified: user?.verified || biz.trust?.verificationStatus === "Business Verified",
       });
     }

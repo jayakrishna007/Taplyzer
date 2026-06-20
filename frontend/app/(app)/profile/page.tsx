@@ -15,6 +15,8 @@ import { toast } from "sonner"
 import { useAuth } from "@/components/auth-provider"
 import { useRouter } from "next/navigation"
 import { INDUSTRIES, INDUSTRY_SUGGESTIONS, DEFAULT_SUGGESTIONS } from "@/constants/industryData"
+import { MatchCard } from "@/components/dashboard/match-card"
+import { ViewProfileModal } from "@/components/modals/view-profile-modal"
 
 // INDUSTRY_SUGGESTIONS moved to constants/industryData.ts
 
@@ -44,6 +46,7 @@ export default function ProfilePage() {
    const [isEditOfferingsOpen, setIsEditOfferingsOpen] = useState(false)
    const [isEditNeedsOpen, setIsEditNeedsOpen] = useState(false)
    const [isEditGoalOpen, setIsEditGoalOpen] = useState(false)
+   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false)
 
 
    const [profileData, setProfileData] = useState<any>({
@@ -93,6 +96,9 @@ export default function ProfilePage() {
                   goalPriority: data.intent?.priority || "Medium",
                   budget: data.intent?.budget || "",
                   goalTimeline: data.intent?.timeline || "",
+                  goalType: data.intent?.goalType || "Need Clients",
+                  goalIndustry: data.intent?.goalIndustry || "",
+                  goalLocation: data.intent?.goalLocation || "",
                   website: data.trust?.website || "",
                   linkedin: data.trust?.linkedin || "",
                   verificationStatus: data.trust?.verificationStatus === "Business Verified" ? "Approved" : "Not Started",
@@ -140,7 +146,10 @@ export default function ProfilePage() {
                currentGoal: merged.currentGoal,
                priority: merged.goalPriority,
                budget: merged.budget,
-               timeline: merged.goalTimeline
+               timeline: merged.goalTimeline,
+               goalType: merged.goalType,
+               goalIndustry: merged.goalIndustry,
+               goalLocation: merged.goalLocation
             },
             trust: {
                website: merged.website,
@@ -205,27 +214,43 @@ export default function ProfilePage() {
             </div>
          </div>
 
-         {/* SECTION 4: ACTIVE GOAL (MOST IMPORTANT) */}
-         <div className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-blue-950/40 dark:to-slate-900 rounded-[2rem] border border-slate-800 dark:border-white/5 p-8 md:p-10 shadow-xl relative overflow-hidden">
-            <Target className="absolute -right-10 -bottom-10 h-64 w-64 text-blue-500 opacity-10 pointer-events-none" />
-
-            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 relative z-10">
-               <div className="max-w-3xl">
-                  <h2 className="text-sm font-black uppercase tracking-widest text-blue-400 mb-4 flex items-center gap-2"><Target className="h-4 w-4" /> Current Business Goal</h2>
-                  {profileData.currentGoal ? (
-                     <>
-                        <p className="text-2xl md:text-3xl font-black text-white leading-tight mb-6">{profileData.currentGoal}</p>
-                        <div className="flex flex-wrap gap-3">
-                           <Badge className="bg-white/10 hover:bg-white/20 text-white border border-white/10 px-3 py-1.5 font-bold rounded-lg text-xs">{profileData.goalType}</Badge>
-                           <Badge className="bg-white/10 hover:bg-white/20 text-white border border-white/10 px-3 py-1.5 font-bold rounded-lg text-xs">{profileData.goalPriority} Priority</Badge>
-                           <Badge className="bg-white/10 hover:bg-white/20 text-white border border-white/10 px-3 py-1.5 font-bold rounded-lg text-xs">{profileData.goalTimeline}</Badge>
-                           <Badge className="bg-white/10 hover:bg-white/20 text-white border border-white/10 px-3 py-1.5 font-bold rounded-lg text-xs">{profileData.goalLocation}</Badge>
-                           <Badge className="bg-white/10 hover:bg-white/20 text-white border border-white/10 px-3 py-1.5 font-bold rounded-lg text-xs">{profileData.goalIndustry}</Badge>
-                        </div>
-                     </>
-                  ) : <p className="text-xl font-bold text-slate-400">No active goal set. Add a goal to attract targeted matches.</p>}
+         {/* SECTION 4: MY BUSINESS CARD (REPLACING THE BLUE CARD AND COLUMNS) */}
+         <div className="bg-white dark:bg-[#0A0A0A] rounded-[2rem] border border-slate-200 dark:border-white/10 p-6 md:p-8 shadow-sm relative overflow-hidden">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+               <div className="flex-1 space-y-4">
+                  <h2 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 dark:text-white flex items-center gap-2"><FileText className="h-6 w-6 text-primary" /> My Business Card</h2>
+                  <p className="text-sm font-medium text-slate-500 leading-relaxed max-w-xl">
+                     This is how your business card appears to other users in explore and matches. Keep your details and goals updated to attract targeted matches.
+                  </p>
                </div>
-               <Button onClick={() => setIsEditGoalOpen(true)} className="bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-widest text-[10px] h-10 px-6 rounded-xl shrink-0 border-none shadow-xl">Update Goal</Button>
+
+               <div className="shrink-0 w-full md:w-[400px]">
+                  <MatchCard 
+                     match={{
+                        matchedUserId: user?._id || "",
+                        candidateName: user?.name || "",
+                        companyName: profileData.companyName,
+                        industry: profileData.industry,
+                        location: profileData.location,
+                        score: 100,
+                        offerings: profileData.offerings,
+                        needs: profileData.needs,
+                        goal: profileData.currentGoal,
+                        offeringGoal: profileData.offeringGoal,
+                        reasons: [],
+                        verified: profileData.verificationStatus === "Approved",
+                        verificationStatus: profileData.verificationStatus === "Approved" ? "Business Verified" : "Not Verified",
+                        teamSize: profileData.teamSize,
+                        goalType: profileData.goalType,
+                        goalIndustry: profileData.goalIndustry
+                     }} 
+                     onRequestIntro={() => toast.info("This is a preview of your own card!")}
+                     onViewProfile={() => setIsPreviewModalOpen(true)}
+                  />
+                  <p className="text-[10px] text-center text-slate-400 font-bold mt-3 leading-relaxed">
+                     💡 Click <span className="font-extrabold text-primary">Profile</span> on the card to see how your full profile appears to others.
+                  </p>
+               </div>
             </div>
          </div>
 
@@ -337,6 +362,33 @@ export default function ProfilePage() {
                data={profileData}
                onClose={() => setIsEditProfileOpen(false)}
                onSave={(d: Record<string, unknown>) => { updateData(d); setIsEditProfileOpen(false); toast.success("Profile saved") }}
+            />
+         )}
+
+         {/* PREVIEW PROFILE MODAL */}
+         {isPreviewModalOpen && (
+            <ViewProfileModal
+               open={isPreviewModalOpen}
+               onClose={() => setIsPreviewModalOpen(false)}
+               match={{
+                  matchedUserId: user?._id || "",
+                  candidateName: user?.name || "",
+                  companyName: profileData.companyName,
+                  industry: profileData.industry,
+                  location: profileData.location,
+                  score: 100,
+                  offerings: profileData.offerings,
+                  needs: profileData.needs,
+                  goal: profileData.currentGoal,
+                  offeringGoal: profileData.offeringGoal,
+                  reasons: [],
+                  verified: profileData.verificationStatus === "Approved",
+                  verificationStatus: profileData.verificationStatus === "Approved" ? "Business Verified" : "Not Verified",
+                  teamSize: profileData.teamSize,
+                  goalType: profileData.goalType,
+                  goalIndustry: profileData.goalIndustry
+               }}
+               onRequestIntro={() => toast.info("This is a preview of your own profile!")}
             />
          )}
       </div>

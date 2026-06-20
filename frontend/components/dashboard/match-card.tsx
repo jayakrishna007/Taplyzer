@@ -41,6 +41,8 @@ export interface Match {
   teamSize?: string
   verificationStatus?: string
   subscriptionPlan?: string
+  goalType?: string
+  goalIndustry?: string
 }
 
 interface MatchCardProps {

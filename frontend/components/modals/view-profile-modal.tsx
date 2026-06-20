@@ -121,6 +121,20 @@ export function ViewProfileModal({ open, onClose, match, onRequestIntro }: ViewP
               <p className="text-sm font-medium leading-relaxed italic text-slate-700 dark:text-slate-300 pl-2">
                 "{match.offeringGoal || match.goal || 'Looking for business opportunities and synergistic growth.'}"
               </p>
+              {(match.goalType || match.goalIndustry) && (
+                <div className="flex flex-wrap gap-2 mt-3 pl-2">
+                  {match.goalType && (
+                    <Badge className="bg-primary/10 text-primary hover:bg-primary/20 border border-primary/10 px-2 py-0.5 font-bold rounded-lg text-[10px]">
+                      {match.goalType}
+                    </Badge>
+                  )}
+                  {match.goalIndustry && (
+                    <Badge className="bg-slate-100 text-slate-700 dark:bg-white/5 dark:text-slate-300 border border-slate-200 dark:border-white/10 px-2 py-0.5 font-bold rounded-lg text-[10px]">
+                      Target Industry: {match.goalIndustry}
+                    </Badge>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 

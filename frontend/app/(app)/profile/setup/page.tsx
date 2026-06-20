@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "@/components/auth-provider"
 import { Zap, ArrowLeft, ChevronRight, X, Phone, ShieldCheck, Check, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { toast } from "sonner"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
@@ -63,6 +64,7 @@ type FormData = {
   offerings: string[]; needs: string[]
   offeringGoal: string
   goal: string; budget: string; timeline: string
+  goalType: string; goalIndustry: string
 }
 
 const DEFAULT_FORM: FormData = {
@@ -72,7 +74,8 @@ const DEFAULT_FORM: FormData = {
   country: "India", state: "", city: "", pincode: "", address: "",
   offerings: [], needs: [],
   offeringGoal: "",
-  goal: "", budget: "", timeline: ""
+  goal: "", budget: "", timeline: "",
+  goalType: "Need Clients", goalIndustry: ""
 }
 
 const inputCls = "h-12 sm:h-14 bg-slate-50 dark:bg-white/5 border-none rounded-xl sm:rounded-2xl font-bold"
@@ -164,6 +167,16 @@ const FIELD_INFOS: Record<string, { title: string; desc: string; tip: string }> 
     title: "Required By",
     desc: "The timeframe within which you expect to achieve this strategic goal.",
     tip: "Select the closest deadline for starting/completing the project."
+  },
+  goalType: {
+    title: "Goal Type",
+    desc: "The nature of your target partnership or deal.",
+    tip: "Select the category that best matches your strategic objective."
+  },
+  goalIndustry: {
+    title: "Target Industry",
+    desc: "The industry sector you are targeting for this goal.",
+    tip: "e.g., 'E-commerce', 'Fintech', 'Logistics'."
   }
 }
 
@@ -177,6 +190,7 @@ export default function ProfileSetupPage() {
   const [isInitializing, setIsInitializing] = useState(true)
   const [showVerifyPopup, setShowVerifyPopup] = useState(false)
   const [activeHelp, setActiveHelp] = useState<string | null>(null)
+  const [isLongFormat, setIsLongFormat] = useState(false)
 
   const set = (key: keyof FormData, value: any) =>
     setFormData(prev => ({ ...prev, [key]: value }))
@@ -202,8 +216,13 @@ export default function ProfileSetupPage() {
               offerings: data.offerings || [], needs: data.needs || [],
               offeringGoal: data.offeringGoal || "",
               goal: data.intent?.currentGoal || "",
-              budget: data.intent?.budget || "", timeline: data.intent?.timeline || ""
+              budget: data.intent?.budget || "", timeline: data.intent?.timeline || "",
+              goalType: data.intent?.goalType || "Need Clients",
+              goalIndustry: data.intent?.goalIndustry || ""
             })
+            if (data.isProfileCompleted) {
+              setIsLongFormat(true)
+            }
           }
         }
       } catch (err) { console.error(err) }
@@ -227,7 +246,14 @@ export default function ProfileSetupPage() {
     strength: { teamSize: formData.teamSize },
     offerings: formData.offerings, needs: formData.needs,
     offeringGoal: formData.offeringGoal,
-    intent: { currentGoal: formData.goal, budget: formData.budget, timeline: formData.timeline },
+    intent: { 
+      currentGoal: formData.goal, 
+      budget: formData.budget, 
+      timeline: formData.timeline,
+      goalType: formData.goalType,
+      goalIndustry: formData.goalIndustry,
+      priority: "Medium"
+    },
     isProfileCompleted: false
   })
 
@@ -248,6 +274,25 @@ export default function ProfileSetupPage() {
       }
     } catch (err) { console.error(err) }
     finally { setIsSaving(false) }
+  }
+
+  const handleLongFormSave = async () => {
+    if (!user?._id) return
+    setIsSaving(true)
+    try {
+      await fetch("/api/business", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...buildPayload(), isProfileCompleted: true })
+      })
+      toast.success("Profile saved successfully")
+      router.push("/profile")
+    } catch (err) {
+      console.error(err)
+      toast.error("Failed to save profile")
+    } finally {
+      setIsSaving(false)
+    }
   }
 
   const addTag = (type: "offerings" | "needs") => {
@@ -299,6 +344,432 @@ export default function ProfileSetupPage() {
         <p className="font-extrabold uppercase tracking-wider text-[9px] text-blue-600 dark:text-blue-400">💡 {info.title} Guidance</p>
         <p className="font-medium text-slate-600 dark:text-slate-400 leading-relaxed">{info.desc}</p>
         <p className="text-[10px] font-medium italic text-slate-500 mt-1">{info.tip}</p>
+      </div>
+    )
+  }
+
+  if (isLongFormat) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-black flex items-center justify-center p-2 sm:p-4 md:p-8">
+        <div className="max-w-3xl w-full bg-white dark:bg-[#0A0A0A] rounded-[1.5rem] sm:rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden flex flex-col">
+          {/* Header */}
+          <div className="p-6 sm:p-8 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
+            <div>
+              <h1 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 dark:text-white">Edit Profile</h1>
+              <p className="text-xs text-slate-500 font-bold mt-1">Update your business details on a single page.</p>
+            </div>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsLongFormat(false)} 
+              className="text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl border-slate-200 dark:border-white/10"
+            >
+              Step Wizard
+            </Button>
+          </div>
+
+          {/* Form Content */}
+          <div className="p-6 sm:p-8 md:p-12 flex-grow overflow-y-auto max-h-[70vh] space-y-12">
+            
+            {/* Section 1: Identity */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-black text-slate-900 dark:text-white border-b pb-2 border-slate-100 dark:border-white/5">1. Company Identity</h3>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Company Name</label>
+                    {renderHelpIcon("companyName")}
+                  </div>
+                  {renderHelpText("companyName")}
+                  <Input value={formData.companyName} onChange={e => set("companyName", e.target.value)} placeholder="Acme Softworks" className={inputCls} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Your Role / Designation</label>
+                    {renderHelpIcon("role")}
+                  </div>
+                  {renderHelpText("role")}
+                  <Input value={formData.role} onChange={e => set("role", e.target.value)} placeholder="CEO / Founder / Director" className={inputCls} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Company Mobile Number</label>
+                    {renderHelpIcon("companyPhone")}
+                  </div>
+                  {renderHelpText("companyPhone")}
+                  <div className="relative">
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                    <Input
+                      type="tel" maxLength={10}
+                      value={formData.companyPhone}
+                      onChange={e => set("companyPhone", e.target.value.replace(/\D/g, "").slice(0, 10))}
+                      placeholder="9876543210"
+                      className={`${inputCls} pl-11`}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Industry</label>
+                      {renderHelpIcon("industry")}
+                    </div>
+                    {renderHelpText("industry")}
+                    <select value={formData.industry} onChange={e => { set("industry", e.target.value); set("businessType", ""); set("customIndustry", "") }} className={selectCls}>
+                      <option value="" disabled className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Select Industry</option>
+                      {INDUSTRIES.map(ind => <option key={ind} value={ind} className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">{ind}</option>)}
+                      <option value="Other" className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Other (specify below)</option>
+                    </select>
+                    {formData.industry === "Other" && (
+                      <Input value={formData.customIndustry} onChange={e => set("customIndustry", e.target.value)} placeholder="Type your industry" className={`${inputCls} mt-2`} />
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Business Type</label>
+                      {renderHelpIcon("businessType")}
+                    </div>
+                    {renderHelpText("businessType")}
+                    <select value={formData.businessType} onChange={e => { set("businessType", e.target.value); set("customBusinessType", "") }} className={selectCls} disabled={!formData.industry}>
+                      <option value="" disabled className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">{formData.industry ? "Select Type" : "Select Industry first"}</option>
+                      {businessTypeOptions.map(t => <option key={t} value={t} className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">{t}</option>)}
+                    </select>
+                    {formData.businessType === "Other" && (
+                      <Input value={formData.customBusinessType} onChange={e => set("customBusinessType", e.target.value)} placeholder="Type your business type" className={`${inputCls} mt-2`} />
+                    )}
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Team Size</label>
+                    {renderHelpIcon("teamSize")}
+                  </div>
+                  {renderHelpText("teamSize")}
+                  <div className="flex flex-wrap gap-2">
+                    {["1-5", "6-20", "21-50", "51-200", "201+"].map(size => (
+                      <button key={size} onClick={() => set("teamSize", size)}
+                        className={`px-3.5 py-2.5 sm:px-6 sm:py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${formData.teamSize === size ? "bg-primary text-white shadow-lg shadow-primary/20" : "bg-slate-50 dark:bg-white/5 text-slate-500"}`}
+                      >{size}</button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 2: Location */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-black text-slate-900 dark:text-white border-b pb-2 border-slate-100 dark:border-white/5">2. Global Presence</h3>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Country</label>
+                    {renderHelpIcon("country")}
+                  </div>
+                  {renderHelpText("country")}
+                  <Input value={formData.country} onChange={e => set("country", e.target.value)} className={inputCls} />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>State</label>
+                      {renderHelpIcon("state")}
+                    </div>
+                    {renderHelpText("state")}
+                    <select
+                      value={formData.state || ""}
+                      onChange={e => {
+                        const selectedState = e.target.value
+                        set("state", selectedState)
+                        const defaultCity = CITIES_BY_STATE[selectedState]?.[0] || ""
+                        set("city", defaultCity)
+                      }}
+                      className={`${selectCls} ${
+                        formData.state ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-white/30"
+                      }`}
+                    >
+                      <option value="" disabled className="bg-white dark:bg-[#0a0a0a] text-slate-400 dark:text-white/30">
+                        Select State
+                      </option>
+                      {formData.state && !Object.keys(CITIES_BY_STATE).includes(formData.state) && (
+                        <option value={formData.state} className="bg-white dark:bg-[#0a0a0a] text-slate-900 dark:text-white">
+                          {formData.state} (Custom)
+                        </option>
+                      )}
+                      {Object.keys(CITIES_BY_STATE).map(stateName => (
+                        <option
+                          key={stateName}
+                          value={stateName}
+                          className="bg-white dark:bg-[#0a0a0a] text-slate-900 dark:text-white"
+                        >
+                          {stateName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>City</label>
+                      {renderHelpIcon("city")}
+                    </div>
+                    {renderHelpText("city")}
+                    <select
+                      value={formData.city || ""}
+                      onChange={e => set("city", e.target.value)}
+                      className={`${selectCls} ${
+                        formData.city ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-white/30"
+                      }`}
+                      disabled={!formData.state}
+                    >
+                      <option value="" disabled className="bg-white dark:bg-[#0a0a0a] text-slate-400 dark:text-white/30">
+                        {formData.state ? "Select City" : "Select State First"}
+                      </option>
+                      {formData.city && (!formData.state || !CITIES_BY_STATE[formData.state]?.includes(formData.city)) && (
+                        <option value={formData.city} className="bg-white dark:bg-[#0a0a0a] text-slate-900 dark:text-white">
+                          {formData.city} (Custom)
+                        </option>
+                      )}
+                      {formData.state && CITIES_BY_STATE[formData.state]?.map(cityName => (
+                        <option
+                          key={cityName}
+                          value={cityName}
+                          className="bg-white dark:bg-[#0a0a0a] text-slate-900 dark:text-white"
+                        >
+                          {cityName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-2 sm:col-span-1">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Pincode</label>
+                      {renderHelpIcon("pincode")}
+                    </div>
+                    {renderHelpText("pincode")}
+                    <Input
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={6}
+                      value={formData.pincode}
+                      onChange={e => set("pincode", e.target.value.replace(/\D/g, "").slice(0, 6))}
+                      placeholder="400001"
+                      className={inputCls}
+                    />
+                  </div>
+                  <div className="space-y-2 sm:col-span-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Company Address</label>
+                      {renderHelpIcon("address")}
+                    </div>
+                    {renderHelpText("address")}
+                    <Input value={formData.address} onChange={e => set("address", e.target.value)} placeholder="Office 402, Business Park" className={inputCls} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3: Offerings */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-black text-slate-900 dark:text-white border-b pb-2 border-slate-100 dark:border-white/5">3. Your Offerings</h3>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Add Offerings</label>
+                    {renderHelpIcon("offerings")}
+                  </div>
+                  {renderHelpText("offerings")}
+                  <div className="flex gap-2">
+                    <Input value={tagInput} onChange={e => setTagInput(e.target.value)} onKeyDown={e => e.key === "Enter" && addTag("offerings")} placeholder="e.g. Cloud Security, AI Development" className={inputCls} />
+                    <Button onClick={() => addTag("offerings")} className="h-14 px-8 rounded-2xl bg-primary text-white font-black uppercase tracking-widest text-[10px]">Add</Button>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {formData.offerings.map(tag => (
+                    <Badge key={tag} onClick={() => removeTag("offerings", tag)} className="cursor-pointer bg-primary/10 text-primary border-none px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2 hover:bg-primary/20 transition-colors">
+                      {tag} <X className="h-3 w-3" />
+                    </Badge>
+                  ))}
+                </div>
+                <div className="pt-2">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Suggestions for {formData.industry || "your industry"}:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {(INDUSTRY_SUGGESTIONS[formData.industry]?.offerings || DEFAULT_SUGGESTIONS.offerings).map(s => {
+                      const isSelected = formData.offerings.includes(s)
+                      return (
+                        <Badge key={s} onClick={() => toggleTag("offerings", s)} variant={isSelected ? "default" : "outline"}
+                          className={`cursor-pointer px-3 py-1.5 font-bold text-[10px] rounded-lg transition-all ${isSelected ? "bg-primary text-white border-primary shadow-sm shadow-primary/20" : "border-slate-200 dark:border-white/10 text-slate-500 hover:bg-primary/5 hover:text-primary"}`}>
+                          {isSelected ? "✓" : "+"} {s}
+                        </Badge>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-white/5">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Offering Goal (Max 60 words)</label>
+                    {renderHelpIcon("offeringGoal")}
+                  </div>
+                  {renderHelpText("offeringGoal")}
+                  <Textarea
+                    value={formData.offeringGoal}
+                    onChange={e => {
+                      if (countWords(e.target.value) <= 60 || e.target.value.length < formData.offeringGoal.length) set("offeringGoal", e.target.value)
+                    }}
+                    placeholder="Describe your offerings and value proposition in less than 60 words..."
+                    className="min-h-[100px] bg-slate-50 dark:bg-white/5 border-none rounded-2xl font-bold text-base p-4 resize-none"
+                  />
+                  <div className="flex justify-between items-center px-1 mt-1">
+                    <span className="text-[10px] font-bold text-slate-400">{countWords(formData.offeringGoal)}/60 words</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 4: Needs */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-black text-slate-900 dark:text-white border-b pb-2 border-slate-100 dark:border-white/5">4. Market Needs</h3>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Add Needs</label>
+                    {renderHelpIcon("needs")}
+                  </div>
+                  {renderHelpText("needs")}
+                  <div className="flex gap-2">
+                    <Input value={tagInput} onChange={e => setTagInput(e.target.value)} onKeyDown={e => e.key === "Enter" && addTag("needs")} placeholder="e.g. Marketing Agency, Supply Chain Partner" className={inputCls} />
+                    <Button onClick={() => addTag("needs")} className="h-14 px-8 rounded-2xl bg-primary text-white font-black uppercase tracking-widest text-[10px]">Add</Button>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {formData.needs.map(tag => (
+                    <Badge key={tag} onClick={() => removeTag("needs", tag)} className="cursor-pointer bg-emerald-500/10 text-emerald-600 border-none px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2 hover:bg-emerald-500/20 transition-colors">
+                      {tag} <X className="h-3 w-3" />
+                    </Badge>
+                  ))}
+                </div>
+                <div className="pt-2">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Suggestions for {formData.industry || "your industry"}:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {(INDUSTRY_SUGGESTIONS[formData.industry]?.needs || DEFAULT_SUGGESTIONS.needs).map(s => {
+                      const isSelected = formData.needs.includes(s)
+                      return (
+                        <Badge key={s} onClick={() => toggleTag("needs", s)} variant={isSelected ? "default" : "outline"}
+                          className={`cursor-pointer px-3 py-1.5 font-bold text-[10px] rounded-lg transition-all ${isSelected ? "bg-emerald-50 text-white border-emerald-500 shadow-sm shadow-emerald-500/20" : "border-slate-200 dark:border-white/10 text-slate-500 hover:bg-emerald-50 hover:text-emerald-600"}`}>
+                          {isSelected ? "✓" : "+"} {s}
+                        </Badge>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 5: Goal */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-black text-slate-900 dark:text-white border-b pb-2 border-slate-100 dark:border-white/5">5. Business Intent</h3>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <label className={labelCls}>Strategic Goal (Max 60 words)</label>
+                    {renderHelpIcon("goal")}
+                  </div>
+                  {renderHelpText("goal")}
+                  <Textarea
+                    value={formData.goal}
+                    onChange={e => {
+                      if (countWords(e.target.value) <= 60 || e.target.value.length < formData.goal.length) set("goal", e.target.value)
+                    }}
+                    placeholder="e.g. I am looking for a long-term logistics partner..."
+                    className="min-h-[120px] bg-slate-50 dark:bg-white/5 border-none rounded-2xl font-bold text-lg p-6 resize-none"
+                  />
+                  <div className="flex justify-between items-center px-1 mt-1">
+                    <span className="text-[10px] font-bold text-slate-400">{countWords(formData.goal)}/60 words</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Suggestions:</p>
+                  {generateDynamicGoals().map(s => (
+                    <div key={s} onClick={() => set("goal", s)}
+                      className="p-3 bg-slate-50 dark:bg-white/5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer hover:bg-primary/5 hover:text-primary border border-transparent hover:border-primary/20 transition-all">
+                      {s}
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Goal Type</label>
+                      {renderHelpIcon("goalType")}
+                    </div>
+                    {renderHelpText("goalType")}
+                    <select value={formData.goalType} onChange={e => set("goalType", e.target.value)} className={selectCls}>
+                      <option value="Need Clients">Need Clients</option>
+                      <option value="Need Partners">Need Partners</option>
+                      <option value="Need Vendors">Need Vendors</option>
+                      <option value="Need Investors">Need Investors</option>
+                      <option value="Need Distributors">Need Distributors</option>
+                      <option value="Offer Services">Offer Services</option>
+                      <option value="Hiring">Hiring</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Target Industry</label>
+                      {renderHelpIcon("goalIndustry")}
+                    </div>
+                    {renderHelpText("goalIndustry")}
+                    <Input value={formData.goalIndustry} onChange={e => set("goalIndustry", e.target.value)} placeholder="e.g. E-commerce, Fintech" className={inputCls} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Minimum Budget</label>
+                      {renderHelpIcon("budget")}
+                    </div>
+                    {renderHelpText("budget")}
+                    <Input value={formData.budget} onChange={e => set("budget", e.target.value)} placeholder="₹5L – ₹25L" className={inputCls} />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Required By</label>
+                      {renderHelpIcon("timeline")}
+                    </div>
+                    {renderHelpText("timeline")}
+                    <select value={formData.timeline} onChange={e => set("timeline", e.target.value)} className={selectCls}>
+                      <option value="" disabled className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Select deadline</option>
+                      <option value="Less than 7 Days" className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Less than 7 Days</option>
+                      <option value="Within 14 Days" className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Within 14 Days</option>
+                      <option value="Within 30 Days" className="bg-white dark:bg-[#0A0A0A] text-slate-900 dark:text-white">Within 30 Days</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Footer */}
+          <div className="p-6 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02] flex items-center justify-between gap-4">
+            <Button 
+              variant="ghost" 
+              onClick={() => router.push("/profile")} 
+              className="h-10 sm:h-12 px-4 sm:px-5 rounded-xl font-black uppercase tracking-widest text-[10px] text-slate-400 hover:text-slate-900"
+            >
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleLongFormSave} 
+              disabled={isSaving}
+              className="h-12 sm:h-14 px-6 sm:px-10 rounded-xl sm:rounded-2xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px] shadow-xl shadow-primary/20 flex items-center gap-3 transition-all hover:scale-105 active:scale-95"
+            >
+              {isSaving ? "Saving..." : "Save Changes"} <Check className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
       </div>
     )
   }
@@ -730,6 +1201,34 @@ export default function ProfileSetupPage() {
                     </div>
                   ))}
                 </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Goal Type</label>
+                      {renderHelpIcon("goalType")}
+                    </div>
+                    {renderHelpText("goalType")}
+                    <select value={formData.goalType} onChange={e => set("goalType", e.target.value)} className={selectCls}>
+                      <option value="Need Clients">Need Clients</option>
+                      <option value="Need Partners">Need Partners</option>
+                      <option value="Need Vendors">Need Vendors</option>
+                      <option value="Need Investors">Need Investors</option>
+                      <option value="Need Distributors">Need Distributors</option>
+                      <option value="Offer Services">Offer Services</option>
+                      <option value="Hiring">Hiring</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <label className={labelCls}>Target Industry</label>
+                      {renderHelpIcon("goalIndustry")}
+                    </div>
+                    {renderHelpText("goalIndustry")}
+                    <Input value={formData.goalIndustry} onChange={e => set("goalIndustry", e.target.value)} placeholder="e.g. E-commerce, Fintech" className={inputCls} />
+                  </div>
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-1.5">
